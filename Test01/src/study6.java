@@ -1,8 +1,25 @@
 import java.util.Scanner;
 
 public class study6 {
+public static void main(String[] args) {
+	
+/*
+	static int[] arr() {
+		int a[] = new int[4];
+		int b = a.length;
+		for(int i=0; i<b; i++) 
+			a[i] = i;
+		return a;
+}
+
 
 	public static void main(String[] args) {
+		int a[] = arr();
+		for(int i=0; i<a.length; i++)
+			System.out.print(a[i] + " ");	// 0 1 2 3
+	}
+}
+*/
 		
 		/*
 		 while문을 이용해서 정수 여러 개 입력 받는다
@@ -636,6 +653,9 @@ public class study6 {
 		System.out.println(str1.compareTo(str2));	// 두 문자열 비교
 		System.out.println(str1.contains("Java"));	// "Java" 글자가 포함되었는지 확인
 		*/
-		
 	}
 }
+	
+		
+		
+
