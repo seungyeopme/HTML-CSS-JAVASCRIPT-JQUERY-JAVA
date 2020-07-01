@@ -1,12 +1,418 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
-public class study7 {
+
+public class study7{
+	static int coffee_machine(int button) {
+		
+		System.out.printf("\n#1.(자동으로) 뜨거운 물을 준비한다\n");
+		System.out.printf("#2.(자동으로) 종이컵을 준비한다\n");
+		
+		switch (button) {
+		case  1:
+			System.out.printf("#3.(자동으로) 보통커피를 탄다\n"); break;
+		case 2:
+			System.out.println("#3.(자동으로) 설탕커피를 탄다"); break;
+		case 3:
+			System.out.println("#3.(자동으로) 블랙커피를 탄다"); break;
+		default:
+			System.out.println("#3.(자동으로) 아무거나 탄다"); break;
+		}
+		
+		System.out.printf("#4.(자동으로) 물을 붓는다\n");
+		System.out.printf("#5.(자동으로) 스푼으로 저어서 녹인다\n\n");
+		
+		return 0;
+		}
+	
+	public static void main(String[] args) {
+		Scanner s= new Scanner(System.in);
+		int coffee;
+		int ret;
+		
+		System.out.println("A님, 어떤 커피 드릴까요? (1:보통, 2:설탕, 3:블랙) ");
+		coffee = s.nextInt();
+		ret = coffee_machine(coffee);
+		System.out.print("A님 커피 여기 있습니다.\n");
+		
+		System.out.println("B님, 어떤 커피 드릴까요? (1:보통, 2:설탕, 3:블랙) ");
+		coffee = s.nextInt();
+		ret = coffee_machine(coffee);
+		System.out.print("B님 커피 여기 있습니다.\n");
+		
+		System.out.println("C님, 어떤 커피 드릴까요? (1:보통, 2:설탕, 3:블랙) ");
+		coffee = s.nextInt();
+		ret = coffee_machine(coffee);
+		System.out.print("C님 커피 여기 있습니다.\n");
+	}
+}
+
+/*		
+//배열 첨자가 배열 크기보다 커요!!
+
+int []aa=new int[3];
+try {
+	aa[3]=100;	// 예외가 날 수 있는 코드
+	System.out.println("aa"); //출력 안됨
+} catch(Exception e) {
+	System.out.println("배열 첨자가 배열 크기보다 커요!!");
+}
+ */
+
+/*
+public class study7{
+static int in() {
+	  Scanner s=new Scanner(System.in);
+	  int n=s.nextInt(); 
+	  return n;
+	 }
+	public static void main(String[] args) {
+	  System.out.println(in());
+	 }
+}
+//15415151 (입력)
+//15415151 (출력)
+*/
+
+//반환형이 void일 주로 출력함수
+//매개변수가 void일 때 주로 입력 클래스
+/*
+public class study7{
+	static int in(int p) {
+		return p;	
+	}
+	public static void main(String[] args) {
+		//정수 하나 입력받아 입력한 정수를 그대로 출력
+		//함수명은 in
+		Scanner s=new Scanner(System.in);
+		int num=s.nextInt();
+		System.out.println(in(num));
+	}
+}
+//15415151 (입력)
+//15415151 (출력)
+*/
+
+/*
+public class study7{
+	static void cal(char a, int b, int c) {
+		switch(a) {
+		case '+':
+			System.out.println(b+c); break;
+		case '-':
+			System.out.println(b-c); break;	
+		}
+	}
+	public static void main(String[] args) {
+	Scanner s=new Scanner(System.in);
+	char a=s.next().charAt(0);	//+,-
+	int b=s.nextInt();
+	int c=s.nextInt();
+	cal(a,b,c);
+	}
+}
+-
+9
+6
+3
+*/
+
+/*
+public class study7{
+	static double big(double a, double b) {
+		return a>b ? a:b;
+	}
+	public static void main(String[] args) {
+	Scanner s=new Scanner(System.in);
+	int c=s.nextInt();
+	int d=s.nextInt();
+	System.out.print(big(c,d));	//
+		// 두 수 중 큰 값 출력하는 함수
+	}	
+}
+5
+56
+56.0
+*/
+
+/*
+public class study7{
+	static double big(double a, double b) {
+		double max;
+		if (a> b) {
+			max = a;
+		} else {
+			max = b;
+		}
+		System.out.println("큰수는 " + max);
+		return max;	
+	}
+	public static void main(String[] args) {
+	big(5.5,6.5);
+		// 두 수 중 큰 값 출력하는 함수
+	}
+}
+*/
+
+/*
+public class study7{
+	static double big(double a, double b) {
+		return a>b ? a:b;
+	}
+	public static void main(String[] args) {
+	System.out.println(big(5.5,7.5));
+		// 두 수 중 큰 값 출력하는 함수
+	}
+}
+*/
+
+/*
+public class study7{
+static int big(int ary[]) {
+	int max=0;
+	for(int i=0;i<ary.length;i++) {
+		if(max<ary[i]) {
+			max=ary[i];
+		}
+}
+	return max;
+}
 
 public static void main(String[] args) {
-		
+	int a[]=new int[7];
+	Scanner s = new Scanner(System.in);
+	
+	for(int i=0;i<a.length;i++) {
+		System.out.println("정수7개 입력: ");
+		a[i]=s.nextInt();	
+	}
+	System.out.println(big(a));
+	//매개변수 배열명일때, 
+	//배열을 호출할  때 배열명만 적으면 됨
+	}
+}
+정수7개 입력: 
+1
+정수7개 입력: 
+2
+정수7개 입력: 
+3
+정수7개 입력: 
+4
+정수7개 입력: 
+8
+정수7개 입력: 
+55
+정수7개 입력: 
+2
+55
+*/
+
+/*
+public class study7{
+public static void main(String[] args) {
+	 
+    String name = "lee sun shin";
+    
+    // sun을 soon으로 변경하기 
+    if (name.contains("sun")) { //contains는 "sun" 이 name 변수에 있는지 있으면 true, 없으면 false 반환!
+        name = name.replace("sun", "soon");
+        System.out.println(name);
+    }else {
+        System.out.println("sun 이라는 문자열은 없습니다.");
+    }
+    
+    // 성과 이름을 분리하기 
+    String firstName = "";
+    String lastName = "";
+    
+    firstName = name.substring(0, 3); // 0~3 
+    lastName = name.substring(4);      // 4~last character
+    
+    System.out.println("성: " + firstName);
+    System.out.println("이름: " + lastName);
+	}
+}
+*/
+	/*
+	static int multi(int a, int b) {
+		int mul=1;
+		for(int i=1; i<=b; i++) {
+			//i=1 1*2=2
+			//i=2 2*2=4
+			//i=3 4*2=8
+			mul=mul*a;
+		}
+		return mul;
 	}
 	
+	public static void main(String[] args) {
+		//2의 10승
+		//2*2*2*2*2*2*2*2*2*2
+		System.out.println(multi(2,10));	//1024
+	}
+	*/
+
+
+	/*
+	static int a;	//전역변수
+	static void aa() {
+		a=10;
+	}
+	static void bb() {
+		int a;		// 지역변수
+		a=20;
+	}
+	
+	public static void main(String[] args) {
+		aa();
+		bb();
+		System.out.println(a);	//10
+	}
+	*/
+	
+
+	/*
+	static void in() {
+		int a=10;	//지역변수
+		System.out.println(a); //10
+		
+	}
+	public static void main(String[] args) {
+		
+		int a=0;	//지역변수
+		in();		//함수호출
+		System.out.println(a);	//0
+	}
+	*/
+
+
+/*
+//30
+//15
+//60
+//30
+
+public class study7{
+	public static void main(String[] args) {
+        study7.sum(10, 20);
+        study7.avg(10, 20);
+
+        study7.sum(20, 40);
+        study7.avg(20, 40);
+    }
+	 public static void sum(int left, int right){
+	        System.out.println(left+right);
+	    }
+
+	 public static void avg(int left, int right){
+	        System.out.println((left+right)/2);
+	    }
+	}
+*/
+	
+
+	
+
+	/*
+	static void star(char a, int b) {
+		int i = 0;
+		while(i<=b) {
+			System.out.print("*");
+			i++;
+		}
+	}
+	
+	public static void main(String[] args) {
+		star('*',10);	// **********(while)
+	}
+	*/
+
+
+/*	
+//	55
+//	5050
+
+	static void total(int a, int b) {
+		int sum=0;
+		for (int i=a; i<=b; i++) {
+			sum += i;
+		}
+		System.out.println(sum);
+	}
+	public static void main(String[] args) {
+		//1부터 10까지 합 출력
+				//1부터 100까지 합 출력
+		
+		total(1,10);
+		total(1,100);
+	}
 }
+*/
+	
+//1. 출력을 어디에서 할 건지
+//2. main에서 할거면 함수에서 리턴
+//	 ->함수 호출과 동시에 출력
+//	 ->변수를 주면서 리턴 값을 저장할 것인지!
+//3. 함수에서 할거면 return문 필요없음 (void)
+
+/*
+{
+	public static double meter(int n) {
+		return n/100.0;
+	}
+	public static void main(String[] args) {
+		double a;
+		a=meter(176);
+		System.out.println(a);	//1.76
+	}
+}
+*/
+/*
+	{
+	public static double meter(int n) {
+	return n/100.0;
+	}
+	public static void main(String[] args) {
+	System.out.println(meter(176)); //1.76
+
+	
+	}
+}
+*/
+	/*
+	public static void meter(int n) {
+		System.out.println(n/100.0);
+	}	// 함수 구현할 때 최대한 입력값(매개변수)를 활용해서 구현해야 한다!!
+	
+	public static void main(String[] args) {
+		
+		
+		meter(176);	// 함수 호출  1.76로 나타내고 싶다
+	*/
+	
+	/*	
+	String ary[][] = {{"book","책"},
+					  {"water","물"},
+					  {"note", "노트"}};
+	
+	Scanner s = new Scanner(System.in);
+	//book?
+	//water?
+	for(int i=0; i<ary.length; i++) {
+		System.out.println(ary[i][0]+"의 뜻은?");
+		String str=s.next();	//한글로 답을 입력함
+		
+		if(str.equals(ary[i][1])) {
+			System.out.println("정답!");
+		}
+		else {
+			System.out.println("정답은 "+ary[i][1]);
+			}
+	  }
+	  */
+	
+	
+	
+
 
 
 /*
