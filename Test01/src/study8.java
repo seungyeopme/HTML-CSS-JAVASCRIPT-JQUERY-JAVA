@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /* 첫번째 방법
 public class study8 {
@@ -414,10 +416,152 @@ public class study8 {
 }
 */
 
+/*
+//22
+//2
 public class study8 {
+	public static int func(int num) {
+		return num%5;
+	}
 	 public static void main(String[] args) {
+		 int a;
+		 Scanner s = new Scanner (System.in);
+		 a=s.nextInt();	//입력한 정수를 5로 나눈 나머지 출력
+		 System.out.println(func(a));
 		 
 	 }
 }
+*/
 
+/*
+//46754
+public class study8 {
+	public static void show(int a[]) {
+		for(int i=0; i<a.length; i++) 
+			System.out.print(a[i]);
+		}
+	public static void main(String[] args) {
+		int ary[]=new int[] {4,6,7,5,4};
+		show(ary);	// 배열에 있는 거 다 출력
+	}
+}
+*/
+
+/*
+// 버블정렬
+3 2 1 6 5 
+2 3 1 6 5 
+2 1 3 6 5
+2 1 3 5 6  => 1회전
+===================
+1 2 3 5 6  => 2회전
+===================
+
+public class study8 {
+	public static void main(String[] args) {
+		int temp;
+		int ary[]= {3,2,1,6,5};
+		for(int i=0; i<4; i++) {
+			for(int j=i+1;j<5;j++) {
+				if(ary[i]>ary[j]) {
+					temp = ary[i];
+					ary[i] = ary[j];
+					ary[j] = temp;
+					}
+				}
+		  }	// 각각 비교해서 교환
+		  for(int i = 0; i <ary.length; i++) {
+			  System.out.print(ary[i]);	//12356
+		  }
+	}
+}
+*/
+
+/*
+public class study8 {
+	public static double avg(int[]a) {
+		double result = 0;
+		for(int i=0; i<a.length; i++) {
+			result += a[i];
+		}
+		return (double)(result/a.length);
+	}
+	public static void main(String[] args) {
+		int ary[]= {3,2,1,6,5};
+		double a=avg(ary);
+		System.out.println(a); //배열의 평균 출력 //3.4
+	}
+}
+*/
+
+
+//바이트 스트림
+//1) 입력 스트림 -> ~~InputStream으로 끝남
+//2) 출력 스트림 -> ~~OutputStream으로 끝남
+
+//주인공 장식 => 독단적으로 파일 생성 불가 => Constructors의 매개변수를 보아야~
+//매개변수 안에 InputStream, OutputStream, Reader, Writer가 보이면 장식!
+//없으면 주인공!
+
+
+//문자 스트림
+//1)입력 스트림	  -> ~~Reader
+//2)출력 스트림    -> ~~Writer
+
+
+//1.파일 생성(출력)
+//Writer(문자단위 파일생성)
+//OutputStream(바이트단위 파일생성)
+
+//2.파일에다 값 저장
+//write 메소드
+
+//3.파일 읽어들임
+//Reader(문자단위로 읽어들임)
+//InputStream(바이트 단위로 읽어들임)
+
+//4.파일 닫기(close())
+
+
+/*
+public class study8 {
+	public static void main(String[] args) throws IOException {
+		
+		char a='S';
+		char b='W';
+		
+		FileWriter out = new FileWriter("a.txt"); //파일생성
+		out.write(a);	// 저장
+		out.write(b);
+		out.close();
+		//생성 파일 확인 방법은 프로젝트 오른쪽 클릭 Refresh
+		//프로젝트 클릭하고 f5를 눌러도 생성 된다.
+	}
+}
+*/
+/*
+public class study8 {
+	public static void main(String[] args) throws IOException {
+		char [] ary = new char[10];
+		int r; // 반환형이 int형
+		
+		FileReader in = new FileReader("a.txt");//파일에 저장한 문자를 읽어들여서
+		r=in.read(ary, 0, ary.length); // 배열, 시작값, 길이
+		//배열의 길이만큼 저장한 후에
+	for(int i=0; i<r; i++)
+		System.out.println(ary[i]); //출력
+	in.close(); //항상 닫아주어야 한다.
+//	S
+//	W
+	}
+}
+*/
+
+public class study8 {
+	public static void main(String[] args) {
+		
+	}
+	
+	
+}
 
