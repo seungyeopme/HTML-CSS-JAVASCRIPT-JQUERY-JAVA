@@ -1,6 +1,12 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /* 첫번째 방법
 public class study8 {
@@ -539,6 +545,7 @@ public class study8 {
 	}
 }
 */
+
 /*
 public class study8 {
 	public static void main(String[] args) throws IOException {
@@ -557,11 +564,99 @@ public class study8 {
 }
 */
 
+/*
+public class study8 {
+	public static void main(String[] args) throws IOException {
+		
+		 FileWriter fw = new FileWriter("b.txt");
+		 
+		 BufferedWriter out = new BufferedWriter(fw);
+		 
+		 out.write("안녕~");
+		 out.newLine();
+		 out.write("오늘은 목요일~");
+		 out.newLine();
+		 out.write("aaa@naver.com");
+		 out.close();
+	}
+}
+*/
+
+// 자동완성 기능 => 단축키 ctrl + space
+
+
+/*
+//안녕~
+//오늘은 목요일~
+//aaa@naver.com
+public class study8 {
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader in = new BufferedReader(new FileReader("b.txt"));
+		
+		String str;
+		while(true) {
+			str = in.readLine();
+			if(str==null) {
+				break;
+			}
+			System.out.println(str);
+		}
+		in.close();
+	}
+}
+*/
+
+/*
+public class study8 {
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		PrintWriter out = new PrintWriter("c.txt");
+		
+		out.printf("내일은 %s요일","금");
+		out.println();
+		
+		out.println("내일은 자바공부!");
+		out.print("주말!!");
+		out.close();
+	}
+}
+*/
+
+
+/*
+//InputStreamReader
+BufferedReader in
+= new BufferedReader(new InputStreamReader(System.in));
+입력한 것을 파일에 저장하는!
+*/
+
 public class study8 {
 	public static void main(String[] args) {
 		
+		BufferedReader bu=null;	//스트림에 값이 아무것도 없다.
+		PrintWriter pr=null;	//스트림에 값이 아무것도 없다.
+		
+		//콘솔창에 문자를 입력해서 입력한 문자를
+		//파일에 저장
+		try {
+			InputStreamReader in=
+					new InputStreamReader(System.in);
+			
+			bu=new BufferedReader(in); // 콘솔에 입력하는 과정!
+			FileWriter fw = new FileWriter("d.txt");
+			//d.txt에 저장
+			pr=new PrintWriter(fw);
+			
+			String str=null;
+			while((str=bu.readLine())!=null) {
+				pr.println(str);
+			}
+			bu.close();
+		}catch(Exception e) {}
+		finally {
+			pr.close();
+		}
+		
 	}
-	
-	
 }
-
