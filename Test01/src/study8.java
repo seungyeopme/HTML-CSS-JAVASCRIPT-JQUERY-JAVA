@@ -1,12 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /* 첫번째 방법
 public class study8 {
@@ -631,6 +624,17 @@ BufferedReader in
 입력한 것을 파일에 저장하는!
 */
 
+/*
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
 public class study8 {
 	public static void main(String[] args) {
 		
@@ -657,6 +661,23 @@ public class study8 {
 		finally {
 			pr.close();
 		}
+		
+	}
+}
+*/
+
+//파일의 끝 EOF End Of File
+/*
+//객체를 파일에 저장하고
+//저장한 객체를 읽어들이는 작업
+
+//ObjectInputStream
+//ObjectOutputStream
+*/
+
+
+public class study8 {
+	public static void main(String[] args) {
 		
 	}
 }
