@@ -1,4 +1,7 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /*
 public class study9 {
@@ -355,5 +358,393 @@ public class study9 {
 //지 
 //공부는 
 */
+
+/*
+public class study9 {
+	 public static void main(String[] args) {
+		 byte[]in= {1,2,3,4,5};
+		 byte[]out=null;
+		 
+		 ByteArrayInputStream input = null;
+		 ByteArrayOutputStream output = null;
+		 
+		 input = new ByteArrayInputStream(in);
+		 output = new ByteArrayOutputStream();
+		 
+		 int r=0;
+		 while((r=input.read())!=-1) {
+			 output.write(r);	//스트림에 저장
+		 }
+		 out=output.toByteArray();	// 바이트 스트림을 바이트 배열로 바꿔서 out(바이트 배열) 
+		 //저장
+		 System.out.println(Arrays.toString(in));//문자열로 변경해서 저장해라
+		 System.out.println(Arrays.toString(out));		
+		 
+		 }
+}
+//[1, 2, 3, 4, 5]
+//[1, 2, 3, 4, 5]
+*/
+
+/*
+//g.dat 파일에 123 출력
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		InputStream in=null;
+		OutputStream out=null;
+		//OutputStream out=new FileOutputStream("g.dat");
+		//부모 클래스				자식 클래스
+		try {
+			byte[] b=new byte[] {1,2,3};
+			in=new ByteArrayInputStream(b);
+			out=new FileOutputStream("g.dat");
+			
+			int r=-1;
+			while((r=in.read())!=-1) {
+				out.write(r);
+			}
+		}catch(Exception e) {}
+		out.close();
+		in.close();
+	}
+}
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		
+		FileInputStream in=null;
+		ByteArrayOutputStream out=null;
+		
+		try {
+			in=new FileInputStream("g.dat");
+			//g.dat파일을 읽어와서
+			out=new ByteArrayOutputStream();
+			//바이트 배열에 저장하겠다.
+			int r=-1;
+			while((r=in.read())!=-1) {
+				out.write(r);  //배열에 저장함 1,2,3
+			}
+			byte [] b=out.toByteArray(); //스트림을 바이트 단위로 변경해서 바이트에 저장
+			for(int i=0;i<b.length;i++) {
+				System.out.println(b[i]);
+			}
+		}catch(Exception e) {}
+		out.close();
+		in.close();
+	}
+}
+//1
+//2
+//3
+ */
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		
+		DataOutputStream out=null;
+		// 기본 자료형 값을 저장 할 수 있다
+		try {
+			int a=5;
+			double b=1.5;
+			boolean c=true;
+			FileOutputStream fi=new FileOutputStream("h.txt");
+			
+			out=new DataOutputStream(fi);
+			out.writeInt(a);
+			out.writeDouble(b);
+			out.writeBoolean(c);
+		}catch(Exception e) {}
+		out.close();
+	}
+}
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		
+		DataInputStream in=null;
+		try {
+			FileInputStream fi=
+					new FileInputStream("h.txt");
+			in=new DataInputStream(fi);
+			int a=in.readInt();
+			double b=in.readDouble();
+			boolean c=in.readBoolean();
+			// 파일에 저장한 기본자료형 값 읽어와서 출력
+			System.out.println(a);
+			System.out.println(b);
+			System.out.println(c);
+		}
+		catch(Exception e) {} {
+		in.close();
+		}
+	}
+}
+//5
+//1.5
+//true
+ */
+
+
+// 클래스에서 사용하는 변수 값을 필드라고 한다.
+// 기능은 메소드로 구현
+// 객체의 개수의 제한이 없다.
+// 객체 배열이라는 개념이 나중에 나옴
+// 객체.필드 = 객체의 초기화
+// 인스턴스 이름.필드이름
+// 각 인스턴스는 독립적인 공간을 차지한다.
+
+// 메소드도 각 인스턴스마다 별도로 존재한다고 생각하고 사용하면 된다
+// myCar1.upSpeed(30);
+/*
+class Car{	
+	 String color;	//필드
+	 int speed; 	//필드
+	 
+	 void upSpeed(int value) {	//메소드
+		 speed=speed+value;
+	 }
+	 void downSpeed(int value) { //메소드
+		 speed=speed-value;
+	 }
+}
+*/
+
+/*
+class Profile{			//클래스 이름은 관행상 첫글자가 대문자
+	int age;	 		//필드
+	String name; 		//필드
+	
+	void show() {		// 메소드
+		System.out.println(age+ " " +name);	//22 준호
+	}
+}
+public class study9 {	//public 클래스는 소스파일에 하나만 생성 가능하다!
+	public static void main(String[] args) {
+		Profile p1=new Profile(); //인스턴스 p1 한글로는 객체 p1
+		p1.age=22;
+		p1.name="준호";
+		p1.show(); 		//함수 호출
+		
+		//Scanner s=new Scanner():
+		//s.nextInt();
+	}
+}
+*/
+
+//인스턴스.메소드
+/*
+class Circle{
+	int r;
+	String name;
+	
+	double area() {
+		return 3.14*r*r;
+	}
+	void show() {
+		System.out.println(name);
+	}
+}
+
+public class study9 {
+	public static void main(String[] args) {
+		Circle c=new Circle();	//클래스명은 Circle 객체명은 c
+		c.r=10;					
+		c.name="윤혁";
+		double a=c.area();
+		System.out.println(a);
+		c.show();
+	}
+}
+//314.0
+//윤혁
+ */
+
+
+
+/*
+//필드를 보통 private로 두고, 함수(메소드)는 public으로 둔다.
+class Circle{
+	private int r;			//private을 붙이면 Circle 클래스 안에서만 사용 가능
+	private String name;	//private을 붙이면 Circle 클래스 안에서만 사용 가능
+	
+	double area() {
+		return 3.14*r*r;
+	}
+	void show() {
+		System.out.println(name);
+	}
+}
+
+public class study9 {
+	public static void main(String[] args) {
+		Circle c=new Circle();	//클래스명은 Circle 객체명은 c
+		c.r=10;					
+		c.name="윤혁";
+		double a=c.area();
+		System.out.println();
+		c.show();
+	}
+}
+*/
+
+/*
+class Human{
+	String eyes="눈";
+    String ears="귀";
+    String nose="코";
+    String mouth="입";
+     
+    void useEyes(){
+        System.out.println(eyes+"으로 봄");
+    }
+    void useEars(){
+        System.out.println(ears+"로 소리를 들음");
+    }
+    void useNose(){
+        System.out.println(nose+"로 냄새를 맡음");
+    }
+    void useMouth(){
+        System.out.println(mouth+"으로 욕을 함");
+    }
+}
+
+public class study9 {
+	public static void main(String[] args) {
+		Human human=new Human();
+        human.eyes="쌍꺼풀 수술한 눈";
+        human.useEyes();
+        human.useEars();
+        human.useNose();
+	}
+}
+//쌍꺼풀 수술한 눈으로 봄
+//귀로 소리를 들음
+//코로 냄새를 맡음
+ */
+
+/*
+class Rec{
+	int width;
+	int height;	//필드
+	
+	int area(int a, int b) {
+		return a*b; //메소드
+	}
+}
+
+public class study9 {
+	public static void main(String[] args) {
+		
+		Scanner s = new Scanner(System.in);
+		Rec r=new Rec();	//객체
+		//너비와 높이를 입력받음
+		r.width=s.nextInt();	//너비 입력한 값을 width에 저장
+		r.height=s.nextInt();	//높이 입력한 값을 height에 저장
+		System.out.println(r.area(r.width,r.height));		
+	}
+}
+//10 5
+//50
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		//문자열을 저장해서 읽어오는 코드
+		//첫번째 방법
+		FileWriter f=new FileWriter("i.txt");
+		BufferedWriter w=new BufferedWriter(f);
+		
+		w.write("오늘은 금요일");
+		w.newLine();
+		w.write("자바는 참 재밌네요");
+		w.newLine();
+		w.close();
+	}
+}
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		//문자열을 저장해서 읽어오는 코드
+		//두번째 방법
+		FileWriter bf = new FileWriter("i1.txt");
+		BufferedWriter out = new BufferedWriter(bf);
+
+		out.write("오늘은 금요일");
+		out.newLine();
+		out.write("자바는 참 재밌네요!!");
+		out.close();
+		}
+	}
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		//문자열을 읽어와서 콘솔에 출력 
+		//첫 번째 방법
+		FileReader f=new FileReader("i.txt");
+		BufferedReader w=new BufferedReader(f);
+		
+		String s=null;
+		while((s=w.readLine())!=null) {
+			System.out.println(s);
+		}
+	}
+}
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) {
+		//문자열을 읽어와서 콘솔에 출력 
+		//두 번째 방법
+		try {
+			FileReader fr=new FileReader("i.txt");
+			BufferedReader br_f = new BufferedReader(fr);
+			
+			String line="";
+			for(int i=1; (line=br_f.readLine())!=null; i++) {
+				System.out.println(line);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+	}
+}
+//오늘은 금요일
+//자바는 참 재밌네요
+*/
+
+/*
+public class study9 {
+	public static void main(String[] args) throws IOException {
+		//문자열을 읽어와서 콘솔에 출력 
+		//세 번째 방법
+		
+		BufferedReader in = new BufferedReader(new FileReader("i1.txt"));
+		
+		String str;
+		while(true) {
+			str=in.readLine();
+			if(str==null) {
+				break;
+			}
+			System.out.println(str);
+		}
+		in.close();
+	}
+}
+//오늘은 금요일
+//자바는 참 재밌네요!!
+ */
 
 
