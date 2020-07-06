@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /*
@@ -497,9 +501,474 @@ public class study10 {
 */
 
 /*
+//첫번째 방법
+public class study10 {
+	public static void main(String[] args) throws IOException {
+		
+		// 입력받은 텍스트를 tt.txt에 저장하는 프로그램
+		// 출력
+		InputStreamReader in=
+				new InputStreamReader(System.in);
+		FileWriter fout=null;
+		fout=new FileWriter("tt.txt");
+		int r;
+		
+		while((r=in.read())!=-1) {
+			fout.write(r);
+		}
+		in.close();
+		fout.close();
+	}
+}
+*/
+
+/*
+//두번째 방법
+public class study10 {
+	public static void main(String[] args) throws IOException {
+		// 입력받은 텍스트를 tt.txt에 저장하는 프로그램
+		// 출력
+				BufferedReader in
+					= new BufferedReader(new InputStreamReader(System.in));
+				FileWriter fout=null;
+				fout=new FileWriter("tt.txt");
+				String r;
+				
+				while((r=in.readLine())!=null) {
+					fout.write(r);
+				}
+				in.close();
+				fout.close();
+	}
+}
+*/
+
+/*
+class Car{
+	private String color;
+	private int speed;
+
+	Car(){					//생성자
+		color = "빨강";
+		speed = 0;
+	}
+	public String getColor() {
+		return color;		//메소드
+}
+	public int getSpeed() {
+		return speed;		//메소드
+	}
+}
+
+public class study10 {
+	public static void main(String[] args) {
+	
+	// 생성자 = 함수 구조와 비슷
+	// 반환형이 없다.
+	// 클래스 이름과 동일하다.
+	
+		Car c1=new Car();	//객체 생성과 동시에 생성자 호출
+		Car c2=new Car();	//객체 생성과 동시에 생성자 호출
+		
+		System.out.println(c1.getColor()+""+c1.getSpeed());
+		System.out.println(c2.getColor()+""+c1.getSpeed());
+	}
+}
+*/
+
+//this ->  1.필드 이름, 매개변수의 이름이 같을 때 구분하는 키워드
+//		   2.this() -> 다른 생성자 호출
+
+/*
+class Car {
+	private String modelName;
+    private int modelYear;
+    private String color;
+    private int maxSpeed;
+    private int currentSpeed;
+   
+    Car(String modelName, int modelYear, String color, int maxSpeed) {
+        this.modelName = modelName;
+        this.modelYear = modelYear;
+        this.color = color;
+        this.maxSpeed = maxSpeed;
+        this.currentSpeed = 0;
+    }
+    public String getModel() {
+        return this.modelYear + "년식 " + this.modelName + " " + this.color;
+    }
+}
+public class study10 {
+	public static void main(String[] args) {
+		Car myCar = new Car("아반떼", 2016, "흰색", 200); // 생성자의 호출
+		System.out.println(myCar.getModel()); // 생성자에 의해 초기화되었는지를 확인함.
+	}
+}
+//2016년식 아반떼 흰색
+*/
+
+/*
+//	*메소드 오버로딩*
+//	같은 클래스 내에서 메소드의 이름이 같아도 파라미터의 개수나 데이터 형식만 다르면 여러개를 선언할 수 있는 것을 말한다.
+//	생성자도 메소드의 일종이므로 메소드 오버로딩을 할 수 있다. 
+
+class Book{
+	String title;	//필드
+	int price;		//필드
+	
+	void show() {	//메소드
+		System.out.println(title+ " " +price);
+	}
+	
+	Book() {			//기본 생성자
+		this("",0);		//다른 생성자 호출 (매개변수 2개가 있는)
+		System.out.println("생성자 호출!");	//생성자가 호출될 때 기본 생성자가 가장 먼저 호출된다! 객체로 출력하지 않는 이상!
+	}
+	Book(String title){	//생성자
+		this(title, 0);	//this => 다른 생성자 호출(매개변수 2개가 있는)
+	}
+	Book(String title, int price){	//생성자
+		this.title=title;
+		this.price=price;
+	}	
+}
 public class study10 {
 	public static void main(String[] args) {
 		
+		Book b=new Book("고양이", 30000);
+		Book b1=new Book("신곡");
+		Book b2=new Book();
+		
+		b.show();
+		b1.show();
+		b2.show();
 	}
 }
+*/
+
+/*
+class Tv{
+	String company;
+	int size;
+	void show() {
+		System.out.println(company+ " " +size+"인치tv");	//삼성 20인치tv
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+		
+		Tv t=new Tv();
+		t.company="삼성";	//필드
+		t.size=20;		//필드
+		t.show();	//삼성 20인치 tv
+		
+		//클래스 이름? Tv
+		//객체 이름? t
+		//함수 이름? show
+	}
+}
+*/
+
+/*
+class Tv{
+	String company;
+	int size;
+	//생성자: 초기화 과정
+		Tv(String company, int size) {
+			this.company=company;
+			this.size=size;
+		}//저장한 값을 필드에 초기화하는 과정
+			void show() {
+				System.out.println(company+ " " +size+"인치tv");	//삼성 20인치tv
+			}
+		}
+public class study10 {
+	public static void main(String[] args) {
+		Tv t=new Tv("삼성",20);
+		t.show();	//삼성 20인치 tv
+	}
+}
+*/
+
+/*
+class Music{
+	String title;	
+	
+	Music(String title){
+		this.title=title;
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+	
+		Music m=new Music("a");
+		System.out.println(m.title);	//a
+	}
+}
+*/
+
+/*
+class Pet{
+	String type;	//애완동물 종류
+	int age;		//애완동물 개월 수
+	
+	void move() {
+		System.out.println(this.type+"가 움직입니다.");
+	}
+	
+	int getAge() {
+		return this.age;
+	}
+}
+
+public class study10 {
+	public static void main(String[] args) {
+		Pet pet1 = new Pet();
+		pet1.type = "강아지";
+		pet1.age = 8;
+		
+		Pet pet2 = new Pet();
+		pet1.type = "고양이";
+		pet1.age = 13;
+		
+		pet1.move();
+		pet2.move();
+		
+		System.out.println(pet1.type + "는 " + pet1.age + "개월입니다.");
+		System.out.println(pet2.type + "는 " + pet2.age + "개월입니다.");
+	}
+}
+//고양이가 움직입니다.
+//null가 움직입니다.
+//고양이는 13개월입니다.
+//null는 0개월입니다.
+*/
+
+/*
+class Music{
+	String title;
+	Music(String title) {
+		this.title=title;
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+		
+		Music m1=new Music("on");
+		Music m2=new Music("dna");
+		System.out.println(m1.title);
+		System.out.println(m2.title);
+	}
+}
+//on
+//dna
+*/
+
+/*
+class Circle{
+	double a;
+	Circle(double a){
+		this.a=a;
+	}
+	public void area() {
+		System.out.println(3.14*a*a);	//7.0649999999999995
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+	
+		Circle c1=new Circle(1.5);	//반지름
+		c1.area();					//윈 면적 3.14*1.5*1.5
+	}
+}
+*/
+
+
+/*
+class Profile{
+	String a,b;
+	
+	Profile(String a, String b){
+		this.a=a;
+		this.b=b;
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+		//모든 데이터 출력
+		Profile p1=new Profile("010-1234-5678","두희");
+		Profile p2=new Profile("010-2345-7890","지혜");
+		
+		System.out.println(p1.a + " "+p1.b);
+		System.out.println(p2.a + " "+p2.b);
+	}
+}
+//010-1234-5678 두희
+//010-2345-7890 지혜
+*/
+
+
+/*
+class Pro{
+	String name;
+	
+	Pro(String name){
+		this.name=name;
+	}
+
+	public String get() {
+	return name;
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+		
+		Pro p1=new Pro("경찬");
+		Pro p2=new Pro("동혁");
+		//1. 클래스 만들기
+		//2. 문자열 필드
+		//3. 생성자
+		//4. 이름 반환받는 get
+		System.out.println("이름은 "+p1.get());
+		System.out.println("이름은 "+p2.get());
+	}
+}
+//이름은 경찬
+//이름은 동혁
+*/
+
+/*
+public class study10 {
+	private int x1 = 0;
+	private int y1 = 0;
+	private int x2 = 0;
+	private int y2 = 0;
+	
+	public study10(int x1, int y1) {
+		this(x1, y1, 30, 40);
+	}
+	
+	public study10(int x1, int y1, int x2, int y2) {
+		this.x1 = x1;
+		this.x2 = x2;
+		this.y1 = y1;
+		this.y2 = y2;
+	}
+	
+	public static void main(String[] args) {
+		study10 cal = new study10(10,20);
+		
+		System.out.println("x1 : " + cal.x1);
+		System.out.println("y1 : " + cal.y1);
+		System.out.println("x2 : " + cal.x2);
+		System.out.println("y2 : " + cal.y2);
+	}
+}
+//x1 : 10
+//y1 : 20
+//x2 : 30
+//y2 : 40
+*/
+
+/*
+class Rec{
+	int a,b; //인스턴스 변수 or 필드
+	Rec(int a,int b){
+		this.a=a;
+		this.b=b;
+	}
+	
+	void area(){
+	System.out.println(a*b);
+}
+
+}
+public class study10 {
+	public static void main(String[] args) {
+		
+		Rec r1=new Rec(4,7);
+		Rec r2=new Rec(7,9);
+		
+		r1.area();	//4*7
+		r2.area();	//7*9
+	}
+}
+//28
+//63
+*/
+
+/*
+class AA{
+	static int n=0;	//클래스 변수
+	AA(){	//생성자
+		in();	//메소드 호출
+	}
+	void in() {	//메소드
+		n++;	//1
+	}
+}
+public class study10 {
+	public static void main(String[] args) {
+		
+		AA a=new AA();	//생성자 호출 n=1
+		a.n++;	//n=2
+		AA.n++; //n=3 <-클래스 변수는 클래스명으로 접근 가능하다.
+		System.out.println(AA.n);	//3
+	}
+}
+*/
+
+/*
+// 인스턴스 변수
+// 인스턴스 변수를 사용하기 위해서는 객체를 생성해야 한다!!
+public class study10{
+	int x=3; 	//인스턴스 변수
+	int y; 		//인스턴스 변수
+
+	public static void main(String[] args) {
+		study10 ivd = new study10();
+		ivd.y = 5;
+	
+		System.out.println(ivd.x);
+		System.out.println(ivd.y);
+	}
+}
+//3
+//5
+*/
+
+/*
+class RadioOption{
+	static String color = "white"; // 클래스 변수
+	int volume = 5; 		//인스턴스 변수
+	boolean power = false; 	//인스턴스 변수
+}
+
+public class study10{
+	static int x = 10; //클래스 변수
+	public static void main(String[] args) {
+		System.out.println(RadioOption.color); //클래스 변수는 인스턴스화 하지 않고도 사용 가능
+		//System.out.println(RadioOption.volume); //오류!!
+		
+		RadioOption ro = new RadioOption();
+		ro.power = true;
+		System.out.println(ro.power);
+		
+		int x = 100;	//지역변수
+		
+		System.out.println(x);
+	}
+}
+//white
+//true
+//100
+
+// 1.클래스 변수와 지역변수는 이름이 같아도 됩니다.
+// 2.같은 변수의 이름인 x를 출력할 때 같은 구역에 지역변수가 있다면 지역변수가 출력
+// 3.클래스 변수에 접근 시 항상 클래스이름.클래스변수 형식으로 사용하기
+
+//세 종류의 변수가 메모리에 올라오는 시기가 다르다
+// 1.클래스 변수는 클래스가 메모리에 올라올 때 생성
+// 2.인스턴스 변수는 객체가 생성 될 때 (new를 사용해 메모리를 할당 할 때)생성
+// 3.지역 변수는 선언문이 수행 될 때 생성됩니다.
 */
