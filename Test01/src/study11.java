@@ -1,8 +1,11 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /*
 public class 클래스이름 {
@@ -439,6 +442,7 @@ public class study11 {
 //ComputerBook 클래스 생성자 ~~
 */
 
+
 //자바 프로그래밍 for Beginner
 //p469
 //03.연습문제 2번의 코드를 수정하여 다음과 같은 결과가 나오도록 Book 클래스와 ComputerBook 클래스를 
@@ -451,28 +455,459 @@ public class study11 {
 //}
 
 /*
- 출력결과
- Book 클래스 생성자 ~~ (파라미터 없음)
- Book 클래스 생성자 ->굿 자바
- ComputerBook 클래스 생성자 ~~
- */
-
+// 출력결과
+// Book 클래스 생성자 ~~ (파라미터 없음)
+// Book 클래스 생성자 ->굿 자바
+// ComputerBook 클래스 생성자 ~~
+ 
 class Book{
-	Book() {
-		System.out.println("Book 클래스 생성자 ~~ (파라미터 없음)");
+	Book(){
+		System.out.println("Book 클래스 생성자 ~~ (피라미터 없음)");
 	}
-	Book(String a){
-		
+	Book(String n){
+		this();
+			System.out.println("Book 클래스 생성자 ㅡ>"+n);
 	}
 }
-
-class ComputerBook extends Book {
-	ComputerBook() {
-		System.out.println("ComputerBook 클래스 생성자 ~~");
+class ComputerBook extends Book{
+	public static String n;
+	
+	ComputerBook(String n){
+		super(n);
+		System.out.println("ComputerBook 클래스 생성자 ~~~");
 	}
 }
 public class study11 {
 	public static void main(String[] args) {
-		ComputerBook sedan1 = new ComputerBook("굿 자바");
+		ComputerBook sedan1 = new ComputerBook("굿 자바 ");
 	}
 }
+//Book 클래스 생성자 ~~ (피라미터 없음)
+//Book 클래스 생성자 ㅡ>굿 자바 
+//ComputerBook 클래스 생성자 ~~~
+*/
+
+/*
+//성적 처리 프로그램
+//이름	 국어 	영어		수학	 	총점 		평균
+//상운	 
+//원용
+//우림
+//오섭
+
+class Score{
+	double avg(int a[]) {
+		int sum=0;
+		for(int i=0; i<a.length; i++) {
+			sum+=a[i];
+		}
+		return (double)sum/a.length;
+	}
+	void show(int a[][]) {
+		for(int i=0; i<a.length; i++) {
+			for(int j=0; j<a[i].length;j++) {
+				System.out.println(a[i][j]);
+			}
+			System.out.println(avg(a[i]));
+		}
+	}
+}
+public class study11 {
+	public static void main(String[] args) {
+	
+		int [][] grade = {{90,100,80},
+						  {70,95,87},
+						  {80,90,70},
+						  {90,100,100}};
+		
+		Score s= new Score();	//객체 생성
+		s.show(grade);
+	}
+}
+//90
+//100
+//80
+//90.0	//한 행에 대한 평균
+//70
+//95
+//87
+//84.0  //한 행에 대한 평균
+//80
+//90
+//70
+//80.0  //한 행에 대한 평균
+//90
+//100
+//100
+//96.66666666666667  //한 행에 대한 평균
+ */
+
+/*
+//0 1 2 3
+//1 2 3 4
+//2 3 4 5
+
+//[i][j] 
+//[0,0]=>0
+//[0,1]=>1
+//[1,0]=>1
+//[1,1]=>2
+//[2,0]=>2
+
+//ary[i][j] =i+j;
+
+public class study11 {
+	public static void main(String[] args) {
+		 int ary[][] = new int[3][4];
+	        int n=0;
+	        for(int i=0; i<3; i++) {
+	        	for(int j=0;j<4;j++) {
+	        		ary[i][j] =i+j;
+	        		System.out.print(ary[i][j]);
+	        	}
+	        	System.out.println();
+	      }
+	}
+}
+*/
+//0123
+//1234
+//2345
+
+/*
+public class study11 {
+	static int exp(int a, int b) {
+		int m=1;
+		for(int i=1; i<=b; i++) {
+			m*=a;
+		}
+		return m;
+	}
+	public static void main(String[] args) {
+		
+		int a=exp(3,10); //3*3*3*3*3*... 10번
+		System.out.println(a);	//59049
+	}
+}
+*/
+
+/*
+//오버로딩
+class Number{
+	static void show(int n) {
+		System.out.println(n);
+	}
+	void show(double n) {
+		System.out.println(n);
+	}
+}
+
+public class study11 {
+	public static void main(String[] args) {
+	
+		Number.show(20);  //클래스 이름은 관행상 첫글자는 대문자!
+						  //클래스명.메소드-> static
+		Number n=new Number();
+		n.show(3.14);
+	}
+}
+//20
+//3.14
+*/
+
+/*
+//1. while문을 이용해 실수를 여러 개 입력받고 평균 출력.
+//(-1이 입력되면 입력을 종료시켜라.)
+//첫번째 방법
+public class study11 {
+	public static void main(String[] args) {
+	
+	Scanner sc = new Scanner(System.in);
+	
+	double sum = 0;
+	int count=0;
+	
+	while (true) {
+		double a = sc.nextDouble();
+		if (a == -1)
+			break;
+			sum += a;
+			count++;
+	}
+		System.out.println("평균"+(sum/count));
+	}
+}
+//10.7 5.7 2.5 -1
+//평균6.3
+*/
+
+/*
+//두번째 방법
+public class study11 {
+	public static void main(String[] args) {
+		
+		int n=0,sum=0,cnt=0;
+		Scanner s=new Scanner(System.in);
+		while((n=s.nextInt())!=-1) {
+			sum+=n;
+			cnt++;
+		}
+		System.out.println(sum/cnt);
+	}
+}
+*/
+
+/*
+//2.  Hi 
+//저는 자바를 좋아하고 잘합니다.
+//앞으로 더 열심히 공부할 것입니다.
+//이 문자열을 test01.txt 파일에 저장해라.
+
+public class study11 {
+	public static void main(String[] args) throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter("test01.txt"));
+		bw.write("Hi");
+		bw.newLine();
+		bw.write("저는 자바를 좋아하고 잘합니다.");
+		bw.newLine();
+		bw.write("앞으로 더 열심히 공부할 것입니다.");
+		bw.close();
+	}
+}
+*/
+
+
+//3. Scanner로 입력 받은 이름(문자열), id(문자열)를 한 줄마다 파일(test02.txt)에 저장해라.
+//“그만” 입력하면 종료시켜라. “그만” 입력하기 전까지의 문자열을 파일에 저장해라.(break, FileWriter 사용)
+//실행 결과) 홍길동 hong    
+//         이길동 lee
+//         그만
+
+//첫번째 방법
+/*
+public class study11 {
+	public static void main(String[] args) throws IOException {
+		BufferedWriter bw1 = new BufferedWriter(new FileWriter("test02.txt"));
+		String brr = "";
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		for (;;) {
+		String d = br.readLine();
+		bw1.write(d);
+		bw1.newLine();
+		if (d.contains("그만")) {
+		break;
+		}
+		System.out.println(d);
+		}
+		br.close();
+		bw1.close();
+	}
+}
+*/
+
+/*
+//두번째 방법
+public class study11 {
+	public static void main(String[] args) {
+		FileWriter f=null;
+		
+		Scanner s=new Scanner(System.in);
+		String name="",id="";
+
+		try {
+				f=new FileWriter("test02_1.txt");
+				
+				while(true) {
+					System.out.println("이름, id");
+					name=s.next();
+					
+					if(name.equals("그만")) {
+						break;
+					}
+					
+					id=s.next();
+					f.write(name +" "+id);
+				}
+				f.close();
+			}catch(Exception e) {}
+	}
+}
+*/
+
+
+//3. 1에서 파일에 저장한 데이터들을 화면에 출력해라.
+//(FileReader사용, int값으로 초기화해라)
+
+/*
+//첫번째 방법
+public class study11 {
+	public static void main(String[] args) throws IOException {
+	
+		BufferedReader br = new BufferedReader
+				(new FileReader("test02.txt"));
+				
+				int r;
+				
+				while((r=br.read()) != -1) {
+					System.out.print((char)r);
+				}
+				br.close();
+		}
+}
+//홍길동 hong
+//이길동 lee
+//그만
+*/
+
+/*
+//두번째 방법
+public class study11 {
+	public static void main(String[] args) throws IOException {
+	
+		FileReader fr=null;
+		try {
+			fr=new FileReader("test02.txt");
+			int r=0;
+			while((r=fr.read())!=-1) {
+				System.out.print((char)r);
+			}
+		}catch(Exception e) {}
+		fr.close();
+	}
+}
+//홍길동 hong
+//이길동 lee
+//그만
+*/
+
+
+//4. 다음 main()를 보고 클래스 작성해라.
+//   main(){
+//   Rectangle rec = new Rectangle();
+//   rec.width=5;
+//   rec.height=6;
+//   System.out.println(“사각형 면적” + rec.area( ));
+
+/*
+class Rectangle {
+	int width;		//필드
+	int height;		//필드
+	
+	int area() {	
+		int a = width * height;
+		return a;
+	}
+}
+public class study11 {
+	public static void main(String[] args) {
+		 
+		Rectangle rec = new Rectangle();
+		rec.width=5;
+		rec.height=6;
+		System.out.println("사각형 면적" + rec.area());
+	}
+}
+*/
+
+
+//5. main()를 보고 Song클래스를 작성해라.
+//main(){
+//Song s1 = new Song(“On”);
+//Song s2 = new Song(“00:00”);
+//System.outprintln(“좋아하는 노래” + s1.getsong());
+//System.outprintln(“내 노래 ” + s2.getsong());
+//실행 결과) 좋아하는 노래 On
+//         내 노래 00:00
+
+/*
+//첫번째 방법
+class Song{
+	private String song="";
+	Song(String song){
+		this.song = song;
+	}
+	String getsong() {
+		return this.song;
+	}
+}
+public class study11 {
+	public static void main(String[] args) {
+		Song s1 = new Song("On");
+		Song s2 = new Song("00:00");
+		System.out.println("좋아하는 노래" + s1.getsong());
+		System.out.println("내 노래 " + s2.getsong());
+	}
+}
+//좋아하는 노래On
+//내 노래 00:00
+*/
+
+//두번재 방법
+/*
+class Song{
+	String title="";
+	Song(String title){
+		this.title=title;
+	}
+	String getsong() {
+		return title;
+	}
+}
+public class study11 {
+	public static void main(String[] args) {
+		Song s1 = new Song("On");	//괄호 안에 들어있는 생성자를 보아야 한다.
+		Song s2 = new Song("00:00");
+		System.out.println("좋아하는 노래" + s1.getsong());
+		System.out.println("내 노래 " + s2.getsong());
+	}
+}
+//좋아하는 노래On
+//내 노래 00:00
+*/
+
+/*
+class Car{
+	public int gas;	//필드, 인스턴스 변수
+	public void up() { //메소드, 함수
+		gas+=1;
+	}
+	public final void stop() {
+		System.out.println("stop");
+		gas=0;
+	}
+}
+
+class SportsCar extends Car{	//자식	부모
+	public void up() {	//오버라이딩 <= 부모 클래스 물려받아서 재정의 수정!
+		gas+=100;
+	}
+	
+	
+//	public void stop() {//final이기 때문에 수정 불가능,,즉 오버라이딩 할 수 없음!
+//		System.out.println("스포츠카");
+//		gas=0;
+}
+
+public class study11 {
+	public static void main(String[] args) {
+		//Car클래스의 객체 생성
+		Car c=new Car();
+		c.gas=0;
+		c.stop();
+		c.up();
+		
+		SportsCar s=new SportsCar();
+		s.stop();	//부무로부터 상속, 하지만 재정의는 안됨(final)
+	}
+}
+//stop
+//stop
+*/
+
+/*
+public class study11 {
+	public static void main(String[] args) {
+	
+	}
+}
+*/
