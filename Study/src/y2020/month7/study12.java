@@ -1,5 +1,12 @@
 package y2020.month7;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /*
@@ -661,6 +668,535 @@ public class study12 {
 //추상 클래스를 사용하려면 상속 받아 사용해야합니다.
 
 //추상 메소드는 구현부 없이 선언된 메소드입니다. (중괄호 없이, 마지막에 세미콜론(;)이 달립니다.
+
+/*
+class Person{
+	String name;
+	String id;
+	
+	Person(String name) {	//생성자
+		this.name=name;
+	}
+}
+class Student extends Person{
+	String grade;
+	String major;
+	
+	//생성자 만들면서 부모 생성자 호출
+	Student(String name) {
+		super(name);	//생성자의 첫 줄에 적어야 한다. super
+	}
+}
+public class study12 {
+	public static void main(String[] args) {
+	
+		Person p;	//부모 클래스의 객체 선언
+		Student s=new Student("승엽");	//자식 클래스의 객체 생성
+
+		p=s;	//업 캐스팅(자식클래스 객체를 부모 클래스의 객체로 캐스팅하는 작업)
+				//Student에서 Person으로
+		System.out.println(p.name);
+//		p.grade="A"; //부모에서 자식으로 접근 불가
+	}
+}
+*/
+
+/*
+class Person{
+	String name;
+	String id;
+	
+	Person(String name) {	//생성자
+		this.name=name;
+	}
+}
+class Student extends Person{
+	String grade;
+	String major;
+	
+	//생성자 만들면서 부모 생성자 호출
+	Student(String name) {
+		super(name);	//생성자의 첫 줄에 적어야 한다. super
+	}
+}
+public class study12 {
+	public static void main(String[] args) {
+	
+		Person p=new Student("승엽");	//upcasting
+		//Student s=new Student("승엽");
+		Student s=(Student)p;//다운 캐스팅  //부모 클래스를 자식 클래스로 보내는 작업
+		System.out.println(s.name);
+	}
+}
+*/
+/*
+class Fruit{
+	String a;
+	int b;
+	Fruit(String a, int b) {
+		this.a=a;
+		this.b=b;
+	}
+	void show() {
+		System.out.println(a + " "+b);
+	}
+}
+class Apple extends Fruit{
+	Apple(String a, int b){
+		super(a,b);
+	}
+}
+
+public class study12 {
+	public static void main(String[] args) {
+	
+		Fruit f1=new Apple("red",10);//자식 쪽에 생성자가 있으면 부모 쪽에 생성자 생성해야
+		f1.show();	//red 10
+	}
+}
+*/
+
+/*
+class Elec{
+	String color;
+	Elec(String c){
+		color=c;
+	}
+}
+class Note extends Elec{
+	int number;
+	Note(String c, int n) {
+		super(c); //color=c;
+		number=n;
+	}
+}
+class Ipad extends Note {
+	int size;
+	Ipad(String c, int n, int s) {
+		super(c,n);//color=c; number=n;
+		size=s;
+	}
+	void show() {
+		System.out.println(color+"색 " +number+"개 "+size+"인치");
+	}
+}
+
+public class study12 {
+	public static void main(String[] args) {
+	
+		Ipad i1=new Ipad("white", 5, 5);
+		i1.show();	//white색 5개 5인치
+	}
+}
+//white색 5개 5인치
+*/
+
+/*
+class Parent{
+    int age=45;
+    String name="Parent";
+    public Parent(){
+        System.out.println("Parent Default Constructor");
+    }
+    public Parent(int _age,String _name){
+        age=_age;
+        name=_name;
+        System.out.println("Parent Constructor");
+    }
+    public void showInfo(){
+        System.out.println("Name:"+name+", age:"+age);
+    }
+}
+ 
+class Child extends Parent{
+    public Child(int _age, String _name){
+        System.out.println("Child Constructor");
+    }
+}
+public class study12 {
+	public static void main(String[] args) {
+		Child a=new Child(25,"REAKWON");
+        a.showInfo();
+	}
+}
+//Parent Default Constructor
+//Child Constructor
+//Name:Parent, age:45
+*/
+
+
+//추상 클래스는 일반 클래스와 인스턴스를 생성할 수 없다.
+//추상 클래스를 사용하려면 먼저 서브 클래스에서 추상 클래스를 상속받은 후
+//서브 클래스의 인스턴스를 생성해야 한다.
+
+//	abstract class 클래스이름 {
+		//필드 및 메소드 정의
+//	}
+
+/*
+abstract class Car{
+	int speed=0;
+	String color;
+}
+public class study12 {
+	public static void main(String[] args) {
+	
+		Car c=new Car(); //abstract는 인스턴스 객체 생성 불가능
+	}
+}
+*/
+
+/*
+abstract class Car{
+	int speed=0;
+	String color;
+}
+class Sedan extends Car{
+}
+class Truck extends Car{
+}
+
+public class study12 {
+	public static void main(String[] args) {
+	
+//		Car c=new Car(); //abstract는 인스턴스 객체 생성 불가능
+		Sedan sedan1=new Sedan();
+		Truck truck1=new Truck();
+		//추상 클래스를 상속받은 Sedan, Truck 클래스는 인스턴스를 상속받을 수 있다.
+	}
+}
+*/
+
+/*
+//abstract 반환형메소드이름(파라미터);
+
+//예를 들어 upSpeed()를 추상 메소드로 정의하면 다음과 같다.
+//abstract void upSpeed(int speed);
+
+//추상 메소드의 목적은 상속 받은 서브 클래스에서 오버라이딩(부모 클래스 물려받아서 자식에서 재정의)
+//부모 클래스에는 추상 메소드로 껍데기만 만들어놓고,
+//실제 내용은 각각의 서브 클래스에서 채워넣는 방식이다.
+
+//추상 메소드가 하나라도 들어 있는 클래스는 무조건 추상 클래스로 지정해야 한다!!!
+//추상 클래스 안에 일반적인 메소드, 추상 메소드는 올 수 있다.
+
+//추상 클래스의 상속을 받은 서브 클래스는 추상 메소드를 오버라이딩하지 않으면 
+//문법적으로 오류가 발생하므로 반드시 모든 추상 메소드를 오버라이딩하여
+//그 내용을 다시 의무적으로 채워야 한다.
+
+
+abstract class A{	//추상 클래스가 꼭 있어야 한다. 추상 메소드가 있기 때문에
+	abstract void aa(); //추상 메소드	
+}
+public class study12 {
+	public static void main(String[] args) {
+	
+	}
+}
+*/
+
+/*
+abstract class Car{	//추상 메소드가 존재하므로 클래스는 추상 클래스!!!
+	String name;
+	
+	void run() {	//일반적인 메소드
+		System.out.println("차가 움직인다");
+	}
+	
+	abstract void stop();	//추상 메소드 //빈껍데기 함수 //선언만 해주어야!
+}
+
+class Cars extends Car{	//Cars-> 자식 Car->부모
+	Cars() {
+		this.name="인피니티";//name="인피니티" 도 가능
+	}
+	void stop() {	//추상 메소드는 반드시 상속받아서 구현(오버라이딩)
+		System.out.println("차가 멈춘다");
+	}
+}
+
+public class study12 {
+	public static void main(String[] args) {
+		
+//		Cars c=new Cars();	//가능
+		Car c=new Cars();	//업 캐스팅 이렇게도 가능
+
+//		Cars c=new Car();	//다운 캐스팅은 불가능
+//		Car c=new Car(); 객체 생성 불가능	
+		c.run();
+		c.stop();
+	}
+}
+//차가 움직인다
+//차가 멈춘다
+*/
+
+
+//추상 클래스에 필드, 일반 메소드, 추상 메소드가 모두 존재할 수 있다.
+//단, 인스턴스로 만들지 못할 뿐이다.
+
+/*
+//첫번째 방법
+abstract class Ca{
+	int a,b,c;
+	abstract int add(int a, int b);
+	abstract double avg(int a[]);
+}
+
+class Cal extends Ca{
+	public int add(int a, int b) {
+		return a+b;
+	}
+	double avg(int a[]) {
+		int hap=0;
+		for(int i=0; i<a.length; i++) {
+			hap = hap+a[i];
+		}
+		return hap/a.length;
+	}
+}
+public class study12 {
+	public static void main(String[] args) {
+		
+		Cal c=new Cal(); //Cal->클래스
+		System.out.println(c.add(3,7));//두 수 합
+		System.out.println(c.avg(new int[]	{1,2,3}));///1,2,3의 평균
+	}
+}
+//10
+//2.0
+*/
+
+// 두번째 방법
+/*
+abstract class Ca{
+	abstract int add(int a, int b);
+	abstract double avg(int a[]);
+}
+
+class Cal extends Ca{
+	int add(int a, int b) {
+		return a+b;
+	}
+	double avg(int a[]) {
+		int sum=0;
+		for(int i=0; i<a.length; i++) {
+			sum+=a[i];
+		}
+		return (double)sum/a.length;
+	}
+}
+
+public class study12 {
+	public static void main(String[] args) {
+		
+		Cal c=new Cal(); //Cal->클래스
+		System.out.println(c.add(3,7));//두 수 합
+		System.out.println(c.avg(new int[]	{1,2,3}));///1,2,3의 평균
+	}
+}
+//10
+//2.0
+*/
+
+/*
+class Num extends Exception{
+	Num() {
+		super("잘못된 값!!!!!");	// 부모 생성자 호출(Exception class에 있는)
+	}
+}
+public class study12 {
+	
+	static int in() throws Num {
+		Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		if(n<0) {
+			Num num=new Num();	//객체 생성 , 생성자 호출
+			throw num;	//예외 미루기, 예외 던지기, 여기서 처리 안함. 부모 클래스 생성자로 이동.
+		}//else 생략
+		return n;
+	}
+	public static void main(String[] args) {
+		
+		System.out.println("양수를 입력해라");
+		try {
+			int n=in(); //정수 입력하는 함수
+			System.out.println(n);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}
+//양수를 입력해라
+//-7
+//잘못된 값!!!!!
+
+//양수를 입력해라
+//8
+//8
+*/
+
+/*
+//직렬화
+class Rec implements Serializable{	//Serializable <-인터페이스, 상속 개념
+									//인터페이스를 구현할 때는 implements
+									//클래스를 상속 받는 것은 extends
+	//객체를 파일에 저장: 직렬화 과정
+	//파일에 저장한 객체를 읽어옴: 역직렬화 과정
+	
+	int x,y; //필드
+	Rec(int x, int y){	//생성자
+		this.x=x; this.y=y;
+	}
+	void show() {
+		System.out.println(x + "," + y);
+	}
+}
+public class study12 {
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		
+		ObjectOutputStream out=
+				new ObjectOutputStream
+				(new FileOutputStream("obj.dat"));
+		
+		//Rec r=new Rec(4,7);
+		out.writeObject(new Rec(4,7));
+		out.writeObject(new Rec(8,5));
+		out.writeObject(new String("glgl"));
+	}
+}
+*/
+
+/*
+//역직렬화
+class Rec implements Serializable{	//Serializable <-인터페이스, 상속 개념
+									//인터페이스를 구현할 때는 implements
+									//클래스를 상속 받는 것은 extends
+	//객체를 파일에 저장: 직렬화 과정
+	//파일에 저장한 객체를 읽어옴: 역직렬화 과정
+	
+	int x,y; //필드
+	Rec(int x, int y){	//생성자
+		this.x=x; this.y=y;
+	}
+	void show() {
+		System.out.println(x + "," + y);
+	}
+}
+public class study12 {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
+		ObjectInputStream in=
+				new ObjectInputStream
+				(new FileInputStream("obj.dat"));
+		
+		Rec r1=(Rec)in.readObject(); //down casting
+		//object 객체-> Rec
+		//형 변환
+		Rec r2=(Rec)in.readObject();
+		String str=(String)in.readObject(); //자바 api에서 최상위에 있는 것이 object 클래스이다.
+		//Object(부모)를 
+		//Rec, String 객체로 다운 캐스팅
+		in.close();
+		r1.show();
+		r2.show();
+		System.out.println(str);
+	}
+}
+//4,7
+//8,5
+//glgl
+*/
+
+/*
+//자바 api에서 최상위에 있는 것이 object 클래스이다.
+
+Class Object
+java.lang.Object
+
+public class Object
+Class Object is the root of the class hierarchy. 
+Every class has Object as a superclass. 
+All objects, including arrays, implement the methods of this class.
+*/
+
+
+//인터페이스는 추상 클래스와 거의 비슷하며 다중 상속을 위해 사용하기도 한다.
+//인터페이스도 추상 클래스와 마찬가지로 직접 인스턴스를 생성할 수 없다.
+
+//둘의 차이점으라면 인터페이스는 필드, 추상 메소드를 가질 수 있지만 추상 클래스와 달리
+//일반 메소드, 생성자를 가질 수 없다는 것이다.
+
+//메소드를 구현하려면 메소드 앞에 default!!!
+
+//인터페이스 안에 abstract 라는 키워드를 안 적어주어도
+//저절로 추상메소드로 인식한다.
+
+//인터페이스는 기본 설정값이(추상메소드, 상수값(final))
+
+/*
+interface 인터페이스이름{
+	 static final 필드 및 추상 메소드 정의
+}
+*/
+
+//인터페이스에 들어가는 메소드는 추상 메소드밖에 없기 때문에 
+//abstract를 생략해도 당연히 추상 메소드로 인식한다.
+//또한 인터페이스는 implements 키워드를 사용한다는 의미에서
+//클래스처럼 '상속받는다'라고 표현하기보다는 주로 '구현한다'라고 표현한다
+
+/*
+interface Car{
+	static final int CAR_COUNT=0; //int CAR_COUNT=0; 이렇게 적어도 가능하다
+	abstract void work(); //선언만 주고 있다.
+}
+class Sedan implements Car{
+	public void work() {
+					//인터페이스에서 메소드 구현시 반드시 public이 필요하다. 안 적으면 error
+					//오버라이딩
+		System.out.println("승용차가 사람 태운다");
+	}
+}
+public class study12 {
+	public static void main(String[] args) {
+	
+		Sedan s=new Sedan(); 
+//		Car s=new Sedan();		//up casting <-이렇게도 가능하다!
+		s.work();
+	}
+}
+//승용차가 사람 태운다
+*/
+
+//인터페이스를 만들 때 void,int 등의 반환형은 지정하지 않는다.
+//반환형은 메소드, 함수만 !
+//final 클래스 변수는 직접 접근은 가능하지만 변경은 불가능하다
+
+
+/*
+//Car1.java 파일에서 실행
+ 
+class Sedan implements Car1{
+	public void work() {
+					//인터페이스에서 메소드 구현시 반드시 public이 필요하다. 안 적으면 error
+					//오버라이딩
+		System.out.println("승용차가 사람 태운다");
+	}
+}
+public class study12 {
+	public static void main(String[] args) {
+	
+		Sedan s=new Sedan(); 
+//		Car s=new Sedan();		//up casting <-이렇게도 가능하다!
+		s.work();
+	}
+}
+*/
+
+//자바는 다중 상속을 허용하지 않는다.
+//그 대안으로 인터페이스가 다중 상속을 허용한다.
+//인터페이스에서 함수 구현 가능하다
+//default를 앞에 붙여주면 가능하다.
+//인터페이스의 추상 메소드를 완성할 때는 public을 붙인다.
 
 public class study12 {
 	public static void main(String[] args) {
