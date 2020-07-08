@@ -1,4 +1,3 @@
-package y2020.month6;
 import java.io.IOException;
 import java.util.Scanner;
 

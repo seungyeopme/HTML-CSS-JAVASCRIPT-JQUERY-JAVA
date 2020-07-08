@@ -1,4 +1,3 @@
-package y2020.month6;
 import java.util.Scanner;
 
 public class study4 {

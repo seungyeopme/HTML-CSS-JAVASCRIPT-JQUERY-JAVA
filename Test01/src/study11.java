@@ -1,4 +1,3 @@
-package y2020.month7;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -903,4 +902,12 @@ public class study11 {
 }
 //stop
 //stop
+*/
+
+/*
+public class study11 {
+	public static void main(String[] args) {
+	
+	}
+}
 */

@@ -1,4 +1,3 @@
-package y2020.month7;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
