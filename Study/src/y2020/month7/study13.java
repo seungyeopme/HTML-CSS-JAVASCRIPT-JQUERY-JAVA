@@ -474,3 +474,406 @@ public class study13 {
 //900 800 700 600 500 400 300 200 100 10
 //10 100 200 300 400 500 600 700 800 900 
 */
+
+/*
+class Person{}
+class Student extends Person{}
+class Worker extends Person{}
+class ITWorker extends Worker{}
+
+public class study13 {
+	static void show(Person p) {
+		//Person p=new Student(); //up casting 학생은 사람이다
+		//Person p=new Worker();
+		//Person p=new ITWorker();
+		if(p instanceof Person) {
+			System.out.println("사람");
+		}
+		if(p instanceof Student) {
+			System.out.println("학생");
+		}
+		
+		if(p instanceof Worker) {
+			System.out.println("직장인");
+		}
+		if(p instanceof ITWorker) {
+			System.out.println("IT직장인");
+		}
+		
+	}
+	public static void main(String[] args) {
+		
+		show(new Student());
+		System.out.println();
+		show(new Worker());
+		System.out.println();
+		show(new ITWorker());
+		//instance of 연산자
+	}
+}
+//사람
+//학생
+
+//사람
+//직장인
+
+//사람
+//직장인
+//IT직장인
+*/
+
+/*
+//up casting 활용 법
+//interfacd의 다중 상속
+
+interface A{
+	public void funcA(); 	//추상 메소드
+}
+interface B{
+	public void funcB(); 	//추상 메소드 
+}
+interface C extends A,B{	//다중 상속 <- implements 사용할 수 없다. <=추상 메소드 구현할 때 사용
+	public void funcC();	//추상 메소드
+}
+class D implements C{		//자식-> D	부모-> C
+	public void funcA() {
+		System.out.println("funcA");
+	}
+	public void funcB() {
+		System.out.println("funcB");
+	}
+	public void funcC() {
+		System.out.println("funcC");
+	}
+}
+public class study13 {
+	public static void main(String[] args) {
+		
+		//인터페이스에서는 객체 생성 불가능했기 때문에
+		//상속받은 클래스 D에서 객체 생성해주고 있다.
+		D d1=new D();
+		A a1=d1;	//up casting
+		a1.funcA();	//funcA
+		System.out.println();
+		
+		B b1=d1; 	//up casting
+		b1.funcB();	//funcB
+		System.out.println();
+		
+		C c1=d1;
+		c1.funcA();	//funcA
+		c1.funcB();	//funcB
+		c1.funcC();	//funcC
+	}
+}
+*/
+
+/*
+interface Day{
+	int THU=1, FRI=2, SAT=3;	//변경 불가능, Final이 생략되어 있다.	//상수 필드
+}
+
+public class study13 {
+	public static void main(String[] args) {
+		
+		System.out.println("오늘 무슨 요일이죠?");
+		Scanner s= new Scanner(System.in);
+		
+		System.out.println("1.목 2.금 3.토");
+		int n=s.nextInt();
+		//switch~case
+		 switch(n){
+		    case 1:
+		        System.out.println("목");
+		        break;
+		    case 2:
+		        System.out.println("금");
+		        break;
+		    case 3:
+		        System.out.println("토");
+		        break;
+		    default:
+		        System.out.println("1.목 2.금 3.토 중에서 번호를 입력하시오");
+		        break;
+		    }
+	}
+}
+//오늘 무슨 요일이죠?
+//1.목 2.금 3.토
+//금
+
+//오늘 무슨 요일이죠?
+//1.목 2.금 3.토
+//4
+//1.목 2.금 3.토 중에서 번호를 입력하시오
+*/
+
+/*
+class Tv{
+	public void on() {
+		System.out.println("티비 켬");
+	}
+}
+interface Computer{
+	public void m();	//추상 메소드
+}
+class Com{
+	public void m() {	//m() => 위의 추상 메소드의 m과 다른 것이다.
+		System.out.println("컴");		
+	}
+}
+class Ipad extends Tv implements Computer{
+	
+	Com c=new Com();
+	public void m() {
+		c.m();	//System.out.println("컴");
+	}
+	public void ip() {
+		m();
+		on(); 
+	}
+}
+public class study13 {
+	public static void main(String[] args) {
+		
+		Ipad i = new Ipad();
+		Tv t=i;	//up casting
+		Computer c=i; //up casting
+		
+		i.ip();
+		
+		
+	}
+}
+//컴
+//티비 켬
+*/
+
+/*
+interface Animal{
+	void bear();
+}
+interface Fish{
+	void swim();
+}
+class Whale implements Animal, Fish{
+	public void bear() {
+		System.out.println("고래는 새끼를 낳습니다.");
+	}
+	public void swim() {
+		System.out.println("고래는 물속에서 삽니다.");
+	}
+}
+
+public class study13 {
+	public static void main(String[] args) {
+		
+		Whale tank1 = new Whale(); //클래스명 + 객체변수명 = new 클래스명
+								   //객체의 선언과 생성을 동시에
+		tank1.bear();
+		tank1.swim();
+	}
+}
+//고래는 새끼를 낳습니다.
+//고래는 물속에서 삽니다.
+*/
+
+/*
+interface Addin{
+	public int add(int a, int b);
+	public int add(int a);
+}
+class Add implements Addin{
+	public int add(int a, int b) {
+		return a+b;	//5
+	}
+	public int add(int a) {
+		int sum=0;
+		for(int i=0; i<=a;i++) {
+		sum+=i;
+	}
+		return sum;	//55
+	}
+}
+public class study13 {
+	public static void main(String[] args) {
+		//인터페이스명은 Addin
+		//인터페이스와 클래스 구현
+		//함수는 전부 추상메소드
+		Add a = new Add();
+		System.out.println(a.add(1,4)); // 두 수 합		//5
+		System.out.println(a.add(10)); 	// 1부터 10까지 합	//55
+	}
+}
+*/
+
+/*
+class In{
+	int num;
+	In(int n){
+		num=n;
+	}
+	boolean eq(In i) {	//매개변수 안에 (클래스명 ,객체가 들어갈 수 있다)
+		//in i=new In(i2);
+		if(this.num==i.num) {
+			return true;
+		}
+		return false;
+	}
+}
+public class study13 {
+	public static void main(String[] args) {
+		
+		//객체 3개 생성
+		In i1 = new In(4);
+		In i2 = new In(6);
+		In i3 = new In(6);
+		
+		//객체 비교
+		if(i1.eq(i2)) {
+			System.out.println("i1,i2는 동일");
+		}
+		else {
+			System.out.println("i1,i2는 다름");
+		}
+		if(i2.eq(i3)) {
+			System.out.println("i1,i3는 동일");
+		}
+		else {
+			System.out.println("i1,i3는 다름");
+		}
+ 	}
+}
+//i1,i2는 다름
+//i1,i3는 동일
+*/
+
+/*
+class In{
+	private int num;
+	In(int num) {
+		this.num=num;
+	}
+	public String toString() {
+		return num +" "; //Returns a string representation of the object.
+						 //구조를 외우자 api에 나와있다. num이 int값이니 문자열로 변경하기 위해
+						 //" "를 붙여준다.
+	}
+}
+public class study13 {
+	public static void main(String[] args) {
+
+		In i=new In(4);
+		System.out.println(i);	//y2020.month7.In@7ce6a65d //메모리 값
+	}
+}
+*/
+
+/*
+interface Food{
+	String name();	//기본적으로 추상
+}
+class Pizza implements Food{
+	public String name() {
+		return "피자";
+	}
+	
+}
+class Steak implements Food{
+	public String name() {
+		return "스테이크";
+	}
+}
+public class study13 {
+	static void pr(Food f) {	//Food f=new Pizza() //up casting
+		System.out.println(f.name());
+	}
+	public static void main(String[] args) {
+		//Pizza p=new Pizza();
+		pr(new Pizza());	//피자 출력
+		pr(new Steak());	//스테이크 출력
+	}
+}
+//피자
+//스테이크
+*/
+
+/*
+class Log{
+	boolean login(String name, String pw) {
+		if(name.equals(name)&&pw.equals(pw)) {
+			return true;
+		}
+		return false;
+	}
+	void logout(String a) {
+		System.out.println("로그아웃됨!!");
+	}
+}
+
+public class study13 {
+	public static void main(String[] args) {
+		
+		Log log=new Log();
+		boolean result=log.login("용석","123");
+		//이름과 비밀번호가 둘 다 일치해야 로그인!!
+		if(result) {
+			System.out.println("로그인!!!");
+			log.logout("용석");	//로그아웃됨!!
+		}
+		else {
+			System.out.println("로그인 안됨!!");
+		}
+	}
+}
+//로그인!!!
+//로그아웃됨!!
+*/
+
+//import pack2.*;
+//pack2 패키지의 모든 클래스를 한 번에 임포트하기 위해서 사용한다.
+
+/*
+public class study13 {
+	public static void main(String[] args) {
+
+		//기본 자료형을 객체로 변경시키는 과정(박싱) => 포장하는 작업 <=> 언박싱
+		Integer i=new Integer(10);
+		Double d=new Double(3.14);
+		
+		System.out.println(i); //10
+		System.out.println(d); //3.14
+		
+		System.out.println();
+		
+		//객체를 기본자료형으로 변경(언박싱) => ~Value로 끝나면 기본형으로 변경하는 언박싱 과정 
+		i=new Integer(i.intValue());
+		d=new Double(d.doubleValue());
+		System.out.println(i);
+		System.out.println(d);
+	}
+}
+*/
+
+/*
+문자열에서 double형으로 바꾸는 방법 -Double 클래스 parseDouble 메소드 이용
+
+parseDouble(String s)
+Returns a new double initialized to the value represented by the specified String, 
+as performed by the valueOf method of class Double.
+*/
+
+/*
+public class study13 {
+	public static void main(String[] args) {
+		
+		Integer i=100;	//자동 박싱 기능이 있기 때문에 이렇게 적을 수 있다. //박싱 과정
+		
+		//언박싱
+		System.out.println(i.intValue()); //객체를  다시 일반적인 자료형으로 변경하는 언박싱 과정이다.
+		
+		int a=i; //언박싱 과정, 자동 언박싱 되었다. 객체 i를 일반적인 자료형인 a로 언박싱하였다.
+		
+	}
+}
+*/

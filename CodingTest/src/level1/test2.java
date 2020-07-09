@@ -1,7 +1,7 @@
-package hash;
-
+package level1;
 import java.util.Arrays;
 import java.util.HashMap;
+//완주하지 못한 선수
 
 //문제 설명
 //수많은 마라톤 선수들이 마라톤에 참여하였습니다. 
