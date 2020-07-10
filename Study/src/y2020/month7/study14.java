@@ -1,6 +1,6 @@
 package y2020.month7;
 
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /*
 interface IT{
@@ -574,4 +574,449 @@ public class study14 {
 // 다르기 때문에 i1==i2 라는 조건은 거짓이 된다.
 */
 
+/*
 
+//Class StringTokenizer
+public class study14 {
+	public static void main(String[] args) {
+		
+		String str="id=123#name=gildong#addr=seoul";
+		// #을 기준으로 문자열 나누기
+		StringTokenizer s = new StringTokenizer(str,"#");	//#을 기준으로 분리
+		
+		int n=s.countTokens();
+		System.out.println(n);	//3
+		
+		while(s.hasMoreTokens()) {
+			String a=s.nextToken();
+			System.out.println(a);
+		}
+	}
+}
+//3
+//id=123
+//name=gildong
+//addr=seoul
+*/
+
+/*
+public class study14 {
+	public static void main(String[] args) {
+
+		int []ary = {1,2,3,4,5};
+		int sum=0;
+		//for each 총합
+		for(int i : ary ) {
+			sum+=i;
+		}
+			System.out.println(sum);	//15
+	}
+}
+*/
+
+/*
+class Num{
+	int n;
+	Num(int n){
+		this.n=n;
+	}
+	int get() {
+		return n;
+	}
+}
+public class study14 {
+	public static void main(String[] args) {
+
+		Num [] ary = new Num[] 
+				{new Num(1), new Num(2), new Num(3)};	//3개 정수 초기화
+		
+		for(Num n:ary) {
+		//Num n=new Num(1);
+			System.out.print(n.get());	//123
+		}
+		
+	}
+}
+*/
+
+
+//프로세스 : 실행 중인 프로그램
+//멀티 쓰레드: 하나의 프로세스 내에서 둘 이상의 프로그램
+
+//쓰레드 생성 두가지 방법
+//1.Thread 클래스 상속해서 생성
+//2.Runnable 인터페이스를 상속해서 생성
+
+
+//스레드를 이용하려면 Thread 클래스를 상속받아야 한다. 그리고 내부에 run()메소드를 만들어야 하는데
+//start()메소드를 호출하면 자동으로 run()이 작동하여 실행한다.
+
+//class 클래스 이름 extends Thread{
+//   public void run() {
+//  	
+//	 }
+//
+// }
+//	 인스턴스.start();
+
+/*
+class SingleThreadEx extends Thread{
+	private int[] temp;
+	public SingleThreadEx(String threadname) {
+		super(threadname);
+		temp=new int[10];
+		
+		for(int start=0;start<temp.length;start++) {
+			temp[start]=start;
+		}
+	}
+	
+	public void run() {			//쓰레드의 메인메소드
+		for(int start:temp) {
+			try {
+				Thread.sleep(1000);
+			}catch(InterruptedException ie) {
+				ie.printStackTrace();
+			}
+			System.out.println("스레드이름"+currentThread().getName());
+			System.out.println("temp value :"+start);
+		}
+	}
+}
+
+public class study14 {
+	public static void main(String[] args) {
+		SingleThreadEx st = new SingleThreadEx("첫번째");
+		st.start();
+	}
+}
+*/
+/*
+스레드이름첫번째
+temp value :0
+스레드이름첫번째
+temp value :1
+스레드이름첫번째
+temp value :2
+스레드이름첫번째
+temp value :3
+스레드이름첫번째
+temp value :4
+스레드이름첫번째
+temp value :5
+스레드이름첫번째
+temp value :6
+스레드이름첫번째
+temp value :7
+스레드이름첫번째
+temp value :8
+스레드이름첫번째
+temp value :9
+*/
+
+/*
+public class study14 implements Runnable{
+
+    private int[] temp;
+	
+    public study14(){
+	temp = new int[10];
+		
+	for(int start=0;start<temp.length;start++){
+		temp[start]=start;
+	}
+    }
+	
+    @Override
+    public void run() {
+	// TODO Auto-generated method stub
+	for(int start:temp){
+		try {
+			Thread.sleep(1000);
+				
+		} catch (InterruptedException ie) {
+			ie.printStackTrace();
+			// TODO: handle exception
+		}
+			
+		System.out.println("스레드이름:"+Thread.currentThread().getName());
+		System.out.println("temp value :"+start);
+	}
+    }
+	
+    public static void main(String[] args) {
+
+	study14 ct = new study14();
+	Thread t = new Thread(ct,"첫번째");
+
+	t.start();
+    }
+}
+*/
+/*
+스레드이름:첫번째
+temp value :0
+스레드이름:첫번째
+temp value :1
+스레드이름:첫번째
+temp value :2
+스레드이름:첫번째
+temp value :3
+스레드이름:첫번째
+temp value :4
+스레드이름:첫번째
+temp value :5
+스레드이름:첫번째
+temp value :6
+스레드이름:첫번째
+temp value :7
+스레드이름:첫번째
+temp value :8
+스레드이름:첫번째
+temp value :9
+*/
+
+/*
+//Thread 클래스 상속
+class Th extends Thread{
+	String str;
+	Th(String str){
+		this.str=str;
+	}
+	public void run() {		//쓰레드의 메인메소드
+		for(int i=0;i<10;i++) {
+			System.out.println(str);
+		try {
+			sleep(100); //1000이 1초 100은 0.1초
+		}
+		catch(Exception e) {}	
+		}
+	}
+}
+public class study14 {
+	public static void main(String[] args) {
+		Th t = new Th("쓰레드");
+		t.start();	
+	}
+}
+*/
+
+
+/*
+//Runnable 인터페이스 상속
+class Th implements Runnable{
+	String str;
+	Th(String str){
+		this.str=str;
+	}
+	public void run() {		//쓰레드의 메인메소드
+		for(int i=0;i<10;i++) {
+			System.out.println(str);
+		try {
+			Thread.sleep(100); //1000이 1초 100은 0.1초
+		}
+		catch(Exception e) {}	
+		}
+	}
+}
+public class study14 {
+	public static void main(String[] args) {
+		Th t = new Th("쓰레드");
+		Thread t1 = new Thread(t);
+		t1.start();	
+	}
+}
+*/
+/*
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+쓰레드
+*/
+
+/*
+class Total{
+	int sum;
+	Total() {
+		sum=0;
+	}
+	void add(int n) {
+		sum+=n;
+	}
+	int getsum() {
+		return sum;
+	}
+}
+//다중 상속
+class Add extends Total implements Runnable{
+	int a,b;//필드
+	Add(int a, int b){//생성자
+		this.a=a;
+		this.b=b;
+	}
+	public void run() {
+		for(int i=a;i<=b;i++) {
+			super.add(i);
+		}
+		System.out.println(getsum());
+	}
+}
+    
+public class study14 {
+	public static void main(String[] args) {
+		
+		Add a1=new Add(1,10);		//1~10까지 합        //55
+		Add a2=new Add(1,100);		//1~100까지 합      //5050
+		Thread t1=new Thread(a1);
+		Thread t2=new Thread(a2);
+		t1.start();
+		t2.start();
+		
+		//멀티 쓰레드일때 쓰레드 충돌 발생 가능
+		try {
+			t1.join();//join() 각각 쓰레드가 실행될 때 기다리게 하는 것
+			t2.join();
+		}catch(Exception e) {}
+	}
+}
+*/
+
+/*
+class Animal{
+	String str;
+	Animal(String str){
+		this.str=str;
+	}
+	String ani() {
+		return str;
+	}
+}
+
+public class study14 {
+	public static void main(String[] args) {
+
+		Animal a1=new Animal("강아지");
+		System.out.println(a1.ani());	//강아지
+	}
+}
+*/
+
+/*
+class Animal{
+	String str;
+	Animal(String str){
+		this.str=str;
+	}
+	String ani() {
+		return str;
+	}
+}
+class Dog extends Animal{
+	String str1;
+	Dog(String str,String str1){
+		super(str);
+		this.str1=str1;
+	}
+	String ani() {
+		super.ani();
+		return super.ani()+str1;  
+	}
+}
+//animal 상속받는 Dog 클래스
+public class study14 {
+	public static void main(String[] args) {
+		Animal a1=new Dog("강아지","푸들");
+		
+		System.out.println(a1.ani());	//강아지
+	}
+}
+*/
+
+/*
+class Animal{
+	String str;
+	Animal(String str){
+		this.str=str;
+	}
+	String ani() {
+		return str;
+	}
+}
+class Dog extends Animal{
+	String s;
+	Dog(String str,String s){
+		super(str);
+		this.s=s;
+	}
+	String ani() {
+		return super.ani()+" "+s;  
+	}
+}
+//animal 상속받는 Dog 클래스
+public class study14 {
+	public static void main(String[] args) {
+		Animal a1=new Dog("강아지","푸들");
+		
+		System.out.println(a1.ani());	//강아지
+	}
+}
+*/
+
+/*
+abstract class Animal{
+	String str;
+	Animal(String str){
+		this.str=str;
+	}
+	abstract String ani();
+}
+class Dog extends Animal{
+	String s;
+	Dog(String str,String s){
+		super(str);
+		this.s=s;
+	}
+	String ani() {
+		return str;
+	}
+}
+//animal 상속받는 Dog 클래스
+public class study14 {
+	public static void main(String[] args) {
+		Animal a1=new Dog("강아지","푸들");
+		
+		System.out.println(a1.ani());	//강아지
+	}
+}
+*/
+
+interface Shape{
+	double pi=3.14; //final을 적지 않아도 final이다.
+	default void sh() {	//default를 적으면 함수 구현 가능하다.
+		System.out.println("도형");
+	}
+	abstract double area();//원의 면적
+}
+class S implements Shape{
+	double r=3;
+	public double area() {
+		return r*r*pi;
+	}
+}
+public class study14 {
+	public static void main(String[] args) {
+		
+		S s1= new S();
+		
+		System.out.println(s1.area());
+		//sh,area에 함수 호출
+		
+		
+	}
+}
