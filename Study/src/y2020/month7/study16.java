@@ -1,9 +1,11 @@
 package y2020.month7;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -589,4 +591,469 @@ public static void main(String[] args) {
 		new study16();
 	}
 }
-*/	
+*/
+
+//MouseAdapter 클래스를 사용하면 편리하다. 아래는 사용하지 않은 예 5개의 추상 메소드를 적어줘야 하는 불편함이 있다.
+/*
+class Mouse implements MouseListener{
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("마우스 클릭!!");
+	}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("마우스 떼기");
+	}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+}
+
+public class study16{
+	public static void main(String[] args) {
+		
+		JFrame f = new JFrame();
+		f.setLayout(new FlowLayout());
+		//Mouse m = new Mouse();
+		
+		MouseListener m=new Mouse(); //upcasting
+		JButton j1=new JButton("one");
+		JButton j2=new JButton("two");
+			
+		j1.addMouseListener(m);
+		j2.addMouseListener(m);
+		
+		f.add(j1);
+		f.add(j2);
+		f.setVisible(true);
+	}
+}
+*/
+
+//이처럼 MouseAdapter 클래스를 사용하면 편리하다.
+/*
+class Mouse extends MouseAdapter{
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("마우스 클릭");
+	}
+}
+public class study16{
+	public static void main(String[] args) {
+		
+		JFrame f = new JFrame();
+		f.setLayout(new FlowLayout());
+		f.addMouseListener(new Mouse());
+		
+		MouseListener m=new Mouse(); //upcasting
+		JButton j1=new JButton("one");
+		JButton j2=new JButton("two");
+		j1.addMouseListener(new Mouse());
+		j2.addMouseListener(new Mouse());
+		
+		f.add(j1);
+		f.add(j2);
+		f.setVisible(true);
+	}
+}
+*/
+
+/*
+class Mouse implements MouseMotionListener{
+	//마우스 움직임
+	public void mouseDragged(MouseEvent e) {
+		System.out.println(e.getX()+" "+e.getY());
+	}
+	public void mouseMoved(MouseEvent e) {
+		System.out.println(e.getX()+" "+e.getY());
+	}
+}
+
+
+public class study16{
+	public static void main(String[] args) {
+		
+		JFrame f = new JFrame();
+		f.setLayout(new FlowLayout());
+		
+		JButton j1=new JButton("one");
+		JButton j2=new JButton("two");
+		
+		j1.addMouseMotionListener(new Mouse());
+		j2.addMouseMotionListener(new Mouse());
+		
+		f.add(j1);
+		f.add(j2);
+		f.setVisible(true);
+	}
+}
+*/
+
+/*
+public class study16 extends JFrame{
+	
+	Container con;
+		JPanel panel1;
+		JPanel panel2;
+		
+	public study16() {	//생성자 설정
+	
+		super("컨테이너와 패널을 이용하여 컨탠트 팬 만들기");	//타이틀
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		panel1=new NorthPanel();
+		panel2=new CenterPanel();
+		
+		con=getCon
+	}
+	public static void main(String[] args) {
+
+		//컨탠트 팬 색을 좋아하는 색으로 설정
+		
+	}
+}
+*/
+
+/*
+//컨탠트 팬 색을 좋아하는 색으로 설정
+class Mouse extends MouseAdapter implements MouseMotionListener{
+	public void mouseDragged(MouseEvent e) {
+		//노란색으로 변경
+		Container c=(Container)e.getSource();
+		c.setBackground(Color.yellow);
+	}
+	public void mouseMoved(MouseEvent e) {}
+	
+	public void mouseReleased(MouseEvent e) {
+		Container c=(Container)e.getSource();
+		c.setBackground(Color.green);
+	}	
+}
+
+public class study16 extends JFrame{
+	study16() {
+		Container c=getContentPane();
+		c.setBackground(Color.pink);
+		
+		c.addMouseMotionListener(new Mouse());
+		c.addMouseListener(new Mouse());
+		
+		setVisible(true);
+		
+	}
+
+	public static void main(String[] args) {
+		
+		new study16();
+	}
+}
+*/
+
+/*
+//첫번째 방법
+public class study16{
+	public static void main(String[] args) {
+
+		//버튼 2개 만들어서(ok, cancel)
+		//ok 버튼 "ok"라고 출력
+		//cancel 누르면 버튼 비활성화
+		//(setEnable(false))
+		
+		JFrame j = new JFrame("자바 GUI 수업");
+		
+		j.setSize(350,300);
+		
+		j.setLocationRelativeTo(null);
+		
+		j.setLayout(new FlowLayout());
+		
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JButton b1 = new JButton("ok");
+		b1.setText("ok");
+		System.out.println("getText: " +b1.getText());
+		
+		JButton b2 = new JButton("cancel");
+		b2.setEnabled(false);
+		
+		j.add(b1);
+		j.add(b2);
+		
+		j.setVisible(true);
+	}
+}
+*/
+
+/*
+//두번째 방법
+public class study16{
+	public static void main(String[] args) {
+
+		//버튼 2개 만들어서(ok, cancel)
+		//ok 버튼 "ok"라고 출력
+		//cancel 누르면 버튼 비활성화
+		//(setEnable(false))
+		
+		JFrame j = new JFrame("자바 GUI 수업");
+		
+		j.setSize(350,300);
+		
+		j.setLocationRelativeTo(null);
+		
+		j.setLayout(new FlowLayout());
+		
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JButton b1 = new JButton("ok");
+		JButton b2 = new JButton("cancel");
+		
+		j.setLayout(new FlowLayout());
+		j.add(b1);
+		j.add(b2);
+		
+		b1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("ok");
+				
+			}
+		});
+		b2.setEnabled(false);
+		
+		j.setVisible(true);
+	}
+}
+*/
+
+/*
+public class study16 extends JFrame{
+	study16(){
+		JLabel j=new JLabel("히히");
+		Container c =getContentPane();
+		c.setLayout(new FlowLayout());
+		c.add(j);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		new study16();
+	}
+}
+*/
+
+//"자바는" 문자열을 띄운 후
+//마우스로 "자바는" 커서를 올리면
+//mouseEntered함수 활용
+//setText함수 사용해서 "재밌어"라고 세팅
+//마우스를 내리면 mouseExited 함수 활용
+//"자바는"이라고 세팅
+/*
+class Mouse extends MouseAdapter{
+	public void mouseEntered(MouseEvent e) {
+		JLabel j=(JLabel)e.getSource();
+		j.setText("재밌어");
+	}
+	public void mouseExited(MouseEvent e) {
+		JLabel j=(JLabel)e.getSource();
+		j.setText("자바는");
+	}
+}
+public class study16 extends JFrame{
+	study16(){
+		JLabel j = new JLabel("자바는");
+		Container c=getContentPane();
+		c.setLayout(new FlowLayout());
+		setVisible(true);
+		c.add(j);
+		j.addMouseListener(new Mouse());
+	}
+	public static void main(String[] args) {
+		new study16();
+	}
+}
+*/
+
+/*
+public class study16 extends JFrame{
+	study16() {
+		this.setLayout(new FlowLayout());
+		ImageIcon i1=new ImageIcon("C://Users//Administrator//Desktop/JAVA.jpg");
+		JLabel j1=new JLabel(i1);
+		this.add(j1);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		
+		new study16();
+	}
+}
+*/
+
+//JCheckBox => 중복 선택 가능하다.
+/*
+public class study16 extends JFrame{
+	study16() {
+		this.setLayout(new FlowLayout());
+		
+		JCheckBox j1 = new JCheckBox("햄버거");
+		JCheckBox j2 = new JCheckBox("치킨");
+		JCheckBox j3 = new JCheckBox("피자");
+		
+		this.add(j1);
+		this.add(j2);
+		this.add(j3);
+		
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		
+		new study16();
+	}
+}
+*/
+
+
+
+
+/*
+//Interface ItemListener
+The listener interface for receiving item events. 
+The class that is interested in processing an item event implements this interface. 
+The object created with that class is then registered with a component using 
+the component's addItemListener method. When an item-selection event occurs, 
+the listener object's itemStateChanged method is invoked.
+*/
+
+
+//JRadioButton => 중복 선택 불가능하다.
+/*
+public class study16 extends JFrame{
+	study16() {
+		this.setLayout(new FlowLayout());
+		
+		JRadioButton j1 = new JRadioButton("햄버거");
+		JRadioButton j2 = new JRadioButton("치킨");
+		JRadioButton j3 = new JRadioButton("피자");
+		
+		this.add(j1);
+		this.add(j2);
+		this.add(j3);
+		
+		ButtonGroup grp = new ButtonGroup();	
+		grp.add(j1);
+		grp.add(j2);
+		grp.add(j3);
+		
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		
+		new study16();
+	}
+}
+*/
+
+/*
+public class study16 extends JFrame{
+	study16(){
+		JCheckBox j=new JCheckBox("자바");
+		this.setLayout(new FlowLayout());
+		
+		j.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED) {
+					System.out.println("자바 재밌다");
+				}
+				
+			}
+		});
+		this.add(j);
+		
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		new study16();
+	}
+}
+*/
+
+/*
+public class study16 extends JFrame{
+	study16(){
+		JMenuBar j=new JMenuBar();	//1
+		JMenu j1=new JMenu("File");
+		JMenu j2=new JMenu("Edit");
+		JMenu j3=new JMenu("Source");//2
+		
+		JMenuItem j4=new JMenuItem("New");
+		JMenuItem j5=new JMenuItem("Undo");//3
+		
+		setJMenuBar(j); //메뉴바 세팅
+		j.add(j1);
+		j.add(j2);
+		j.add(j3);
+		
+		j1.add(j4);
+		j2.add(j5);
+		
+		j4.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("new");				
+			}
+		});
+		
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		
+		new study16();	
+	}
+}
+*/
+
+//one, two 버튼 두개 만들어
+//one을 클릭하면 버튼 배경색을
+//green색으로!
+//two를 클릭하면 임의로 이벤트 설정
+/*
+class Mo implements MouseListener{
+	
+	public void mouseClicked(MouseEvent e) {
+		JButton buttonn = (JButton)e.getSource();
+		String str = buttonn.getText();
+	
+		if(str.equals("1"))
+		{
+			buttonn.setBackground(Color.green);}
+		else if(str.equals("2")) {
+			buttonn.setBackground(Color.blue);
+		}
+		}
+	
+	public void mouseExited(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+}
+
+public class study16 extends JFrame{
+	study16(){
+		
+		Container c=getContentPane();
+		JButton j1=new JButton("1");
+		JButton j2=new JButton("2");
+		c.setLayout(new FlowLayout());
+		setVisible(true);
+		c.add(j1);
+		c.add(j2);
+		
+		Mo m=new Mo();
+		j1.addMouseListener(m);
+		j2.addMouseListener(m);
+		
+	}
+	public static void main(String[] args) {
+		new study16();
+	}
+}
+*/
