@@ -1191,6 +1191,7 @@ public class study15{
 	}
 }
 */
+/*
 class ColorTV{
 	private int size,resolution;
 	public ColorTV(int size,int resolution) { 
@@ -1218,5 +1219,5 @@ public class study15{
 		  IPTV iptv = new IPTV("192.1.1.2 ", 32, 2048); //"192.1.1.2" 주소에 32인치, 2048컬러
 		  iptv.printProperty();
 		}
-	}
-
+}
+*/
