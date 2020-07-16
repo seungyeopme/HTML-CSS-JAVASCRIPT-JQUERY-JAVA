@@ -13,20 +13,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Scanner;
+import java.util.Stack;
 import java.util.StringTokenizer;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -839,5 +827,442 @@ public class study18 {
 }
 */
 
+/*
+public class study18 extends JFrame{
+	JLabel j=new JLabel("문자열");
+	study18(){
+		
+		Container c=getContentPane();
+		c.setLayout(new FlowLayout());
+		c.add(j);
+		setVisible(true);
+		c.addKeyListener(new Key());
+		c.requestFocus();//컨텐트 팬에 포커스 설정
+						 //키 입력 가능하도록
+		
+	}
+	class Key extends KeyAdapter{
+		public void keyPressed(KeyEvent e) {
+			int a=(int)(Math.random()*256);
+			int b=(int)(Math.random()*256);
+			int c=(int)(Math.random()*256);
+			
+			switch(e.getKeyChar()) {
+			//입력된 하나의 문자 얻어내기
+			case '\n':
+				j.setText(a+" "+b);
+				getContentPane().setBackground(new Color(a,b,c));
+				
+				break;
+			case 'p':
+				System.exit(0);	//프로그램 종료
+			}
+		}
+	}
+    public static void main(String[] args) {
+    	new study18();
+    }
+}
+*/
+
+//팝업 다이어로그
+
+//1)입력 다이얼로그
+//JOptionPane.showInputDialog()
+//"Ok"버튼을 누르면 입력한 값을 리턴
+//"Cancel"을 누르거나 창을 닫으면 null값 리턴
+/*
+public class study18 extends JFrame{
+	study18(){
+		JTextField j=new JTextField();
+		//팝업 다이어로그
+		String name=JOptionPane.showInputDialog("이름은?");
+		j.setText(name);
+		setVisible(true);
+	}
+	 public static void main(String[] args) {
+		 new study18();
+	 }
+}
+*/
+
+//팝업 다이어로그
+
+//1)입력 다이얼로그
+//JOptionPane.showInputDialog()
+//"Ok"버튼을 누르면 입력한 값을 리턴
+//"Cancel"을 누르거나 창을 닫으면 null값 리턴
+
+//2)확인 다이얼로그
+//JOptionPane.showConfirmDialog()
+
+//2)메시지 다이얼로그
+//JOptionPane.showMessageDialog()
+
+/*
+public class study18 extends JFrame{
+	study18(){
+		setTitle("다이얼로그"); //타이틀 설정
+		Container c = getContentPane();
+		c.add(new Dia(), BorderLayout.NORTH);
+		setVisible(true);
+	}
+	class Dia extends Panel { 
+		JButton j = new JButton("이름 입력"); //버튼명: 이름 입력
+		JTextField j1=new JTextField(10);
+		JButton j2 = new JButton("확인");
+		JButton j3 = new JButton("메시지");
+		
+		Dia() {
+			setBackground(Color.blue);
+			add(j);
+			add(j1);
+			add(j2);
+			add(j3);
+			
+		j.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String name=
+						JOptionPane.showInputDialog("이름 입력");
+				if(name!=null) {	//이름을 입력했다.
+					j1.setText(name);
+				}
+				
+			}
+		});
+		
+		j2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int r= JOptionPane.showConfirmDialog
+						(null, "계속 할 겁니까?", "확인", 
+								JOptionPane.YES_NO_OPTION);
+				if(r==JOptionPane.CLOSED_OPTION) {
+					j1.setText("선택 안했습니다.");
+				}
+				else if(r==JOptionPane.YES_OPTION) {
+					j1.setText("네");
+				}
+				else
+					j1.setText("아니오");
+			}
+		});
+		j3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog
+				(null, "경고","메시지",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		}
+	}
+	 public static void main(String[] args) {
+		 new study18();
+	 }
+}
+*/
 
 
+//제네릭(모형자) -> 템플릿(모형자)
+//generic < > 
+//< > => angle blancket이라고 부른다.
+
+//컬렉션 프레임워크(Vector, ArrayList, Map, Set)
+/*
+class Java{
+	String title;
+	Java(String t){
+		title=t;
+	}
+	void show() {
+		System.out.println(title);
+	}
+}
+class DB{
+	int n;
+	DB(int n){
+		this.n=n;
+	}
+	void pr() {
+		System.out.println(n);
+	}
+}
+class Program<T>{	//모형자 <> : 제네릭 기호
+	T t; 
+	void in(T t) {	//void in\(A a) 
+		this.t=t;
+	}
+	T get() {	//반환형이 T
+		return t;
+	}
+}
+public class study18{
+	 public static void main(String[] args) {
+		 
+		 Program<Java> p=new Program<Java>();
+		 p.in(new Java("java"));
+		 Java j=p.get();	//j는 Java 클래스의 객체
+		 j.show();	//java
+	
+		 Program<DB> d=new Program<DB>();
+		 d.in(new DB(3));
+		 DB dd=d.get();
+		 dd.pr();	//3
+	 }
+}
+*/
+
+/*
+class AA{
+	public String toString() {
+		return "AA";
+	}
+}
+class BB{
+	public String toString() {
+		return "BB";
+	}	
+}
+class In{
+	<T> void show(T t) {	//클래스명 객체명 	//제너릭 메소드
+		System.out.println(t);
+	}
+	void show() {	
+		System.out.println("generic");
+	}
+}
+public class study18{
+	 public static void main(String[] args) {
+		 //제네릭  클래스, 제네릭 메소드
+		 AA a=new AA();
+		 BB b=new BB();
+		 In i=new In();
+		 
+		 i.<AA>show(a);
+		 i.<BB>show(b);
+		 i.show();	
+	}
+}
+*/
+//AA
+//BB
+//generic
+
+//제네릭에 배열 사용
+/*
+public class study18{
+	static <T> void show(T[] a) {
+		for(int i=0; i<a.length; i++) {
+			System.out.print(a[i]+" ");
+		}
+	}
+	public static void main(String[] args) {
+	 
+		 String[] str=new String[] 
+				 {"java", "db", "c++"};
+		 show(str);
+	}
+}
+*/
+//java db c++ 
+
+/*
+class Cont<T>{
+	T t;
+	
+	void set(T t) {
+		this.t=t;
+	}
+	T get() {
+		return t;
+	}	
+}
+public class study18{
+	public static void main(String[] args) {
+	
+		Cont<String> c1=new Cont<String>();
+		c1.set("수정");
+		String s=c1.get();
+		System.out.println(s);//수정
+		
+		Cont<Integer> c2=new Cont<Integer>();
+		c2.set(5);
+		int s2=c2.get();
+		System.out.println(s2);//5	
+	}
+}
+*/
+//수정
+//5
+
+/*
+public class study18{
+	public static void main(String[] args) {
+	
+		Stack<String> stack = new Stack<String>(); //Generics을 이용하여 Collection이 저장할 데이터 타입 지정
+		for(int i=0;i<3;i++)
+			stack.push("Hi-"+i); //stack에 데이터를 삽입하는 문장
+		
+		//stack = ["Hi-0", "Hi-1", "Hi-2"], top=2
+		
+		System.out.println(stack.pop()); //스택의 꼭대기 값을 반환하고 삭제한다.             Hi-2
+		System.out.println(stack.peek()); //스택의 꼭대기 값을 반환한다.                  Hi-1
+		System.out.println(stack.search("Hi-1")); //값이 존재하면 1, 아니면 -1을 출력한다.    1
+		System.out.println(stack.isEmpty()); //스택이 비어있으면 true을 출력한다.         false
+		System.out.println(stack);			//[Hi-0, Hi-1]
+	}
+}
+*/
+
+/*
+public class study18{
+	public static void main(String[] args) {
+
+		Stack stack = new Stack();
+		stack.push(3); //3
+		stack.push(2); //3, 2
+		System.out.println(stack.pop()); //2를 출력, 스택에는 3
+		stack.push(6); //3, 6
+		stack.push(8); //3, 6, 8
+		System.out.println(stack.peek()); //가장 최근에 보관한 값은 8 
+		System.out.println(stack.search(6));//두 번째 보관한 요소임
+		while(stack.empty()==false){
+			System.out.println(stack.pop());//8, 6, 3 순으로 꺼냄
+		}
+	}
+}
+*/
+//2
+//8
+//2
+//8
+//6
+//3
+
+/*
+class St<T>{
+	int i;
+	Object [] ary;
+	St() {
+		i=0;
+		ary=new Object[10]; //배열 10개 생성
+	}
+	void push(T t) {
+		if(i==10) {	//인덱스가 다 차 있으면 
+			return;	//종료
+		}
+		ary[i]=t;
+		i++;
+	}
+	T pop() {
+		if(i==0) {	//스택이 비어있어 삭제할 값이 없다
+			return null; 	//아무것도 돌려받지 않는다.
+		}
+		i--;	//스택에 값이 있으면
+		return (T)ary[i]; //Object형을 T값으로 다운 캐스팅
+	}
+}
+public class study18{
+	public static void main(String[] args) {
+
+		St<String> s= new St<String>();
+		s.push("abcd");
+		s.push("efgh");
+		s.push("ijkl");
+		for(int i=0; i<3; i++) {
+			System.out.println(s.pop());
+		}
+	}
+}
+*/
+//ijkl
+//efgh
+//abcd
+
+/*
+class St<T>{
+	int i;
+	Object [] ary;
+	St() {
+		i=0;
+		ary=new Object[10]; //배열 10개 생성
+	}
+	void push(T t) {
+		if(i==10) {	//인덱스가 다 차 있으면 
+			return;	//종료
+		}
+		ary[i]=t;
+		i++;
+	}
+	T pop() {
+		if(i==0) {	//스택이 비어있어 삭제할 값이 없다
+			return null; 	//아무것도 돌려받지 않는다.
+		}
+		i--;	//스택에 값이 있으면
+		return (T)ary[i]; //Object형을 T값으로 다운 캐스팅
+	}
+}
+public class study18{
+	public static void main(String[] args) {
+
+		St<Double> s= new St<Double>();
+		s.push(1.5);
+		s.push(2.5);
+		s.push(3.5);
+		for(int i=0; i<3; i++) {
+			System.out.println(s.pop());
+		}
+	}
+}
+*/
+//3.5
+//2.5
+//1.5
+
+/*
+class study18 extends JFrame {
+    JProgressBar progress;
+     
+// JProgressBar 클래스 특징 1.오랜 시간이 걸리는 작업을 할때 일의 진행상황을 시각적으로 표현하기 위한 
+//용도로 사용되는 클래스이다.
+     
+    public study18() {
+        setLayout(new FlowLayout());// 배치관리자 설정
+        progress = new JProgressBar();
+        // 최소값이 0,최대값이 100까지 표시
+        // progress.setValue(0);//0부터 시작.시작 지점값을
+        // 표시
+        progress.setStringPainted(true);
+        // true로 설정하면 현재 진행상황을 %로 표시함.
+        add(progress);// 스윙 프레임윈도우에 프로그래스바
+        // 배치
+ 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 150);
+        setVisible(true);
+        progress_start();// progress_start()메서드를
+        // 호출
+    }// 생성자 정의
+ 
+    public void progress_start() {
+        int i;
+        try {
+            for (i = 1; i <= 100; i++) {
+                progress.setValue(i);
+                Thread.sleep(37);// 밀리세컨드 단위로
+                // 지연시간을 설정.
+            }
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
+    }// progress_start()끝
+public static void main(String[] args) {
+        new study18();// 생성자를 호출
+    }
+}
+*/
