@@ -1,23 +1,22 @@
 package y2020.month7;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
 
 //ArrayList 장점
 //데이터 참조가 빠르다
@@ -724,8 +723,691 @@ public class study20{
 //=>여전히 순서는 유지되지 않고 무작위로 출력된다!
 
 
+//3개의 이름과 나이를 입력받아
+//해시맵에 저장해서
+//가장 나이가 많은 사람의 이름을
+//출력해주세요
+/*
+public class study20{
+	public static void main(String[] args) {
+		HashMap<String,Integer> h = 
+				new HashMap<String,Integer>();
+		
+		Scanner s=new Scanner(System.in);
+		for(int i=0; i<3; i++) {
+			String name=s.next();
+			int age=s.nextInt();
+			h.put(name, age);
+		}
+		//가장 나이가 많은 사람의 이름 출력
+		Set<String> key=h.keySet();
+		Iterator<String> it=key.iterator();
+		
+		int max=0; 
+		String str="";
+		while(it.hasNext()) {
+			String name=it.next();
+			int age=h.get(name);
+			if(max<age) {
+				max = age;
+				str = name;
+			}
+		}
+		System.out.println(str + " "+max);
+		
+	}
+}
+*/
+/*
+aa 30
+bb 20
+cc 10
+aa 30
+*/
+
+/*
+class Num{
+	int n;
+	Num(int n) {
+		this.n=n;
+	}
+	public String toString(){
+		//return n +" ";
+		return String.valueOf(n);//정수값을 문자열로 변경
+	}
+}
+public class study20{
+	public static void main(String[] args) {
+
+		HashSet<Num> h=
+				new HashSet<Num>();
+		h.add(new Num(3));
+		h.add(new Num(7));
+		h.add(new Num(11));
+		
+		Iterator<Num> it=h.iterator();
+		
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+	}
+}
+*/
+/*
+7
+3
+11
+*/
+
+/*
+class Num{
+	int n;
+	Num(int n) {
+		this.n=n;
+	}
+	public String toString(){
+		//return n +" ";
+		return String.valueOf(n);//정수값을 문자열로 변경
+	}
+	public int hashCode() {
+		return n%3;	//1.기준을 정해서 그룹핑
+	}
+	public boolean equals(Object obj) {
+		Num num=(Num)obj; //down casting
+		if(num.n==n) {
+			return true;
+		}
+		return false;//3이랑 3이 같은 그룹이니까 중복되는 3 하나 제외!!
+	}
+}
+public class study20{
+	public static void main(String[] args) {
+
+		HashSet<Num> h=
+				new HashSet<Num>();
+		h.add(new Num(3));
+		h.add(new Num(7));
+		h.add(new Num(3));
+		
+		Iterator<Num> it=h.iterator();
+		
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+	}
+}
+*/
+/*
+3
+7
+*/
+//중복 된 값 제외하고 출력
+
+//첫번째 방법
+/*
+class Stu{
+	String a;
+	int b;
+	Stu(String a, int b) {
+		this.a=a;
+		this.b=b;
+	}
+	public int hashCode() {
+		return a.hashCode()+b;	//1.기준을 정해서 그룹핑  //이름이 똑같으면 해시코드 값이 같음
+	}
+	public boolean equals(Object obj) {
+		if(obj instanceof Stu) {
+			Stu s=(Stu)obj;
+			return s.a.equals(a) && s.b==b; 
+		}
+		else 
+			return false;
+	}
+}
 public class study20{
 	public static void main(String[] args) {
 	
+		Set<Stu> s=
+				new HashSet<Stu>();
+		s.add(new Stu("용석",24));
+		s.add(new Stu("유강",22));
+		s.add(new Stu("유강",22));
+		//이름, 나이 다 일치해야 중복 허용 안됨
+		System.out.println(s.size());
 	}
 }
+*/
+//2
+
+//두번째 방법
+/*
+class Stu{
+	String a;
+	int b;
+	Stu(String a, int b) {
+		this.a=a;
+		this.b=b;
+	}
+	public int hashCode() {
+		return a.hashCode()+b;	//1.기준을 정해서 그룹핑  //이름이 똑같으면 해시코드 값이 같음
+	}
+	public boolean equals(Object obj) {
+			Stu s=(Stu)obj;
+			return s.a.equals(a) && s.b==b; 
+	}
+}
+public class study20{
+	public static void main(String[] args) {
+	
+		Set<Stu> s=
+				new HashSet<Stu>();
+		s.add(new Stu("용석",24));
+		s.add(new Stu("유강",22));
+		s.add(new Stu("유강",22));
+		//이름, 나이 다 일치해야 중복 허용 안됨
+		System.out.println(s.size());
+	}
+}
+*/
+//2
+
+/*
+equals() 와 hashcode()
+equals 는 두 객체의 내용이 같은지, 동등성(equality) 를 비교하는 연산자
+hashCode 는 두 객체가 같은 객체인지, 동일성(identity) 를 비교하는 연산자
+*/
+
+/*
+Comparable<T> 인터페이스
+Comparable 인터페이스는 객체를 정렬하는 데 사용되는 메소드인 compareTo() 메소드를 정의하고 있습니다.
+
+자바에서 같은 타입의 인스턴스를 서로 비교해야만 하는 클래스들은 모두 Comparable 인터페이스를 구현하고 있습니다.
+
+따라서 Boolean을 제외한 래퍼 클래스나 String, Time, Date와 같은 클래스의 인스턴스는 모두 정렬 가능합니다.
+
+이때 기본 정렬 순서는 작은 값에서 큰 값으로 정렬되는 오름차순이 됩니다.
+*/
+
+/*
+public class study20{
+	public static void main(String[] args) {
+		
+		TreeSet<Integer> t=
+				new TreeSet<Integer>();	
+		//TreeSet은 오름차순으로 출력한다!!
+		
+		t.add(84);
+		t.add(6);
+		t.add(84);
+		t.add(55);	
+		t.add(100);	
+		
+		Iterator<Integer> it=t.iterator();
+		while(it.hasNext())
+			System.out.println(it.next());
+	}
+}
+*/
+/*
+6
+55
+84
+100
+*/
+
+/*
+class Pro implements Comparable<Pro>{
+	
+	String name;
+	int id;
+	Pro(String n, int i) {
+		name=n;id=i;
+	}
+	void show() {
+		System.out.println(name+" "+id);
+	}
+	public int compareTo(Pro p) {
+		if(id>p.id) //오름차순
+			return 1;
+		else if(id<p.id) 
+			return -1;
+		else
+			return 0;
+	}
+}
+public class study20{
+	public static void main(String[] args) {
+	
+		TreeSet<Pro> t=
+				new TreeSet<Pro>();
+		//2,3개 정도 삽입
+		t.add(new Pro("aa",33));
+		t.add(new Pro("bb",22));
+		t.add(new Pro("cc",11));
+		
+		Iterator<Pro> it=t.iterator();
+		while(it.hasNext())
+			it.next().show();
+	}	
+}
+*/
+/*
+cc 11
+bb 22
+aa 33
+*/
+
+/*
+class Pro implements Comparable<Pro>{
+	
+	String name;
+	int id;
+	Pro(String n, int i) {
+		name=n;id=i;
+	}
+	void show() {
+		System.out.println(name+" "+id);
+	}
+	public int compareTo(Pro p) {
+		if(id<p.id) //내림차순
+			return 1;
+		else if(id<p.id) 
+			return -1;
+		else
+			return 0;
+	}
+}
+public class study20{
+	public static void main(String[] args) {
+	
+		TreeSet<Pro> t=
+				new TreeSet<Pro>();
+		//2,3개 정도 삽입
+		t.add(new Pro("aa",33));
+		t.add(new Pro("bb",22));
+		t.add(new Pro("cc",11));
+		
+		Iterator<Pro> it=t.iterator();
+		while(it.hasNext())
+			it.next().show();
+	}	
+}
+*/
+/*
+aa 33
+bb 22
+cc 11
+*/
+
+/*
+public class study20{
+	public static void main(String[] args) {
+	
+		Set<String> set = new HashSet<String>();
+		set.add("one"); // 데이터 저장(추가)
+		set.add("two");
+		set.add("three");
+		set.add("one");
+		set.add("two");
+		set.add("4");
+		set.add("5");
+		set.add("six");
+
+		System.out.println("저장된 데이터 수 : " + set.size()); // 데이터 수 출력
+
+		Iterator<String> it = set.iterator(); // Iterator(반복자) 생성
+
+		while (it.hasNext()) { // hasNext() : 데이터가 있으면 true 없으면 false
+			System.out.println(it.next()); // next() : 다음 데이터 리턴
+		}
+
+		System.out.println("--------------------");
+
+		set.remove("three"); // 데이터 제거
+		System.out.println("저장된 데이터 수 : " + set.size()); // 저장된 데이터 수 출력
+		it = set.iterator(); // 반복자 재생성(위의 반복문에서 next 메서드로 데이터를 다 가져왔기 때문에 재생성을
+								// 해야함)
+
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+
+		System.out.println("--------------------");
+	}
+}
+*/
+/*
+저장된 데이터 수 : 6
+six
+4
+5
+one
+two
+three
+--------------------
+저장된 데이터 수 : 5
+six
+4
+5
+one
+two
+--------------------
+*/
+
+/*
+public class study20{
+	public static void main(String[] args) {
+		
+		TreeSet<Integer> grade=
+				new TreeSet<Integer>();
+		
+		grade.add(30);
+		grade.add(100);
+		grade.add(50);
+	
+		Integer i;
+		i=grade.first();//first()
+						//Returns the first (lowest) element currently in this set.
+		System.out.println(i);//30
+	}
+}
+*/
+
+/*
+public class study20{
+	public static void main(String[] args) {
+		
+		TreeSet<Integer> grade=
+				new TreeSet<Integer>();
+		
+		grade.add(30);
+		grade.add(100);
+		grade.add(50);
+	
+		Integer i;
+		i=grade.first();//first()
+		//Returns the first (lowest) element currently in this set.
+		System.out.println(i);//30
+		
+		i=grade.last();//last()
+		//Returns the last (highest) element currently in this set.
+		System.out.println(i);//100
+		
+		i=grade.lower(new Integer(80));//lower(E e)
+		//Returns the greatest element in this set strictly less than 
+		//the given element, or null if there is no such element.
+		System.out.println(i); //50
+		
+		i=grade.higher(new Integer(80));//higher(E e)
+		//Returns the least element in this set strictly greater than 
+		//the given element, or null if there is no such element.
+		System.out.println(i); //100
+	}
+}
+*/
+
+/*
+class Food{
+	void show() {
+		System.out.println("음식"); //음식
+	}
+}
+//food 상속받아 클래스 이름 설정
+class Pizza extends Food{
+	void show() {	//오버라이딩  
+		super.show(); //음식
+		System.out.println("피자"); //피자
+	}
+}
+class Fo<T>{
+	T t;
+	void in(T t) {
+		this.t=t;
+	}
+	T out() {
+		return t;
+	}
+}
+public class study20{
+	
+	static void pr(Fo<? extends Food> f) {//클래스 제한
+		//out()으로 꺼내서 출력
+		Food fo=f.out();
+	    fo.show();
+	}
+	public static void main(String[] args) {
+
+		Fo<Food> f=
+				new Fo<Food>();
+		f.in(new Food());
+		pr(f);
+		
+		Fo<Pizza> f1=
+				new Fo<Pizza>();
+		f1.in(new Pizza());
+		pr(f1);
+		
+		//in에 접근
+		//다른 클래스 생성해서 접근 후
+		//pr 메소드 호출해서 출력	
+	}
+}
+*/
+/*
+음식
+음식
+피자
+*/
+
+//벡터를 이용한 콤보박스 생성
+/*
+class My{
+	String name;
+	int age;
+	My(String a, int b) {
+		name=a;
+		age=b;
+	}
+	public String toString() {
+		return name+" "+age;
+	}	
+}
+public class study20{
+	public static void main(String[] args) {
+
+		JFrame f = new JFrame();
+		f.setLayout(new FlowLayout());
+		
+		Vector<My> v=
+				new Vector<My>();
+		//벡터에 문자열, 정수값 
+		v.add(new My("지혜",20));
+		v.add(new My("준호",23));
+		v.add(new My("원영",22));
+	
+		//콤보박스 만들기
+		JComboBox j= new JComboBox(v);
+		f.add(j);
+		f.setVisible(true);
+	}
+}
+*/
+
+/*
+class Me implements Comparable<Me>{
+	String name;
+	Me(String n) {
+		name=n;
+	}
+	int get() {
+		return name.length();
+	}
+	public int compareTo(Me m) {
+		if(get()<m.get())
+			return -1;
+		else if(get() > m.get())
+			return 1;
+		else 
+			return 0;
+	}
+	public String toString() {
+		return name;
+	}
+	
+}
+public class study20{
+	public static void main(String[] args) {
+	
+		TreeSet<Me> t=
+				new TreeSet<Me>();
+		t.add(new Me("슬기"));
+		t.add(new Me("자바공부"));
+		t.add(new Me("최윤혁"));
+		t.add(new Me("나니누네노"));
+		t.add(new Me("아이우에오카키쿠케코"));
+		
+		
+		Iterator<Me> it=t.iterator();
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+	}
+}
+*/
+/*
+슬기
+최윤혁
+자바공부
+나니누네노
+아이우에오카키쿠케코
+*/
+
+//자바 스윙 GUI 계산기 구조
+/*
+public class study20 extends JFrame {
+	 
+	study20() {
+		Container c = getContentPane();
+		JPanel j1 = new JPanel();
+		JPanel j2 = new JPanel();
+		JPanel j3 = new JPanel();
+		
+		j1.setBackground(Color.gray);
+		j2.setLayout(new GridLayout(4,4));
+		j3.setBackground(Color.yellow);
+		
+		c.add(j1,BorderLayout.NORTH);
+		c.add(j2);
+		c.add(j3,BorderLayout.SOUTH);
+		
+		JLabel jl=new JLabel("입력");
+		JTextField jf=new JTextField(10);
+		j1.add(jl);
+		j1.add(jf);
+		
+		JLabel ja=new JLabel("결과");
+		JTextField jt=new JTextField(10);
+		j3.add(ja);
+		j3.add(jt);
+		
+		for(int i=0; i<16;i++) {
+			JButton b=new JButton();
+			String []s= {"+","-","*","/","계산","CE"};
+			j2.add(b);
+			if(i<10) { //0~9
+				//정수를 문자열로 변경해서 프레임에 부착
+				b.setText(Integer.toString(i));
+			}
+			else {	//10~15
+				b.setText(s[i-10]);//"+","-","*","/","계산"
+			}
+		}
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+	
+		new study20();
+	}
+}
+*/
+
+//바이트 스트림(Byte Stream)
+//데이터의 종류가 파일,그림,동영상 등의 바이트 기반인 경우 사용하는 클래스로 바이트 단위로 입출력을 제어한다.
+
+/*
+InputStream
+OutputStream 
+입출력을 위한 바이트 스트림의 최상위 추상 클래스
+*/
+
+/*
+FileInputStream
+FileOutputStream
+ 파일 입출력을 위한 바이트 스트림 클래스
+*/
+
+/*
+DataInputStream
+DataOutputStream
+자바 기본형(primitive) 데이터를 입출력 하기 위한 클래스
+*/
+
+/*
+BufferedInputStream
+BufferedOutputStream
+ 입출력 스트림에 버퍼링 기능을 추가한 클래스
+*/
+
+/*
+PrintStream 
+System.out을 통해 콘솔로 출력하기 위한 클래스
+*/
+
+/*
+public class study20{
+	public static void main(String[] args) {
+
+		for(byte i=32; i<127; i++){
+
+			System.out.write(i);
+
+			System.out.write('\t');
+		}
+	}
+}
+*/
+
+/*
+class Num{
+	int n;
+	Num(int n) {
+		this.n=n;
+	}
+	int get() {
+		return n;
+	}
+	
+	public String toString(){
+		return n +" ";
+	}
+}
+public class study20{
+	public static void main(String[] args) {
+		//객체 생성해서 값 3개 준 후
+		//for-each문으로 총합 
+		Num num[] = new Num[] {new Num(3), new Num(4), new Num(5)};
+		
+		int sum=0;
+		for (int i=0; i<num.length; i++) {
+			System.out.print(num[i] + "");
+		}
+		System.out.println();
+		for (Num n : num) {
+			sum+=n.get();
+		}
+		System.out.println(sum);
+	}
+}
+*/
+//3 4 5 
+//12
