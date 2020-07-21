@@ -1,22 +1,23 @@
 package y2020.month7;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.MenuBar;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Scanner;
-import java.util.Set;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Random;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+
+
 
 
 
@@ -428,8 +429,371 @@ public class study21 {
 */
 //0 1 2 3 4 
 
+/*
+5. HashSet에 Person객체를 저장한다. 학번이 같으면 동일한 Person객체라 판단하고 중복 저장이 되지 않도록 하게 
+      코드를 작성해라.
+Set<Person> s=new HashSet<Person>();
+
+s.add(new Person(12, “홍길동”));
+
+s.add(new Person(23, “김길동”));
+
+s.add(new Person(12, “이길동”));
+
+Iterator<Person> it=s.iterator();
+
+while(it.hasNext()){
+
+ Person p=it.next();
+
+ System.out.println(p.num + “ “ + p.name);
+
+}
+*/
+/*
+class Person{
+	int num;
+	String name;
+	Person(int num, String name) {
+		this.num=num;
+		this.name=name;
+	}
+	public int hashCode() {
+		return num;
+	}
+	public boolean equals(Object obj) {
+		Person p=(Person)obj;
+		return num==p.num;
+	}
+}
 public class study21 {
 	public static void main(String[] args) {
+		Set<Person> s=new HashSet<Person>();
+
+		s.add(new Person(12, "홍길동"));
+		s.add(new Person(23, "김길동"));
+		s.add(new Person(12, "이길동"));
+
+		Iterator<Person> it=s.iterator();
+
+		while(it.hasNext()){
+
+		 Person p=it.next();
+		 System.out.println(p.num +" "+ p.name);
+		}
+	}
+}
+*/
+//23 김길동
+//12 홍길동
+
+
+/*
+6. Main()을 보고 코드를 작성해라.(c는 1~5까지 합, d는 1~10까지 합)
+ int a[]={1,2,3,4,5};
+
+ int b[]={6,7,8,9,10};
+
+int c=add(a,5);
+
+int d=add(a,5,b);
+
+ System.out.println(c);
+
+ System.out.println(d);
+*/
+//첫번째 방법
+/*
+public class study21 {
+	static int add(int a[], int b) {
+		int sum=0;
+		for(int i=0; i<a.length; i++) {
+			sum += a[i];
+		}
+		return sum;
+	}
+	static int add(int a[], int b, int c[]) {
+		int sum=0;
+		for(int i=0; i<a.length; i++) {
+			sum += a[i];
+		}
+		for(int i=0; i<b; i++) {
+			sum += c[i];
+		}
+		return sum;
+	}
+	public static void main(String[] args) {
+
+		int a[]={1,2,3,4,5};
+		int b[]={6,7,8,9,10};
 		
+		int c=add(a,5);
+		int d=add(a,5,b);
+		
+		System.out.println(c);
+		System.out.println(d);
+	}
+}
+*/
+//15
+//55
+
+//두번째 방법
+/*
+public class study21 {
+	static int add(int a[], int b) {
+		int sum=0;
+		for(int i=0; i<a.length; i++) {
+			sum += a[i];
+		}
+		return sum;
+	}
+	static int add(int a[], int b, int c[]) {
+		return add(a,b)+add(c,b);
+	}
+	public static void main(String[] args) {
+
+		int a[]={1,2,3,4,5};
+		int b[]={6,7,8,9,10};
+		
+		int c=add(a,5);
+		int d=add(a,5,b);
+		
+		System.out.println(c);
+		System.out.println(d);
+	}
+}
+*/
+//15
+//55
+
+/*
+7. Runnable인터페이스를 이용하여 쓰레드를 생성해라. 쓰레드는작동 10초 후 종료하게끔 작성해라.
+*/
+/*
+class Th implements Runnable{
+	String str;
+	
+	Th(String str){
+		this.str=str;
+	}
+	public void run() {
+		try {
+			System.out.println(str);
+			Thread.sleep(10000);
+			System.exit(0);
+		}catch (Exception e) {}
+	}
+}
+public class study21 {
+	public static void main(String[] args) {
+
+		Th s=new Th("10초 후 종료");
+		Thread t=new Thread(s);
+		t.start();
+	}
+}
+*/
+//10초 후 종료
+
+/*
+8. GridLayout4행 3열로 배치하고 JLabel 을 12개 부착한다. 
+       초기 배경색을 하얀색으로 설정하고, 레이블 위에 마우스로 클릭하면 색이 랜덤하게 채워지도록 프로그램을 작성해라. 
+       다음 코드를 이용해라.
+
+ int r=(int)(Math.random()*256);
+ int g=(int)(Math.random()*256);
+ int b=(int)(Math.random()*256);
+
+*/
+//GUI 1번째 방법
+/*
+public class study21 {
+	public static void main(String[] args) {
+	
+		JFrame j=new JFrame();
+		j.setSize(500,500);
+		j.setLayout(new GridLayout(4,3));
+		
+		Container c=j.getContentPane();
+		c.setBackground(Color.white);
+		
+		JLabel l[]=new JLabel[12];
+		
+		for(int i=0;i<l.length;i++) {
+			l[i]=new JLabel(Integer.toString(i));
+			
+			j.add(l[i]);
+			
+			l[i].addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					Container cc=j.getContentPane();
+					
+					int a=(int)(Math.random() * 256);
+					int b=(int)(Math.random() * 256);
+					int c=(int)(Math.random() * 256);
+					
+					cc.setBackground(new Color(a,b,c));
+				}
+			});
+			j.setVisible(true);
+		}
+	}
+}
+*/
+
+//GUI 2번째 방법
+/*
+class ac extends MouseAdapter {
+	int r = (int) (Math.random() * 256);
+	int g = (int) (Math.random() * 256);
+	int b = (int) (Math.random() * 256);
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JLabel j = (JLabel) e.getSource();
+		j.setBackground(new Color(r, g, b));
+	}
+}
+class study21 extends JFrame {
+
+	study21() {
+		setLayout(new GridLayout(4, 3));
+
+		JLabel[] j = new JLabel[12];
+		
+		Container c = getContentPane();
+
+		for (int i = 0; i < 12; i++) {
+			j[i]=new JLabel();
+			j[i].setOpaque(true);
+			j[i].setBackground(Color.WHITE);
+			j[i].addMouseListener(new ac());
+			c.add(j[i]);
+		}
+
+		setVisible(true);
+	}
+
+public static void main(String[] args) {
+
+	new study21();
+	}
+}
+*/
+
+//GUI 3번째 방법
+/*
+public class study21 extends JFrame {
+	JLabel jl[]=new JLabel[12];
+	int r,g,b;
+	study21(){
+		Container c=getContentPane();
+		c.setLayout(new GridLayout(4,3));
+		this.setSize(500,500);
+		for(int i=0; i<12; i++) {
+			jl[i]=new JLabel(Integer.toString(i));
+			jl[i]=new JLabel("문자열");
+			jl[i].setBackground(Color.white);
+			
+			jl[i].addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				JLabel la=(JLabel)e.getSource();
+				int r = (int) (Math.random() * 256);
+				int g = (int) (Math.random() * 256);
+				int b = (int) (Math.random() * 256);
+				la.setOpaque(true);//투명도 설정
+				
+				la.setBackground(new Color(r,g,b));
+			}
+		});
+			c.add(jl[i]);
+			setVisible(true);
+		}
+	}
+public static void main(String[] args) {
+
+		new study21();
+	}
+}
+*/
+
+/*
+public class study21{
+	public static void main(String[] args) {
+	//IP주소 얻어내는 클래스
+		try {
+			InetAddress i=InetAddress.getLocalHost();//getLocalHost()//ip 주소 확인
+			System.out.println("IP :"+i.getHostAddress());
+		
+			InetAddress[] ary=InetAddress.getAllByName("www.naver.com");
+			
+			for(InetAddress a:ary) {
+				System.out.println(a.getHostAddress());
+			}
+			
+		}catch(Exception e) {}
+	}
+}
+*/
+/*
+IP :172.16.7.69 //현재 pc의 IP 주소
+125.209.222.142 //네이버 IP 주소
+125.209.222.141 //네이버 IP 주소
+*/
+
+//=========================================
+// 서버 							클라이언트
+
+// 서버소켓을 만들어놓고				소켓 생성
+// 클라이언트의 연결 요청을 기다림			연결 요청
+
+// 연결 요청 수락(accept())	
+// 소켓 생성
+//==========================================
+// OutputStream					InputStream
+
+
+/*
+public class study21 extends JFrame{
+	study21() {
+		Container c=getContentPane();
+		c.setLayout(new FlowLayout());
+		
+		JLabel j=new JLabel("오늘은 화요일");
+		c.add(j);
+		
+		j.setFont(new Font("돋움",Font.PLAIN,20));
+		
+		j.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyChar()=='+') {
+					JLabel j1=(JLabel)e.getSource();
+					Font fo=j1.getFont();
+					int s=fo.getSize(); //글자 크기 알아냄
+					if(s<=3) 
+						return;
+					j1.setFont(new Font("돋움",Font.PLAIN,s-3));
+				}
+			}
+		});
+		j.setFocusable(true); //문자열이 포커스 받을 수 있도록
+		j.requestFocus(); 	 //문자열에 키 입력 포커스 지정
+		
+		this.setSize(500,500);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+	
+		new study21();
+	}
+}
+*/
+//+키를 누르면 글자가 작아지는 예제
+
+public class study21{
+	public static void main(String[] args) {
+	
+	
 	}
 }
