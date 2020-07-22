@@ -4,6 +4,16 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +21,7 @@ import java.util.Map;
 import java.util.NavigableSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 import javax.swing.JButton;
@@ -158,7 +169,6 @@ public class study22 {
 //10
 //20 juli
 
-
 /*
 public class study22 {
 	public static void main(String[] args) {
@@ -170,27 +180,31 @@ public class study22 {
 	
 	JFrame j= new JFrame("jframe");
 	j.setSize(500,500);
-	
+	j.setLayout(new FlowLayout());
 	JButton b1=new JButton("1");
 	JButton b2=new JButton("2");
 	
 	j.add(b1);
 	j.add(b2);
 	
-	b1.addItemListener(new ItemListener() {		
+	b1.addActionListener(new ActionListener() {
+		
 		@Override
-		public void itemStateChanged(ItemEvent e) {
-			if(e.getStateChange()==ItemEvent.SELECTED)
-				b1.setVisible(false);
-			else
-				b1.setVisible(true);
+		public void actionPerformed(ActionEvent e) {
+			b1.setVisible(false);
+			
 		}
-	});
-	
-	
-	
+	}); 	
+	b2.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(b2.getX());
+			System.out.println(b2.getY());
+			
+		}
+	}); 		
 	j.setVisible(true);
-	
 	}
 }
 */
@@ -531,4 +545,419 @@ public class study22{
 //미미  :  96
 //두두  :  100
 
+/*
+3. HashMap인터페이스 구조(이름, 성적)<String, Integer>로 설정해 임의의 값 3개 해쉬맵에 저장한다. 
+      저장 후 평균 점수와 최고점수, 최고 점수를 받은 이름을 출력해라.
 
+(entrySet, getKey, getValue 메소드 이용)
+*/
+/*
+public class study22{
+	public static void main(String[] args) {
+		
+		HashMap<String, Integer> h= new HashMap<String,Integer>();
+		
+		h.put("김자바",new Integer (90));
+		h.put("강자바",new Integer (85));
+		h.put("이자바",new Integer (55));
+
+		Set set= h.entrySet(); // 키 와 값을 set형태로 저장
+		Iterator it = set.iterator();
+
+		while(it.hasNext()){
+		Map.Entry e = (Map.Entry)it.next();
+
+		System.out.println("이름: " +e.getKey() +", 점수 : "+e.getValue());
+
+
+		}
+
+		set=h.keySet(); // 키를 set값에 저장
+		System.out.println("참가자 명단 : " +set);
+
+		Collection v = h.values(); //값을 컬랙션으로 저장한다.
+		it = v.iterator();
+
+		int total = 0;
+
+		while (it.hasNext())
+		{
+		Integer i = (Integer)it.next();
+		total += i;// total += i.intValues(); 같은말
+		}
+
+		System.out.println("총점 : " + total);
+		System.out.println("평균 : " + (float) total/set.size());
+		System.out.println("최고점수 : " + Collections.max(v));
+		System.out.println("최저점수 : " + Collections.min(v));
+	}
+}
+*/
+/*
+이름: 김자바, 점수 : 90
+이름: 강자바, 점수 : 85
+이름: 이자바, 점수 : 55
+참가자 명단 : [김자바, 강자바, 이자바]
+총점 : 230
+평균 : 76.666664
+최고점수 : 90
+최저점수 : 55
+*/
+/*
+public class study22{
+	public static void main(String[] args) {
+		
+		HashMap<String, Integer> m= new HashMap<String,Integer>();
+		
+		m.put("aa",new Integer (90));
+		m.put("bb",new Integer (70));
+		m.put("cc",new Integer (80));
+		
+		int max=0;
+		int sum=0;
+		String name=null;
+		
+		Set<Map.Entry<String, Integer>> es=m.entrySet();
+		
+		//한번 다 돈다.(es->전체 해시맵)
+		for(Map.Entry<String, Integer> e:es) {
+			if(e.getValue()>max) {
+				max=e.getValue();
+				name=e.getKey();
+			}
+			sum+=e.getValue();
+		}
+		double avg=sum/3.0;
+		
+		System.out.println(avg);
+		System.out.println(max);
+		System.out.println(name);
+	} 
+}
+*/
+/*
+80.0
+90
+aa
+*/
+
+/*
+4. Double b[](wrapper클래스)에 실수 2개를 넣고 for-each문으로 출력해라.
+
+ Double b[];
+*/
+/*
+public class study22{
+	public static void main(String[] args) {
+		
+		Double b[] = new Double[2];
+		
+		b[0]=new Double(1.5);
+		b[1]=new Double(2.5);
+		
+		for(double i: b) {
+			System.out.println(i);
+		}
+	}
+}
+*/
+//1.5
+//2.5
+
+/*
+public class study22{
+	public static void main(String[] args) {
+	
+		Double b[]= {1.5,2.5};
+		
+		for(Double c:b) {
+		System.out.println(c);
+		}
+	}
+}
+*/
+//1.5
+//2.5
+
+/*
+class Coffee{
+	int price;
+	int num;
+	
+	Coffee(int p, int n) {
+		price=p;
+		num=n;
+	}
+	int total() {
+		return price*num;
+	}
+}
+public class study22{
+	public static void main(String[] args) {
+	
+		//객체배열 요소가 3개 [3]이면서 커피의 총합 출력 
+		//total 함수에 접근해주면 된다.
+		
+		Coffee c[]=new Coffee[3];
+		int a[] = {5000,4000,3000};
+		int b[] = {1,2,3};
+		
+		int sum=0;
+		for(int i=0; i<3;i++) {
+			c[i]=new Coffee(a[i],b[i]);
+			sum+=c[i].total();
+		}
+		System.out.println(sum);	//22000
+	}
+}
+*/
+
+/*
+class Str implements Comparator<String>{
+	
+	public int compare(String str1, String str2) {
+		
+		if(str1.length()>str2.length()) {
+			return 1;
+		}
+		else if(str1.length()<str2.length()) {
+			return -1;
+		}
+		else return 0;
+	}
+}
+public class study22{
+	public static void main(String[] args) {
+	
+		TreeSet<String> t=new TreeSet<String>();
+		t.add("aa");
+		t.add("aaaaa");
+		t.add("aaa");
+		
+		Iterator<String> it=t.iterator();
+		while(it.hasNext())
+			System.out.println(it.next());
+	}
+}
+aa
+aaa
+aaaaa
+*/
+
+//Comparable=> compareTo()
+//Comparator=> compare()
+/*
+class Str implements Comparator<String>{
+	
+	public int compare(String str1, String str2) {
+		
+		if(Integer.parseInt(str1)>str2.length()) {
+			return 1;
+		}
+		else if(Integer.parseInt(str1)<str2.length()) {
+			return -1;
+		}
+		else return 0;
+	}
+}
+public class study22{
+	public static void main(String[] args) {
+	
+		TreeSet<String> t=new TreeSet<String>();
+		t.add("aa");
+		t.add("dd");
+		t.add("cc");
+		
+		Iterator<String> it=t.iterator();
+		while(it.hasNext())
+			System.out.println(it.next());
+	}
+}
+*/
+/*
+aa
+cc
+dd
+*/
+
+
+/*
+5. 다음 클래스와 main()을 보고 쓰레드를 생성하는 Student클래스를 작성해라
+
+출력이 10,20,30,……10씩 증가시키게끔 해라.(add메소드를 조금 바꿔라)-동기화
+
+class Sh {
+	
+	private int num = 0;
+
+	public void add() {
+		int n = num;
+		Thread.yield();
+		n += 10;
+		num = n;
+		System.out.println(num);
+	}
+}
+----------------------
+
+Main(){
+
+Sh sh = new Sh();
+		
+		Student th1 = new Student("jack",sh);
+		Student th2 = new Student("tom", sh);
+
+		th1.start();
+		th2.start();
+*/
+//첫번째 방법
+/*
+class Sh {
+	
+	private int num = 0;
+
+	public void add() {
+		int n = num;
+		Thread.yield();
+		for(int i=1; i<10; i++) {
+			n += 10;
+			num = n;
+			System.out.println(num);
+		}
+	}
+}
+class Student extends Thread{
+	
+	String name;
+	Sh sh;
+	
+	Student(String n, Sh sh){
+		this.name=n;
+		this.sh=sh;
+	}
+	
+	public void run() {
+		sh.add();
+	}
+}
+public class study22{
+	public static void main(String[] args) {
+	
+		Sh sh = new Sh();
+		
+		Student th1 = new Student("jack",sh);
+		Student th2 = new Student("tom", sh);
+
+		th1.start();
+		th2.start();
+	}	
+}
+*/
+/*
+10
+10
+20
+30
+40
+50
+60
+70
+80
+90
+20
+30
+40
+50
+60
+70
+80
+90
+*/
+
+//두번째 방법
+/*
+class Sh {
+	
+	private int num = 0;
+
+	public synchronized void add() {	//synchronized => 충돌 방지
+		int n = num;
+		Thread.yield();
+		for(int i=1; i<10; i++) {
+			n += 10;
+			num = n;
+			System.out.println(num);
+		}
+	}
+}
+class Student extends Thread{
+	String a;
+	Sh s;
+	
+	Student(String a, Sh s){
+		this.a=a;
+		this.s=s;
+	}
+	public void run() {
+		s.add();
+	}
+}
+public class study22{
+	public static void main(String[] args) {
+	
+		Sh sh = new Sh();
+		
+		Student th1 = new Student("jack",sh);
+		Student th2 = new Student("tom", sh);
+
+		th1.start();
+		th2.start();
+	}	
+}
+*/
+/*
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+110
+120
+130
+140
+150
+160
+170
+180
+*/
+
+//하나의 문자열을 입력해서
+//한 라인으로 읽어 공백으로 분리된 수가 몇개 인지 출력..
+/*
+public class study22{
+	public static void main(String[] args) {
+
+		Scanner s=new Scanner(System.in);
+		System.out.println("문자열 입력하세요");
+		
+		String str=s.nextLine();
+		StringTokenizer stk=new StringTokenizer(str," ");
+		System.out.println(str);
+		System.out.println();
+			
+		System.out.println("공백으로 분리된 수:"+stk.countTokens());		
+	}
+}
+*/
+/*
+문자열 입력하세요
+안녕1 안녕2 안녕3
+안녕1 안녕2 안녕3
+
+공백으로 분리된 수:3
+*/
