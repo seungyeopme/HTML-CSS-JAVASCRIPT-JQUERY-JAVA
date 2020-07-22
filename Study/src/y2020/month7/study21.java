@@ -753,7 +753,6 @@ IP :172.16.7.69 //현재 pc의 IP 주소
 //==========================================
 // OutputStream					InputStream
 
-
 /*
 public class study21 extends JFrame{
 	study21() {
@@ -790,10 +789,3 @@ public class study21 extends JFrame{
 }
 */
 //+키를 누르면 글자가 작아지는 예제
-
-public class study21{
-	public static void main(String[] args) {
-	
-	
-	}
-}
