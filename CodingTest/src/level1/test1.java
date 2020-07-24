@@ -44,25 +44,28 @@ answers			return
 모든 사람이 2문제씩을 맞췄습니다.
 
 */
-public class test1 {
-
-	public int[] solution(int[] answers) {
+class A {
+	public static void solution(int[] answers) {
+		//문제에 나온 정답의 반복되는 패턴을 배열로 만들어줍니다.
         int[] arr1 = {1, 2, 3, 4, 5};
         int[] arr2 = {2, 1, 2, 3, 2, 4, 2, 5};
         int[] arr3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
  
-        HashMap<Integer, Integer> hm = new HashMap<>();
+      //HashMap을 활용하여 Key로 학생의 번호, Value로 정답 갯수를 설정해줍니다.
+        HashMap<Integer, Integer> hm = new HashMap<>(); 
         hm.put(1, 0);
         hm.put(2, 0);
         hm.put(3, 0);
-        //정답 갯수 Count
+        
+      //for문으로 주어진 정답 배열을 돌면서 %(각 학생의 정답 배열의 길이)를 통해 맞은 갯수를 Count 해줍니다.
+      //정답 갯수 Count       
         for (int i = 0; i < answers.length; i++) {
             int num = answers[i];
             if (arr1[i%5] == num) hm.replace(1, hm.get(1)+1);
             if (arr2[i%8] == num) hm.replace(2, hm.get(2)+1);
             if (arr3[i%10] == num) hm.replace(3, hm.get(3)+1);
         }
-        //최대 값 구하기
+        //HashMap의 Value 중 최대값을 구해줍니다.
         int max = hm.get(1);
         for (Integer val : hm.values()) {
             if (val > max) {
@@ -70,6 +73,7 @@ public class test1 {
             }
         }
         //정답 리스트 형성
+        //최대값이랑 일치하는 Key를 answerList에 저장해줍니다.
         ArrayList<Integer> answerList = new ArrayList<>();
         for (Integer key : hm.keySet()) {
             if (hm.get(key) == max) {
@@ -77,42 +81,26 @@ public class test1 {
             }
         }
         //정렬 및 배열로 변환
+        //Collections.sort를 활용해 오름차순으로 정렬하고 answer 배열로 변환 후 return해줍니다.
         int[] answer = new int[answerList.size()];
         Collections.sort(answerList);
         for (int i = 0; i < answer.length; i++) {
             answer[i] = answerList.get(i);
+            System.out.println(answer[i]);
         }
-        return answer;
+        
 	}
 }
-/*
-(line 50 ~ 52)
-
-문제에 나온 정답의 반복되는 패턴을 배열로 만들어줍니다.
-
-
-
-(line 55 ~ 64)
-
-HashMap을 활용하여 Key로 학생의 번호, Value로 정답 갯수를 설정해줍니다.
-
-for문으로 주어진 정답 배열을 돌면서 %(각 학생의 정답 배열의 길이)를 통해 맞은 갯수를 Count 해줍니다. 
-
-
-
-(line 65 ~ 70)
-
-HashMap의 Value 중 최대값을 구해줍니다.
-
-
-
-(line 72 ~ 77)
-
-최대값이랑 일치하는 Key를 answerList에 저장해줍니다.
-
-
-
-(line 79 ~ 84)
-
-Collections.sort를 활용해 오름차순으로 정렬하고 answer 배열로 변환 후 return해줍니다.
+	public class test1{
+	public static void main(String[] args) {
+		A a = new A();
+		a.solution(new int[] {1,2,3,4,5});
+		a.solution(new int[] {2, 1, 2, 3, 2, 4, 2, 5});
+		a.solution(new int[] {3, 3, 1, 1, 2, 2, 4, 4, 5, 5});	
+	}
+}
+/*	
+	1
+	2
+	3
 */

@@ -1,0 +1,31 @@
+--2020.07.23
+
+--control + enter 한 줄 실행
+
+--모든 도서의 이름과 가격을 검색하시오.
+SELECT bookname, price FROM Book;
+
+--모든 도서의 도서번호, 도서이름, 출판사, 가격을 검색하시오.
+SELECT * FROM Book;
+
+--도서 테이블에 있는 모든 출판사 검색하시오(중복을 제거하고)
+SELECT DISTINCT publisher FROM Book;
+
+/*
+desc: 테이블 구조를 확인
+ex) desc student;
+*/
+
+/*
+select: 테이블 내에서 정보 검색
+(*) : 모든 열
+ex) select * from student;
+ex) select stu_no,stu_name from student;
+*/
+
+/*
+중복 행 제거 (distinct)
+: 해당 열에 같은 값이 존재하면
+중복되는 값이 제거되어 검색된다.
+ex) select distinct stu_dept from student;
+*/

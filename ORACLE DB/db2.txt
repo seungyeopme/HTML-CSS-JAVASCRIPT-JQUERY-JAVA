@@ -1,0 +1,808 @@
+--2020.07.24
+
+--desc book;
+/*
+이름        널?       유형           
+--------- -------- ------------ 
+BOOKID    NOT NULL NUMBER(2)    
+BOOKNAME           VARCHAR2(40) 
+PUBLISHER          VARCHAR2(40) 
+PRICE              NUMBER(8)    
+*/
+
+--select * from book;
+/*
+1	축구의 역사	굿스포츠	7000
+2	축구아는 여자	나무수	13000
+3	축구의 이해	대한미디어	22000
+4	골프 바이블	대한미디어	35000
+5	피겨 교본	굿스포츠	8000
+6	역도 단계별기술	굿스포츠	6000
+7	야구의 추억	이상미디어	20000
+8	야구를 부탁해	이상미디어	13000
+9	올림픽 이야기	삼성당	7500
+10	Olympic Champions	Pearson	13000
+*/
+
+--select bookname from book;
+/*
+축구의 이해
+골프 바이블
+피겨 교본
+역도 단계별기술
+야구의 추억
+야구를 부탁해
+올림픽 이야기
+Olympic Champions
+*/
+
+--desc orders;
+/*
+이름        널?       유형        
+--------- -------- --------- 
+ORDERID   NOT NULL NUMBER(2) 
+CUSTID             NUMBER(2) 
+BOOKID             NUMBER(2) 
+SALEPRICE          NUMBER(8) 
+ORDERDATE          DATE      
+*/
+
+--select * from book where price < 20000;
+/*
+1	축구의 역사	굿스포츠	7000
+2	축구아는 여자	나무수	13000
+5	피겨 교본	굿스포츠	8000
+6	역도 단계별기술	굿스포츠	6000
+8	야구를 부탁해	이상미디어	13000
+9	올림픽 이야기	삼성당	7500
+10	Olympic Champions	Pearson	13000
+*/
+
+--가격이 10000원 이상 20000이하인 책 제목 출력
+select bookname from book where price between 10000 and 20000;
+/*
+축구아는 여자
+야구의 추억
+야구를 부탁해
+Olympic Champions
+*/
+
+--출판사가 '굿스포츠' 혹은 '대한미디어'인 도서를 검색하시오.
+select * from book where publisher in('굿스포츠', '대한미디어');
+/*
+1	축구의 역사	굿스포츠	    7000
+3	축구의 이해	대한미디어	22000
+4	골프 바이블	대한미디어	35000
+5	피겨 교본	    굿스포츠	    8000
+6	역도 단계별기술	굿스포츠	6000
+*/
+
+--1. select ~ from ~where
+--2. between A and B
+--3. in ~중에
+--4. like ~와 같은]
+
+--'축구의 역사'를 출간한 출판사를 검색
+select publisher from book where bookname like '축구의 역사';
+--굿스포츠
+
+
+select * from book where bookname like '_구%';
+--두번째 문자에 '구' 인 것을 출력
+/*
+1	축구의 역사	굿스포츠	7000
+2	축구아는 여자	나무수	13000
+3	축구의 이해	대한미디어	22000
+7	야구의 추억	이상미디어	20000
+8	야구를 부탁해	이상미디어	13000
+*/
+
+--1. 학생 테이블의 구조를 검색해라.
+desc student;
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+STU_NO     NOT NULL CHAR(9)      
+STU_NAME            VARCHAR2(12) 
+STU_DEPT            VARCHAR2(20) 
+STU_GRADE           NUMBER(1)    
+STU_CLASS           CHAR(1)      
+STU_GENDER          CHAR(1)      
+STU_HEIGHT          NUMBER(5,2)  
+STU_WEIGHT          NUMBER(5,2)
+*/
+
+--2. 과목 테이블의 구조를 검색해라.
+desc subject;
+/*
+이름        널?       유형           
+--------- -------- ------------ 
+SUB_NO    NOT NULL CHAR(3)      
+SUB_NAME           VARCHAR2(30) 
+SUB_PROF           VARCHAR2(12) 
+SUB_GRADE          NUMBER(1)    
+SUB_DEPT           VARCHAR2(20) 
+*/
+--3. 학생 테이블의 모든 데이터를 검색해라.
+select * from student;
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+20152088 	조민우	전기전자	1	C	M	188	90
+20142021 	심수정	전기전자	2	A	F	168	45
+20132003 	박희철	전기전자	3	B	M		63
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+20131001 	김종헌	컴퓨터정보	3	C	M		72
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+--4. 수강 테이블의 모든 데이터를 검색해라.
+select * from enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+103	20152088 	45
+101	20131025 	65
+104	20131025 	65
+108	20151062 	81
+107	20143054 	41
+102	20153075 	66
+105	20153075 	56
+102	20153088 	61
+105	20153088 	78
+*/
+--5. 학생들의 학번과 이름을 검색해라.
+select stu_no, stu_name from student;
+/*
+20153075 	옥한빛
+20153088 	이태연
+20143054 	유가인
+20152088 	조민우
+20142021 	심수정
+20132003 	박희철
+20151062 	김인중
+20141007 	진현무
+20131001 	김종헌
+20131025 	옥성우
+*/
+
+--6. 과목들의 과목번호와 과목이름을 검색하라.
+select sub_no sub_name from subject;
+/*
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+*/
+--7. 학생들의 학번과 이름, 성별을 검색하라.
+select stu_name, stu_gender from student;
+/*
+옥한빛	M
+이태연	F
+유가인	F
+조민우	M
+심수정	F
+박희철	M
+김인중	M
+진현무	M
+김종헌	M
+옥성우	F
+*/
+--8. 학생들의 모든 정보를 검색하라.
+select * from student;
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+20152088 	조민우	전기전자	1	C	M	188	90
+20142021 	심수정	전기전자	2	A	F	168	45
+20132003 	박희철	전기전자	3	B	M		63
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+20131001 	김종헌	컴퓨터정보	3	C	M		72
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+--9. 학생들의 학번과 이름, 학년, 반을 검색하라.
+select stu_no, stu_name, stu_grade, stu_class from student;
+/*
+20153075 	옥한빛	1	C
+20153088 	이태연	1	C
+20143054 	유가인	2	C
+20152088 	조민우	1	C
+20142021 	심수정	2	A
+20132003 	박희철	3	B
+20151062 	김인중	1	B
+20141007 	진현무	2	A
+20131001 	김종헌	3	C
+20131025 	옥성우	3	A
+*/
+--10. 과목들의 과목이름과 교수이름을 검색하라.
+select sub_name, sub_prof from subject;
+/*
+데이터베이스	이재영
+자동제어	정순정
+자동화설계	박민영
+컴퓨터개론	강종영
+기계공작법	김태영
+기초전자실험	김유석
+시스템분석설계	강석현
+기계요소설계	김명성
+전자회로실험	최영민
+CAD응용실습	구봉규
+소프트웨어공학	권민성
+*/
+--11. 과목번호, 학번, 점수를 검색하라.
+select sub_no, stu_no, enr_grade from enrol;
+
+--12. 학생들의 체중과 신장을 학번, 이름과 함께 검색하라.
+select stu_weight, stu_height, stu_no, stu_name from student;
+/*
+80	177	20153075 	옥한빛
+50	162	20153088 	이태연
+47	154	20143054 	유가인
+90	188	20152088 	조민우
+45	168	20142021 	심수정
+63		20132003 	박희철
+67	166	20151062 	김인중
+64	174	20141007 	진현무
+72		20131001 	김종헌
+63	172	20131025 	옥성우
+*/
+--13. 학생들의 학과 중복을 제거하고 검색하라.
+select distinct stu_dept from student;
+/*
+기계
+전기전자
+컴퓨터정보
+*/
+--14. 학생들의 성별 중복을 제거하고 검색하라.
+select distinct stu_gender from student;
+/*
+M
+F
+*/
+15. 학생들의 학년 중복을 제거하고 검색하라.
+select distinct stu_grade from student;
+/*
+1
+2
+3
+*/
+
+select stu_no, sub_no, enr_grade+10 from enrol;
+--enr_grade 기본 값에다가 10을 더한 값을 출력한다.
+/*
+20131001 	101	90
+20131001 	104	66
+20132003 	106	82
+20152088 	103	55
+20131025 	101	75
+20131025 	104	75
+20151062 	108	91
+20143054 	107	51
+20153075 	102	76
+20153075 	105	66
+20153088 	102	71
+20153088 	105	88
+*/
+
+--별칭 부여하기(AS)
+--별칭은 기본 값이 대문자
+select stu_no as ID, stu_name as name from student;
+/*
+ID          NAME
+20153075 	옥한빛
+20153088 	이태연
+20143054 	유가인
+20152088 	조민우
+20142021 	심수정
+20132003 	박희철
+20151062 	김인중
+20141007 	진현무
+20131001 	김종헌
+20131025 	옥성우
+*/
+
+--연결 연산자(||)
+select stu_dept || stu_name as 학과성명 from student;
+/*
+학과성명
+기계옥한빛
+기계이태연
+기계유가인
+전기전자조민우
+전기전자심수정
+전기전자박희철
+컴퓨터정보김인중
+컴퓨터정보진현무
+컴퓨터정보김종헌
+컴퓨터정보옥성우
+*/
+select stu_dept ||','||stu_name as 학과성명 from student;
+/*
+학과성명
+기계,옥한빛
+기계,이태연
+기계,유가인
+전기전자,조민우
+전기전자,심수정
+전기전자,박희철
+컴퓨터정보,김인중
+컴퓨터정보,진현무
+컴퓨터정보,김종헌
+컴퓨터정보,옥성우
+*/
+
+--학생 테이블로부터 컴퓨터정보과 학생들의 이름, 학과 출력
+select stu_name, stu_dept from student where stu_dept='컴퓨터정보';
+/*
+STU_NAME STU_DEPT
+김인중	컴퓨터정보
+진현무	컴퓨터정보
+김종헌	컴퓨터정보
+옥성우	컴퓨터정보
+*/
+
+--학생 테이블로부터 체중이 60~70사이의 데이터 출력
+select stu_weight from student where stu_weight between 60 and 70;
+/*
+63
+67
+64
+63
+*/
+
+--학생 테이블로부터 김씨 성을 가진 학생들 이름 출력(%)
+select stu_name from student where stu_name like'김%';
+/*
+김인중
+김종헌
+*/
+ 
+--학생 테이블로부터 학번이 2014로 시작되는 데이터 다 출력
+select stu_no from student where stu_no like'2014%';
+/*
+STU_NO
+20141007 
+20142021 
+20143054 
+*/
+
+--널 값 확인 여부
+select stu_no, stu_height from student where stu_height is null;
+/*
+STU_NO      STU_HEIGHT
+20132003 	
+20131001 	
+*/
+
+--널 값 아닌 것
+select stu_no, stu_height from student where stu_height is not null;
+/*
+20153075 	177
+20153088 	162
+20143054 	154
+20152088 	188
+20142021 	168
+20151062 	166
+20141007 	174
+20131025 	172
+*/
+
+--IN(여러 개 조건 값 중 하나만 만족하는 행 처리할 경우)
+select stu_no, stu_name, stu_dept from student where stu_dept in('컴퓨터정보', '기계');
+/*
+STU_NO      STU_NAME    STU_DEPT
+20153075 	옥한빛	    기계
+20153088 	이태연	    기계
+20143054 	유가인     	기계
+20151062 	김인중	    컴퓨터정보
+20141007 	진현무	    컴퓨터정보
+20131001 	김종헌	    컴퓨터정보
+20131025 	옥성우	    컴퓨터정보
+*/
+
+--16. 학생들의 학과, 학년 중복을 제거하고 검색하라.
+select distinct stu_dept stu_grade from student;
+/*
+기계
+전기전자
+컴퓨터정보
+*/
+17. 학생들의 학과, 반 중복을 제거하고 검색하라.
+select distinct stu_dept from student;
+/*
+기계
+전기전자
+컴퓨터정보
+*/
+select distinct stu_class from student;
+/*
+C
+B
+A
+*/
+18. 학생들의 체중을 5만큼 증가시킨 값을 검색하라.
+select stu_weight+5 from student;
+/*
+85
+55
+52
+95
+50
+68
+72
+69
+77
+68
+*/
+19. 학생들의 체중을 5만큼 감소시킨 값을 검색하라.
+select stu_weight-5 from student;
+/*
+75
+45
+42
+85
+40
+58
+62
+59
+67
+58
+*/
+20. 학생들의 학번과 이름을 별칭 "학번", "이름"으로 부여하여 검색하라.
+select stu_no as 학번, stu_name as 이름 from student;
+/*
+20153075 	옥한빛
+20153088 	이태연
+20143054 	유가인
+20152088 	조민우
+20142021 	심수정
+20132003 	박희철
+20151062 	김인중
+20141007 	진현무
+20131001 	김종헌
+20131025 	옥성우
+*/
+21. 수강(enrol)테이블의 모든 정보를 검색하라.
+select * from enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+103	20152088 	45
+101	20131025 	65
+104	20131025 	65
+108	20151062 	81
+107	20143054 	41
+102	20153075 	66
+105	20153075 	56
+102	20153088 	61
+105	20153088 	78
+*/
+22. 학생 테이블에서 학과명과 이름을 합쳐서 검색하라.(||)
+select stu_dept || stu_name from student;
+/*
+기계옥한빛
+기계이태연
+기계유가인
+전기전자조민우
+전기전자심수정
+전기전자박희철
+컴퓨터정보김인중
+컴퓨터정보진현무
+컴퓨터정보김종헌
+컴퓨터정보옥성우
+*/
+23. 학생의 이름과 학과를 '컴퓨터정보과 옥한빛입니다'식으로 검색하라.
+select stu_dept ||'과 '|| stu_name ||'입니다' from student;
+/*
+기계과 옥한빛입니다
+기계과 이태연입니다
+기계과 유가인입니다
+전기전자과 조민우입니다
+전기전자과 심수정입니다
+전기전자과 박희철입니다
+컴퓨터정보과 김인중입니다
+컴퓨터정보과 진현무입니다
+컴퓨터정보과 김종헌입니다
+컴퓨터정보과 옥성우입니다
+*/
+
+24. 컴퓨터정보 학생들을 검색하라.
+select stu_dept from student where stu_dept='컴퓨터정보';
+/*
+컴퓨터정보
+컴퓨터정보
+컴퓨터정보
+컴퓨터정보
+*/
+
+25. 기계과 학생들을 검색하라.
+select stu_dept from student where stu_dept='기계';
+/*
+기계
+기계
+기계
+*/
+
+--학생들의 정보를 학번 기준으로 오름차순 정렬
+select stu_no from student order by stu_no;
+/*
+20131001 
+20131025 
+20132003 
+20141007 
+20142021 
+20143054 
+20151062 
+20152088 
+20153075 
+20153088 
+*/
+
+--order by: 정렬
+--오름차순으로 정렬할 경우 생략가능
+--내림차순으로 정렬할 경우 DESC 명시
+
+--학생들의 정보를 학번 기준으로 내림차순 정렬
+select stu_no from student order by stu_no DESC;
+/*
+20153088 
+20153075 
+20152088 
+20151062 
+20143054 
+20142021 
+20141007 
+20132003 
+20131025 
+20131001 
+*/
+
+select stu_no, stu_weight as target from student order by target;
+/*
+STU_NO      TARGET
+20142021 	45
+20143054 	47
+20153088 	50
+20132003 	63
+20131025 	63
+20141007 	64
+20151062 	67
+20131001 	72
+20153075 	80
+20152088 	90
+*/
+
+select stu_no, stu_weight as target from student order by 2;
+--ORDER BY 2는 속성 stu_no, stu_weight 중 두 번째!
+/*
+20142021 	45
+20143054 	47
+20153088 	50
+20132003 	63
+20131025 	63
+20141007 	64
+20151062 	67
+20131001 	72
+20153075 	80
+20152088 	90
+*/
+
+select stu_dept, stu_weight, stu_name 
+from student 
+order by stu_dept, stu_weight ;
+/*
+기계	47	유가인
+기계	50	이태연
+기계	80	옥한빛
+전기전자	45	심수정
+전기전자	63	박희철
+전기전자	90	조민우
+컴퓨터정보	63	옥성우
+컴퓨터정보	64	진현무
+컴퓨터정보	67	김인중
+컴퓨터정보	72	김종헌
+*/
+
+select stu_dept, stu_weight, stu_name 
+from student 
+order by stu_dept, stu_weight desc ;
+/*
+기계	80	옥한빛
+기계	50	이태연
+기계	47	유가인
+전기전자	90	조민우
+전기전자	63	박희철
+전기전자	45	심수정
+컴퓨터정보	72	김종헌
+컴퓨터정보	67	김인중
+컴퓨터정보	64	진현무
+컴퓨터정보	63	옥성우
+*/
+
+select round(345.678),  --반올림
+       round(345.678,0), 
+       round(345.678,1),
+       round(345.678,-1) 
+       from dual;
+--round(345.678) round(345.678,0) round(345.678,1) round(345.678,-1)
+--346	            346	                345.7	        350
+
+select trunc(123.456,2) from dual; --버림
+--trunc(123.456,2)
+--123.45
+
+select mod(10,5) from dual; --나머지
+--mod(10,5)
+--0
+
+--[ 문자형 함수 ]
+ 
+--문자열과 문자열을 연결하는 함수 : CONCAT(char1,char2) or || 를 이용
+select CONCAT('HELLO','_World'), CONCAT('good','_bad')from dual;
+select 'Hello' ||'World' from dual;-- ||연산자를 이용한 문자열 합치기
+select sal ||'원' from EMP;
+ 
+--단어의 첫 문자를 대문자로 변환 : INITCAP(char)
+select INITCAP('the soap')from dual;-- The Soap
+select INITCAP('good/bad morning')from dual;-- Good/Bad Morning
+ 
+--LOWER(char) / UPPER(char)
+select LOWER('ABC')from dual;
+select UPPER('abc')from dual;
+ 
+--LPAD()
+select LPAD('good',6)from dual;-- good이란 글자를 6자리로 늘림
+select lpad('good',6,'@')"LPAD1" from dual;-- @@good 6자리로 확대하고 왼족에 3번째
+-- 인자 문자를 채움
+select lpad('good',8,'L')from dual;-- LLLLgood
+ 
+-- RPAD()
+select RPAD('good',6,'#')from dual;-- good##
+-- 단, 한글은 2바이트니까 주의해야한다.
+select RPAD('good','10','홍길동')from dual;-- good(4byte) + '홍길동'(6byte) 총 10byte필요.
+ 
+-- trim() : LTRIM(), RTRIM(), trim()
+select LTrim('goodbye','g')from dual;-- oodbye 왼쪽에 있는 g값을 지움
+select lTrim('goodbye','o')from dual;-- goodbye 중간에 기여잇는 경우는 지울 수 없음 아래처럼 해야함
+select lTrim('goodbye','go')from dual;-- dbye
+ 
+select RTrim('goodbye','go')from dual;-- goodbye 오른쪽에서 go를 찾으니까 없음으로 안지워짐
+select RTrim('goodbye','e')from dual;
+ 
+-- 왼쪽 삭제 'leading'
+select trim(leadingfrom ' good ')from dual;-- good
+select length(trim(leadingfrom ' good '))from dual;-- 5 : leading은 왼쪽기준 공백 제거함으로 뒤에 5개 길이가 나옴
+-- 오른쪽 삭제 'trailing'
+select trim(trailingfrom ' good ')from dual;
+-- 양쪽 : 'both'
+select trim(bothfrom ' good ')from dual;-- 양쪽 공백을 지움
+-- 왼쪽기준에서 g문자를 지움
+select trim(leading'g' from 'good')from dual;-- ood
+ 
+--substr('문자열',시작인덱스,문자열개수(길이)) : 부분적인 문자열을 뽑아내는 함수(시작 인덱스가 1임!!)
+select substr('good morning john',8,4)from dual;-- rnin
+select substr('good morning john',6)from dual;-- morning john 길이를 생략하면 그 뒤로 쭉 다 출력된다.
+select substr('good morning john',-4)from dual;-- john 오른쪽 끝에서부터 거꾸로...
+select substr('good morning john',-4,2)from dual;-- jo
+select substr('good morning john',instr('good morning john','morning',1),length('morning'))from dual;
+ 
+--replace('원문자열','바꿀문자열','교체할문자열') : 문자열 교체
+select replace('good morning john','good','switch')from dual;-- good문자열을 switch로 변경 : switch morning john
+ 
+--translate() : replace와 약간 다른데
+  -- translate('문자열','You','We')라하면 1:1로 대응해서 바끼게된다. Y는 W로 o는 e로
+select translate('You are not alone','You','We')from dual;-- We are net alene
+ 
+-- ASCII() : 각 문자열의 아스키값을 구함
+select ascii('a')from dual;-- 97
+ 
+-- 문자열 길이 : length()
+select length('안녕')from dual;-- 2
+ 
+-- instr('문자열','찾고자하는문자',어느인덱스부터찾을지,몇번째꺼찾을지) : 찾고자하는 문자열의 시작 위치를 반환(시작인덱스는 1부터...)
+select instr('good morning john','mor',1)from dual;-- 6
+select instr('good morning john','n',1,2)from dual;-- 11 두번째 n시작위치를 구한다.
+-- 1번째 인덱스부터 찾기 시작해서 2번째 n의 위치를 가져오는 것
+
+select upper('korea')from dual; --대문자로 변경
+--KOREA
+
+select initcap('korea')from dual; --첫 글자만 대문자로 변경
+--Korea
+
+select concat('korea', 'japan')from dual; --문자열 연결
+--koreajapan
+
+select substr('korea',2,3) from dual;
+--ore
+
+26. 전기전자과 학생들을 검색하라.
+select stu_dept from student where stu_dept='전기전자';
+/*
+전기전자
+전기전자
+전기전자
+*/
+
+27. 신장이 170이상인 학생들을 검색하라.
+select stu_height from student where stu_height > 170;
+/*
+177
+188
+174
+172
+*/
+
+28. 체중이 65이상인 학생들을 검색하라.
+select stu_weight from student where stu_weight > 65;
+/*
+80
+90
+67
+72
+*/
+
+29. 기계 학생들의 학번, 이름을 검색하라.
+select stu_no, stu_name from student where stu_dept='기계';
+/*
+20153075 	옥한빛
+20153088 	이태연
+20143054 	유가인
+*/
+
+30. 컴퓨터정보 학생들의 학번, 이름을 검색하라.
+select stu_no, stu_name from student where stu_dept='컴퓨터정보';
+/*
+20151062 	김인중
+20141007 	진현무
+20131001 	김종헌
+20131025 	옥성우
+*/
+
+31. 남학생의 이름을 검색하라.
+select stu_name from student where stu_gender='M';
+/*
+옥한빛
+조민우
+박희철
+김인중
+진현무
+김종헌
+*/
+
+32. 전기전자과 이외 학생들의 모든 정보를 검색하라. 
+-- <> : 이외
+select * from student where stu_dept <>'전기전자';
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+20131001 	김종헌	컴퓨터정보	3	C	M		72
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+
+33. 점수가 80점 이상인 학생들의 학번을 검색하라.
+select stu_no from enrol where enr_grade > 80;
+--20151062
+
+34. '김인중'학생의 모든 정보를 검색하라.
+select * from student where stu_name ='김인중';
+--20151062 	김인중	컴퓨터정보	1	B	M	166	67
+
+35. '기계'과 이면서 2학년인 학생들의 모든 정보를 검색하라.
+select * from student where stu_dept='기계' and stu_grade='2';
+--20143054 	유가인	기계	2	C	F	154	47
