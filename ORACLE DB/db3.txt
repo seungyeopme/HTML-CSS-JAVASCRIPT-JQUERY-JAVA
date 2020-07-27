@@ -1,0 +1,793 @@
+--2020.07.27
+
+select stu_no, stu_name from student where stu_name like '김%';
+/*
+20151062 	김인중
+20131001 	김종헌
+*/
+
+select stu_name from student where stu_dept in('기계', '컴퓨터정보');
+/*
+옥한빛
+이태연
+유가인
+김인중
+진현무
+김종헌
+옥성우
+*/
+
+select stu_name from student order by stu_name;
+/*
+김인중
+김종헌
+박희철
+심수정
+옥성우
+옥한빛
+유가인
+이태연
+조민우
+진현무
+*/
+
+select stu_name from student order by stu_name desc;
+/*
+진현무
+조민우
+이태연
+유가인
+옥한빛
+옥성우
+심수정
+박희철
+김종헌
+김인중
+*/
+
+select stu_name, stu_no from student order by 2 desc;
+--stu_no를 기준으로 내림차순
+/*
+이태연	20153088 
+옥한빛	20153075 
+조민우	20152088 
+김인중	20151062 
+유가인	20143054 
+심수정	20142021 
+진현무	20141007 
+박희철	20132003 
+옥성우	20131025 
+김종헌	20131001 
+*/
+
+select sysdate from dual; --오늘 날짜 반환
+--20/07/27
+
+select sysdate+7 from dual; --일주일 후 날짜 반환
+--20/08/03
+
+--sysdate: 오늘 날짜 반환
+
+alter session set nls_date_format='mm-dd-yyyy'; --날짜 포맷 변환
+
+select sysdate from dual;
+--07-27-2020
+
+select next_day(sysdate, 2)from dual; --nexe_day(다음 주)
+--일요일 1, 월요일 2, 화요일 3, 수요일 4, 목요일 5, 금요일 6 토요일 7
+--08-03-2020
+
+/*
+<변환 함수>
+1. TO_NUMBER (문자 -> 숫자데이터로 변경)
+2. TO_DATE (문자 -> 날짜)
+3. TO_CHAR (숫자, 날짜 -> 문자)
+*/
+
+
+36 성별이 여학생이며, 체중이 60이하인 학생을 모두 검색하라.
+select * from student where stu_weight <=60 and stu_gender ='F';
+/*
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+20142021 	심수정	전기전자	2	A	F	168	45
+*/
+
+--37.'컴퓨터정보'외에 1학년 학생들의 이름을 검색하라.
+select stu_name from student where stu_dept <> ('컴퓨터정보') and stu_grade =('1');
+/*
+옥한빛
+이태연
+조민우
+*/
+
+38. 학과 중 '기계'이외의 학과를 검색하라.
+select stu_dept from student where stu_dept <> '기계';
+/*
+전기전자
+전기전자
+전기전자
+컴퓨터정보
+컴퓨터정보
+컴퓨터정보
+컴퓨터정보
+*/
+
+39. 컴퓨터정보과 2학년 A반 학생의 이름을검색하라.
+select stu_name from student where stu_dept='컴퓨터정보' and stu_grade=2 and stu_class='A';
+--진현무
+
+40. 신장이 160이상이며 170이하인 학생의 학번과 이름을 검색하라
+select stu_no,stu_name from student where stu_height BETWEEN 160 and 170
+/*
+20153088 	이태연
+20142021 	심수정
+20151062 	김인중
+*/
+
+select stu_no, stu_height from student where stu_height is null;
+/*
+STU_NO      STU_HEIGHT
+20132003 	
+20131001 	
+*/
+
+/*
+1.NVL
+NVL(인수1, 인수2)
+: 인수 값이 NULL인지 체크하여 연산이 가능한 값으로 변환하여 반환하는 함수
+: 인수 1이 널이면 인수2,
+          널이 아니면 인수1을 반환
+*/
+select nvl(stu_height,0) from student; --null값이 0으로 표시되고 있다.
+/*
+177
+162
+154
+188
+168
+0
+166
+174
+0
+172
+*/
+
+select nvl(stu_height,9999) from student; --null값이 9999로 표시되고 있다.
+/*
+177
+162
+154
+188
+168
+9999
+166
+174
+9999
+172
+*/
+
+41. 2013학번인 학생의 학번과 이름, 학과를 검색하라.
+
+select stu_no, stu_name, stu_dept from student where stu_no like '2013%';
+/*
+20132003 	박희철	전기전자
+20131001 	김종헌	컴퓨터정보
+20131025 	옥성우	컴퓨터정보
+*/
+42. 1,3학년 학생들의 모든 정보를 검색하라.
+select * from student where stu_grade='1' or stu_grade='3';
+select * from student where stu_grade in(1,3);
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20152088 	조민우	전기전자	1	C	M	188	90
+20132003 	박희철	전기전자	3	B	M		63
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20131001 	김종헌	컴퓨터정보	3	C	M		72
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+
+43. 김씨 성을 가진 학생의 학번과 이름을 검색하라.
+select stu_no, stu_name from student where stu_name like '김%';
+/*
+20151062 	김인중
+20131001 	김종헌
+*/
+
+44. 이름에 '옥'자가 들어있는 학생의 이름을 검색하라.
+select stu_name from student where stu_name like '%옥%';
+/*
+옥한빛
+옥성우
+*/
+
+45. 신장이 NULL인 학생의 이름을 검색하라.
+select stu_name from student where stu_height is null;
+/*
+박희철
+김종헌
+*/
+
+46. 학과가 컴퓨터정보 또는 기계인 학생의 학번, 이름을 검색하라.
+select stu_no, stu_name from student where stu_dept ='컴퓨터정보' or stu_dept='기계';
+/*
+20153075 	옥한빛
+20153088 	이태연
+20143054 	유가인
+20151062 	김인중
+20141007 	진현무
+20131001 	김종헌
+20131025 	옥성우
+*/
+
+47. 성별이 남학생 또는 학년이 1학년인 학생의 학번, 이름, 학과를 검색하라.
+select stu_no, stu_name, stu_dept from student where stu_gender = 'M' or stu_grade = '1';
+/*
+20153075 	옥한빛	기계
+20153088 	이태연	기계
+20152088 	조민우	전기전자
+20132003 	박희철	전기전자
+20151062 	김인중	컴퓨터정보
+20141007 	진현무	컴퓨터정보
+20131001 	김종헌	컴퓨터정보
+*/
+
+48. 학생들의 학번, 이름을 학번 순으로 검색하라.
+select stu_no, stu_name from student order by 1;
+select stu_no, stu_name from student order by stu_no;
+/*
+20131001 	김종헌
+20131025 	옥성우
+20132003 	박희철
+20141007 	진현무
+20142021 	심수정
+20143054 	유가인
+20151062 	김인중
+20152088 	조민우
+20153075 	옥한빛
+20153088 	이태연
+*/
+
+49. 학생들의 학번, 이름, 학과를 학과별 이름순으로 검색하라.
+select stu_no, stu_name, stu_dept from student order by 3;
+/*
+20153075 	옥한빛	기계
+20153088 	이태연	기계
+20143054 	유가인	기계
+20152088 	조민우	전기전자
+20142021 	심수정	전기전자
+20132003 	박희철	전기전자
+20151062 	김인중	컴퓨터정보
+20141007 	진현무	컴퓨터정보
+20131001 	김종헌	컴퓨터정보
+20131025 	옥성우	컴퓨터정보
+*/
+
+50. 학생들의 정보를 학과별 학년이 높은 순으로 검색하라.
+select * from student order by stu_grade desc;
+/*
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+20132003 	박희철	전기전자	3	B	M		63
+20131001 	김종헌	컴퓨터정보	3	C	M		72
+20143054 	유가인	기계	2	C	F	154	47
+20142021 	심수정	전기전자	2	A	F	168	45
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20152088 	조민우	전기전자	1	C	M	188	90
+*/
+
+select to_char(to_number(1234.5678), '9999.999') from dual;
+/* 9: 숫자 자리수 */
+--1234.568
+
+/*
+1)NVL(인수1, 인수2)
+NVL 함수
+NVL 함수는 값이 null인 경우 지정값을 출력한다.
+
+- 함수  :  NVL("값", "지정값")
+
+2)NVL2(인수1, 인수2, 인수3)
+NVL2 함수
+NVL2 함수는 null이 아닌경우 지정값1을  출력하고, null인 경우 지정값2을 출력 한다.
+- 함수 :  NVL2("값", "지정값1", "지정값2")
+
+3)NULLIF(인수1, 인수2)
+- EXPR1과 EXPR2가 같다면 NULL을 리턴한다.
+- EXPR1과 EXPR2가 같지 않다면 EXPR1을 리턴한다.
+*/
+
+select nvl(nullif('A','A'), '널') from dual;
+--널
+
+select nvl(nullif('B ','A'), '널') from dual;
+--B
+
+select substr('황두희이승철', 2,3) from dual; --2번째자리 부터 3자리 까지
+--두희이
+
+51. 학생들의 성별을 소문자로 검색하라.
+select lower(stu_gender) from Student;
+/*
+m
+f
+f
+m
+f
+m
+m
+m
+m
+f
+*/
+
+52. 학생들의 학과, 이름을 연결하여 검색하라.
+select stu_dept || stu_name from student;
+/*
+기계옥한빛
+기계이태연
+기계유가인
+전기전자조민우
+전기전자심수정
+전기전자박희철
+컴퓨터정보김인중
+컴퓨터정보진현무
+컴퓨터정보김종헌
+컴퓨터정보옥성우
+*/
+53. 학생들의 학과, 이름을 연결하여 검색하라.
+(~~과 ~학년 ~~~입니다.)
+select stu_dept ||'과 '||stu_grade|| '학년 '|| stu_name ||'입니다.' from student;
+/*
+기계과 1학년 옥한빛입니다.
+기계과 1학년 이태연입니다.
+기계과 2학년 유가인입니다.
+전기전자과 1학년 조민우입니다.
+전기전자과 2학년 심수정입니다.
+전기전자과 3학년 박희철입니다.
+컴퓨터정보과 1학년 김인중입니다.
+컴퓨터정보과 2학년 진현무입니다.
+컴퓨터정보과 3학년 김종헌입니다.
+컴퓨터정보과 3학년 옥성우입니다.
+*/
+
+54. 학생들의 이름과 이름의 첫 2글자를 검색하라.
+select substr(stu_name,1,2) from student;
+/*
+옥한
+이태
+유가
+조민
+심수
+박희
+김인
+진현
+김종
+옥성
+*/
+55. 학생들의 이름, 학과 그리고 학과의 두번째부터 1자리를 검색하라.
+select stu_name, stu_dept, substr(stu_dept,2,1)from student;
+/*
+옥한빛	기계	계
+이태연	기계	계
+유가인	기계	계
+조민우	전기전자	기
+심수정	전기전자	기
+박희철	전기전자	기
+김인중	컴퓨터정보	퓨
+진현무	컴퓨터정보	퓨
+김종헌	컴퓨터정보	퓨
+옥성우	컴퓨터정보	퓨
+*/
+
+--집계함수 : count, sum, avg, max, min
+select max(enr_grade), min(enr_grade) from enrol; --성적의 최대 최소
+--81	41
+
+select count(*),count(stu_height) from student; 
+--10	8
+--count(*): 전체 레코드(튜플)(행) 수
+
+select sum(stu_weight), to_char(avg(stu_weight), '9999.99') from student 
+where stu_dept='컴퓨터정보';
+--266	   66.50
+--몸무게 함 몸무게 평균
+
+<group by>
+:그룹 별로 묶을 수 있음
+select stu_dept, avg(stu_weight) from student group by stu_dept;
+/*
+기계	59
+전기전자	66
+컴퓨터정보	66.5
+*/
+
+select stu_dept, count(*) from student where stu_weight>=50 group by stu_dept;
+--몸무게가 50 이상인 학생들의 수를 학과별로 출력
+/*
+STU_DEPT  COUNT(*)
+기계        	2
+전기전자	    2
+컴퓨터정보	4
+*/
+
+/*
+<having절>
+:그룹 함수를 적용한 결과에 다시 조건을 부여할 때 사용
+*/
+select stu_grade, avg(stu_height) from student where stu_dept='기계'group by stu_grade
+having avg(stu_height)>=160;
+STU_GRADE AVG(STU_HEIGHT)
+1	           169.5
+
+select lpad(stu_name, 10, '&') from student;
+--자리 수를 지정하고 빈 공간에 특정문자로 왼쪽부터 채운다.
+--한글은 2바이트, 특수기호는 1바이트
+/*
+&&&&옥한빛
+&&&&이태연
+&&&&유가인
+&&&&조민우
+&&&&심수정
+&&&&박희철
+&&&&김인중
+&&&&진현무
+&&&&김종헌
+&&&&옥성우
+*/
+
+select rpad(stu_name, 10, '&') from student;
+/*
+옥한빛&&&&
+이태연&&&&
+유가인&&&&
+조민우&&&&
+심수정&&&&
+박희철&&&&
+김인중&&&&
+진현무&&&&
+김종헌&&&&
+옥성우&&&&
+*/
+56. 학생들의 이름과 이름의 길이를 검색하라.
+select stu_name,length(stu_name) from student;
+/*
+옥한빛	3
+이태연	3
+유가인	3
+조민우	3
+심수정	3
+박희철	3
+김인중	3
+진현무	3
+김종헌	3
+옥성우	3
+*/
+
+57. 학생들의 학과와 학과명의 길이를 검색하라.
+select stu_dept,length(stu_dept) from student;
+/*
+기계	2
+기계	2
+기계	2
+전기전자	4
+전기전자	4
+전기전자	4
+컴퓨터정보	5
+컴퓨터정보	5
+컴퓨터정보	5
+컴퓨터정보	5
+*/
+58. 학생들의 이름에 '김'이 몇번째 있는지 검색하라.
+select instr(stu_name,'김') from student;
+/*
+0
+0
+0
+0
+0
+0
+1
+0
+1
+0
+*/
+59. 학생의 이름을 15자리로 하고, 뒤에 '&'를 채워 검색하라.
+select rpad(stu_name, 15, '&') from student;
+/*
+옥한빛&&&&&&&&&
+이태연&&&&&&&&&
+유가인&&&&&&&&&
+조민우&&&&&&&&&
+심수정&&&&&&&&&
+박희철&&&&&&&&&
+김인중&&&&&&&&&
+진현무&&&&&&&&&
+김종헌&&&&&&&&&
+옥성우&&&&&&&&&
+*/
+
+60. 학생의 학과를 20자리로 하고, 앞에 '%'를 채워 검색하라.
+select lpad(stu_dept, 20, '&') from student;
+/*
+&&&&&&&&&&&&&&&&기계
+&&&&&&&&&&&&&&&&기계
+&&&&&&&&&&&&&&&&기계
+&&&&&&&&&&&&전기전자
+&&&&&&&&&&&&전기전자
+&&&&&&&&&&&&전기전자
+&&&&&&&&&&컴퓨터정보
+&&&&&&&&&&컴퓨터정보
+&&&&&&&&&&컴퓨터정보
+&&&&&&&&&&컴퓨터정보
+*/
+
+61. 학생의 학번, 이름, 신장을 검색하라.
+(신장은 첫번째 자리에서 반올림함)
+
+select stu_no, stu_name, round(stu_height, -1)from student;
+/*
+20153075 	옥한빛	180
+20153088 	이태연	160
+20143054 	유가인	150
+20152088 	조민우	190
+20142021 	심수정	170
+20132003 	박희철	
+20151062 	김인중	170
+20141007 	진현무	170
+20131001 	김종헌	
+20131025 	옥성우	170
+*/
+
+62. 학생의 학번, 이름, 신장을 검색하라.(신장은 두번째 자리에서 절삭함)
+select stu_no, stu_name, trunc(stu_height,-2) from student;
+/*
+20153075 	옥한빛	100
+20153088 	이태연	100
+20143054 	유가인	100
+20152088 	조민우	100
+20142021 	심수정	100
+20132003 	박희철	
+20151062 	김인중	100
+20141007 	진현무	100
+20131001 	김종헌	
+20131025 	옥성우	100
+*/
+
+63. 체중을 30으로 나눈 나머지를 검색하라.
+select mod(stu_weight,30) from student;
+SELECT stu_weight,mod(stu_weight,30)FROM student;
+/*
+20
+20
+17
+0
+15
+3
+7
+4
+12
+3
+*/
+
+64. 신장열의 값이 널인 학생의 경우 '미기록'으로 검색하라.
+select nvl(to_char(stu_height),'미기록') from student;
+/*
+177
+162
+154
+188
+168
+미기록
+166
+174
+미기록
+172
+*/
+
+65. 신장과 체중을 합한 값을 학번, 이름과 함께 검색하라.(NVL 사용)
+select stu_weight+nvl(stu_height,0) as hap, stu_no, stu_name from student;
+/*
+257	20153075 	옥한빛
+212	20153088 	이태연
+201	20143054 	유가인
+278	20152088 	조민우
+213	20142021 	심수정
+63	20132003 	박희철
+233	20151062 	김인중
+238	20141007 	진현무
+72	20131001 	김종헌
+235	20131025 	옥성우
+*/
+
+select stu_no, stu_name,(stu_height+nvl(stu_weight,0)) from student;
+/*
+20153075 	옥한빛	257
+20153088 	이태연	212
+20143054 	유가인	201
+20152088 	조민우	278
+20142021 	심수정	213
+20132003 	박희철	
+20151062 	김인중	233
+20141007 	진현무	238
+20131001 	김종헌	
+20131025 	옥성우	235
+*/
+
+
+desc orders;
+
+select sum(saleprice) from orders;
+--118000
+
+select sum(saleprice) as 총매출 from orders where custid=2;
+--15000
+
+
+66. 신장이 NULL인 경우 '입력요망'으ㅡ로 바꾸어 학번,이름을 검색하라.
+select nvl(to_char(stu_height),'입력요망'), stu_no, stu_name from student;
+/*
+177	20153075 	옥한빛
+162	20153088 	이태연
+154	20143054 	유가인
+188	20152088 	조민우
+168	20142021 	심수정
+입력요망	20132003 	박희철
+166	20151062 	김인중
+174	20141007 	진현무
+입력요망	20131001 	김종헌
+172	20131025 	옥성우
+*/
+
+67. 학생의 성별을 NULLIF로 비교하여, 남학생인 경우 성별과 '남자'로 검색하라.
+select nvl(nullif(stu_gender,'M'),'남자'), stu_gender from student;
+
+68. 학생 중 키가 가장 큰 학생의 신장을 검색하라.
+select max(stu_height) from student;
+--188
+
+69. 학생의 이름 중 MAX와 MIN값을 검색하라.
+select max(stu_name)"MAX", min(stu_name)"MIN" from student; 
+--진현무	김인중
+
+70. 학생테이블의 레코드(튜플)수를 검색하라.
+select count(*) from Student;
+10
+
+71. 학과별 학생들의 인원수를 검색하라.
+select stu_dept,count(stu_dept) from student group by stu_dept;
+/*
+기계	3
+전기전자	3
+컴퓨터정보	4
+*/
+72. 학과별 학생들의 인원수를 인원수가 많은 순으로 검색하라.
+select stu_dept,count(stu_dept) from student group by stu_dept order by stu_dept desc;
+select stu_dept,count(*) from student group by stu_dept order by 2 desc;
+/*
+컴퓨터정보	4
+전기전자	3
+기계	3
+*/
+
+73. 학년별 학생들의 인원수를 검색하라.
+SELECT stu_grade,count(*)as 인원수 FROM student GROUP BY stu_grade;
+/*
+1	4
+2	3
+3	3
+*/
+
+74. 학과별 학년별 학생들의 평균 체중을 검색하라.
+SELECT
+stu_dept,stu_grade,avg(stu_weight)
+FROM student
+GROUP BY stu_dept,stu_grade;
+/*
+기계	1	65
+전기전자	2	45
+컴퓨터정보	2	64
+컴퓨터정보	3	67.5
+전기전자	1	90
+기계	2	47
+전기전자	3	63
+컴퓨터정보	1	67
+*/
+
+75. 학과별 학년별 학생들의 학번의 MAX와 MIN값을 검색하라.
+SELECT
+stu_dept,stu_grade,max(stu_no),min(stu_no)
+FROM student
+GROUP BY stu_dept,stu_grade order by stu_dept;
+/*
+기계	1	20153088 	20153075 
+기계	2	20143054 	20143054 
+전기전자	1	20152088 	20152088 
+전기전자	2	20142021 	20142021 
+전기전자	3	20132003 	20132003 
+컴퓨터정보	1	20151062 	20151062 
+컴퓨터정보	2	20141007 	20141007 
+컴퓨터정보	3	20131025 	20131001 
+*/
+
+select student.stu_no, 
+stu_name, stu_dept, enr_grade from student, enrol
+where student.stu_no=enrol.stu_no;
+/*
+20131001 	김종헌	컴퓨터정보	80
+20131001 	김종헌	컴퓨터정보	56
+20132003 	박희철	전기전자	72
+20152088 	조민우	전기전자	45
+20131025 	옥성우	컴퓨터정보	65
+20131025 	옥성우	컴퓨터정보	65
+20151062 	김인중	컴퓨터정보	81
+20143054 	유가인	기계	41
+20153075 	옥한빛	기계	66
+20153075 	옥한빛	기계	56
+20153088 	이태연	기계	61
+20153088 	이태연	기계	78
+*/
+
+--조인: 상호 관련성을 갖는 두 개 이상의 테이블로부터 새로운 테이블을 생성하는데 사용한다.
+--이퀴조인(EQUI): where절에서 '=' 연산자 사용
+/*
+동등 조인(EQUI JOIN)
+
+동등 조인 혹은 이퀴(Equi) 조인이라고 하며, 조인의 가장 일반적인 활용 형식입니다. 
+동등 조인은 이름에서 유추할 수 있듯이, 둘 이상의 테이블에 존재하는 공통 컬럼(속성)의 동등 비교만을 사용하며, 
+부등호 조인은 동등 조인에 포함하지 않습니다.
+
+조인 문법은 명시적 표현법(Explicit Notation)과 묵시적 표현법(Implicit Notation)이 있습니다. 
+개인적으로는 명시적 표현법을 활용하는 것을 추천합니다만, 
+현실적으로는 묵시적 표현법이 더 많이 활용되는 것 같습니다. 
+일반적으로 두 표현법의 성능에는 큰 차이가 없는 것으로 알려져 있습니다.
+*/
+
+/*
+자연 조인(NATURAL JOIN)
+
+자연 조인은 동등 조인과 거의 유사합니다. 단, 조인 대상 테이블의 모든 컬럼을 비교하여, 
+같은 컬럼명을 가진 컬럼으로 조인을 수행합니다. 이때, 같은 이름을 가진 컬럼은 한 번만 추출합니다. 
+동등 조인에서 수행했던 결과를 살펴보면 DEPTNO가 두 번 추출된 것을 확인할 수 있지만, 
+자연 조인의 결과를 살펴보면 DEPTNO를 기준으로 조인을 수행하고, 한 번만 추출된 것을 확인할 수 있습니다.
+
+select stu_no, stu_name, 
+enr_grade
+from student natural join
+enrol;
+*/
+/*
+20131001 	김종헌	80
+20131001 	김종헌	56
+20132003 	박희철	72
+20152088 	조민우	45
+20131025 	옥성우	65
+20131025 	옥성우	65
+20151062 	김인중	81
+20143054 	유가인	41
+20153075 	옥한빛	66
+20153075 	옥한빛	56
+20153088 	이태연	61
+20153088 	이태연	78
+*/
+
+과목 이름과 학번, 점수를 검색하라(natural join)
+select sub_name,
+sub_no, enr_grade from subject natural join enrol;
+/*
+컴퓨터개론	101	80
+시스템분석설계	104	56
+전자회로실험	106	72
+기초전자실험	103	45
+컴퓨터개론	101	65
+시스템분석설계	104	65
+소프트웨어공학	108	81
+CAD응용실습	107	41
+기계공작법	102	66
+기계요소설계	105	56
+기계공작법	102	61
+기계요소설계	105	78
+*/
