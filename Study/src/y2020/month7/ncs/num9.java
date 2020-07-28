@@ -2,62 +2,54 @@ package y2020.month7.ncs;
 
 import java.util.Scanner;
 
-//ncs 출제 문제
-class Worker{
+
+class work{
 	private int id;
 	private String name;
 	private String dept;
 	private String addr;
 	private String birth;
-
 	
-	Worker(int id, String name, String dept, String addr, String birth) {}
+	work(int id, String name, String dept, String addr, String birth) {
+		
+	}
 	
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDept() {
 		return dept;
 	}
-
 	public void setDept(String dept) {
 		this.dept = dept;
 	}
-
 	public String getAddr() {
 		return addr;
 	}
-
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-
 	public String getBirth() {
 		return birth;
 	}
-
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	
 }
-public class num1 {
+public class num9 {
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		
-		Worker w=new Worker(123,"aa","bb", "cc","dd");
+		work w= new work(123,"aa","bb","cc","dd");
 		Scanner s=new Scanner(System.in);
 		
 		while(true) {
@@ -104,5 +96,7 @@ public class num1 {
 				return;
 			}
 		}	
+
 	}
+
 }

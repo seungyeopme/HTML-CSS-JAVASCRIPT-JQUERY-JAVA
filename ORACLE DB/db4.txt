@@ -1,0 +1,1201 @@
+/*
+DDL: create, alter, drop
+DML: insert, update, delete
+DCL: rollback, commit
+*/
+
+select *
+from customer, orders
+where customer.custid = orders.custid
+order by customer.custid;
+/*
+1	박지성	영국 맨체스타	000-5000-0001	1	1	1	6000	14/07/01
+1	박지성	영국 맨체스타	000-5000-0001	2	1	3	21000	14/07/03
+1	박지성	영국 맨체스타	000-5000-0001	6	1	2	12000	14/07/07
+2	김연아	대한민국 서울	000-6000-0001	3	2	5	8000	14/07/03
+2	김연아	대한민국 서울	000-6000-0001	9	2	10	7000	14/07/09
+3	장미란	대한민국 강원도	000-7000-0001	4	3	6	6000	14/07/04
+3	장미란	대한민국 강원도	000-7000-0001	8	3	10	12000	14/07/08
+3	장미란	대한민국 강원도	000-7000-0001	10	3	8	13000	14/07/10
+4	추신수	미국 클리블랜드	000-8000-0001	5	4	7	20000	14/07/05
+4	추신수	미국 클리블랜드	000-8000-0001	7	4	8	13000	14/07/07
+*/
+
+desc customer;
+/*
+이름      널?       유형           
+------- -------- ------------ 
+CUSTID  NOT NULL NUMBER(2)    
+NAME             VARCHAR2(40) 
+ADDRESS          VARCHAR2(50) 
+PHONE            VARCHAR2(20) 
+*/
+
+desc orders;
+/*
+이름        널?       유형        
+--------- -------- --------- 
+ORDERID   NOT NULL NUMBER(2) 
+CUSTID             NUMBER(2) 
+BOOKID             NUMBER(2) 
+SALEPRICE          NUMBER(8) 
+ORDERDATE          DATE      
+*/
+
+desc book;
+/*
+이름        널?       유형           
+--------- -------- ------------ 
+BOOKID    NOT NULL NUMBER(2)    
+BOOKNAME           VARCHAR2(40) 
+PUBLISHER          VARCHAR2(40) 
+PRICE              NUMBER(8)    
+*/
+
+select name, sum(saleprice)
+from customer, orders
+where customer.custid = orders.custid
+group by customer.name
+order by customer.name;
+/*
+김연아	15000
+박지성	39000
+장미란	31000
+추신수	33000
+*/
+
+select student.stu_no,stu_name, enr_grade
+from student, enrolwhere student.stu_no = enrol.stu_no;
+/*
+20131001 	김종헌	80
+20131001 	김종헌	56
+20132003 	박희철	72
+20152088 	조민우	45
+20131025 	옥성우	65
+20131025 	옥성우	65
+20151062 	김인중	81
+20143054 	유가인	41
+20153075 	옥한빛	66
+20153075 	옥한빛	56
+20153088 	이태연	61
+20153088 	이태연	78
+*/
+
+--<자연 조인>
+--두 테이블의 열 중 이름이 같은 열을 이요하여 조인함
+select stu_no, stu_name,enr_grade
+from student natural join enrol;
+/*
+20131001 	김종헌	80
+20131001 	김종헌	56
+20132003 	박희철	72
+20152088 	조민우	45
+20131025 	옥성우	65
+20131025 	옥성우	65
+20151062 	김인중	81
+20143054 	유가인	41
+20153075 	옥한빛	66
+20153075 	옥한빛	56
+20153088 	이태연	61
+20153088 	이태연	78
+*/
+
+<join~using>
+select stu_no,stu_name, enr_grade 
+from student join enrol using(stu_no)
+/*
+20131001 	김종헌	80
+20131001 	김종헌	56
+20132003 	박희철	72
+20152088 	조민우	45
+20131025 	옥성우	65
+20131025 	옥성우	65
+20151062 	김인중	81
+20143054 	유가인	41
+20153075 	옥한빛	66
+20153075 	옥한빛	56
+20153088 	이태연	61
+20153088 	이태연	78
+*/
+
+desc subject;
+/*
+이름        널?       유형           
+--------- -------- ------------ 
+SUB_NO    NOT NULL CHAR(3)      
+SUB_NAME           VARCHAR2(30) 
+SUB_PROF           VARCHAR2(12) 
+SUB_GRADE          NUMBER(1)    
+SUB_DEPT           VARCHAR2(20) 
+*/
+desc student;
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+STU_NO     NOT NULL CHAR(9)      
+STU_NAME            VARCHAR2(12) 
+STU_DEPT            VARCHAR2(20) 
+STU_GRADE           NUMBER(1)    
+STU_CLASS           CHAR(1)      
+STU_GENDER          CHAR(1)      
+STU_HEIGHT          NUMBER(5,2)  
+STU_WEIGHT          NUMBER(5,2)  
+*/
+desc enrol;
+/*
+이름        널?       유형        
+--------- -------- --------- 
+SUB_NO    NOT NULL CHAR(3)   
+STU_NO    NOT NULL CHAR(9)   
+ENR_GRADE          NUMBER(3) 
+*/
+--컴퓨터개론 과목을 수강하는 학생들의 학번, 이름, 과목이름 검색해주세요.(조인)
+select student.stu_no, stu_name, sub_name
+from student, subject, enrol
+where student.stu_no=enrol.stu_no
+and enrol.sub_no=subject.sub_no
+and sub_name='컴퓨터개론';
+/*
+20131001 	김종헌	컴퓨터개론
+20131025 	옥성우	컴퓨터개론
+*/
+
+1. 학생테이블과 수강테이블을 natural join하라.
+select * from student natural join enrol; 
+/*
+20131001 	김종헌	컴퓨터정보	3	C	M		72	101	80
+20131001 	김종헌	컴퓨터정보	3	C	M		72	104	56
+20132003 	박희철	전기전자	3	B	M		63	106	72
+20152088 	조민우	전기전자	1	C	M	188	90	103	45
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63	101	65
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63	104	65
+20151062 	김인중	컴퓨터정보	1	B	M	166	67	108	81
+20143054 	유가인	기계	2	C	F	154	47	107	41
+20153075 	옥한빛	기계	1	C	M	177	80	102	66
+20153075 	옥한빛	기계	1	C	M	177	80	105	56
+20153088 	이태연	기계	1	C	F	162	50	102	61
+20153088 	이태연	기계	1	C	F	162	50	105	78
+*/
+
+2. 과목이름과 학번, 점수를 검색하라.(natural join)
+select sub_name, stu_no, enr_grade
+from subject natural join enrol;
+/*
+컴퓨터개론	80	20131001 
+시스템분석설계	56	20131001 
+전자회로실험	72	20132003 
+기초전자실험	45	20152088 
+컴퓨터개론	65	20131025 
+시스템분석설계	65	20131025 
+소프트웨어공학	81	20151062 
+CAD응용실습	41	20143054 
+기계공작법	66	20153075 
+기계요소설계	56	20153075 
+기계공작법	61	20153088 
+기계요소설계	78	20153088 
+*/
+
+3. 과목이름과 학번, 점수를 검색하라.(join~using)
+select sub_name, stu_no, enr_grade 
+from subject join enrol using (sub_no);
+/*
+컴퓨터개론	20131001 	80
+시스템분석설계	20131001 	56
+전자회로실험	20132003 	72
+기초전자실험	20152088 	45
+컴퓨터개론	20131025 	65
+시스템분석설계	20131025 	65
+소프트웨어공학	20151062 	81
+CAD응용실습	20143054 	41
+기계공작법	20153075 	66
+기계요소설계	20153075 	56
+기계공작법	20153088 	61
+기계요소설계	20153088 	78
+*/
+
+--과목번호 101번 과목을 수강하는 학생의 학번과 이름을 검색
+select student.stu_no, 
+stu_name 
+from student, enrol 
+where student.stu_no = enrol.stu_no 
+and sub_no='101';
+/*
+20131001 	김종헌
+20131025 	옥성우
+*/
+
+--4. 점수가 70점 이상인 학생 이름을 검색하라.(equi join)
+ select enr_grade,stu_name
+from enrol,student
+where enrol.stu_no=
+student.stu_no and
+enr_grade>=70;
+/*
+78	이태연
+72	박희철
+81	김인중
+80	김종헌
+*/
+
+--5. 점수가 60점 이상인 학생 이름을 검색하라.(join~using)
+select enr_grade,stu_name
+from enrol join student
+using(stu_no)
+where enr_grade>=60;
+/*
+66	옥한빛
+61	이태연
+78	이태연
+72	박희철
+81	김인중
+80	김종헌
+65	옥성우
+65	옥성우
+*/
+
+--6. 점수가 70점 이하인 학생 이름을 검색하라.(natural join)
+select enr_grade,stu_name
+from enrol natural join
+student where enr_grade<=70;
+/*
+66	옥한빛
+56	옥한빛
+61	이태연
+41	유가인
+45	조민우
+56	김종헌
+65	옥성우
+65	옥성우
+*/
+
+--7. 강종영 교수가 강의하는 과목을 수강하는 학생의 이름을 검색하라.(equi join)
+select stu_name from student, enrol, subject
+where student.stu_no=enrol.stu_no and
+enrol.sub_no=subject.sub_no
+and sub_prof='강종영';
+/*
+김종헌
+옥성우
+*/
+
+--8. 컴퓨터개론을 수강하는 학생들의 학번과 이름을 검색하라.(equi join)
+select student.stu_no, stu_name from student,
+subject, enrol where student.stu_no=
+enrol.stu_no and
+enrol.sub_no=subject.sub_no and sub_name =
+'컴퓨터개론';
+/*
+20131001 	김종헌
+20131025 	옥성우
+*/
+
+<non-equi조인>
+조인 조건에 "="외의 비교연산자를 사용한 조인
+
+select enr_grade, stu_name 
+from enrol, student
+where enr_grade between
+80 and 90;
+/*
+80	옥한빛
+80	이태연
+80	유가인
+80	조민우
+80	심수정
+80	박희철
+80	김인중
+80	진현무
+80	김종헌
+80	옥성우
+81	옥한빛
+81	이태연
+81	유가인
+81	조민우
+81	심수정
+81	박희철
+81	김인중
+81	진현무
+81	김종헌
+81	옥성우
+*/
+
+--부속질의, 하위질의
+select stu_name, stu_height
+from student 
+where stu_height>
+        (select stu_height 
+        from student
+        where stu_name='옥성우');
+/*
+옥한빛	177
+조민우	188
+진현무	174
+*/
+
+--학생 테이블에서 박희철 학생과 같은 체중을
+--가지고 있는 학생의 정보 추출
+select * from student
+where stu_weight =
+        (select stu_weight
+        from student
+        where stu_name='박희철')
+        and stu_name<>'박희철';
+        --박희철을 제외하고 보여준다
+/*        
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+
+--키가 전체 학생들의 평균 키보다 큰 학생을 추출
+select * from student 
+where stu_height >
+        (select avg(stu_height)
+        from student);
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20152088 	조민우	전기전자	1	C	M	188	90
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+
+
+--김인중 학생이 수강하는 과목이름과 강의 교수를 추출해라.(equi join)
+select sub_name, sub_prof from subject , student, enrol
+where student.stu_no = enrol.stu_no
+and subject.sub_no = enrol.sub_no
+and stu_name = '김인중';
+--소프트웨어공학	권민성
+
+--김인중 학생이 수강하는 과목이름과 강의 교수를 추출해라.(natural join)
+select sub_name, sub_prof from subject natural join student, enrol
+where student.stu_no = enrol.stu_no
+and subject.sub_no = enrol.sub_no
+and stu_name = '김인중';
+--소프트웨어공학	권민성
+
+--SQL
+--DDL(정의어) create, alter, drop
+--DML(조작어) insert, update, delete
+--DCL(제어어) rollback, commit
+
+
+-- a_enrol이라는 테이블을 생성하는데 enrol 테이블 중 stu_no 20150000보다 작은 것들을
+-- 추출해서 복사한다. (테이블 복사)
+create table a_enrol
+as select *
+from enrol
+where stu_no<20150000;
+
+select * from a_enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+*/
+
+insert into a_enrol
+(sub_no, stu_no, enr_grade)
+values(108,20151062,92);
+
+select * from a_enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+108	20151062 	92
+*/
+
+insert into a_enrol
+values(109,20152088,85);
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+108	20151062 	92
+109	20152088 	85
+*/
+
+insert into a_enrol(sub_no, stu_no) values(110, 20152088);
+select * from a_enrol;
+
+insert into a_enrol values(111, 20153075, null);
+select * from a_enrol;
+
+select * from enrol where stu_no like '2015%';
+/*
+103	20152088 	45
+108	20151062 	81
+102	20153075 	66
+105	20153075 	56
+102	20153088 	61
+105	20153088 	78
+*/
+
+--->위의 내용을 a_enrol에 삽입시켜주세요.
+insert into a_enrol 
+select * from enrol
+where stu_no like '2015%';
+
+select * from a_enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+108	20151062 	92
+109	20152088 	85
+110	20152088 	
+111	20153075 	
+103	20152088 	45
+108	20151062 	81
+102	20153075 	66
+105	20153075 	56
+102	20153088 	61
+105	20153088 	78
+*/
+
+update customer 
+set address='대한민국 부산'
+where custid=5;
+
+select * from customer;
+/*
+1	박지성	영국 맨체스타	000-5000-0001
+2	김연아	대한민국 서울	000-6000-0001
+3	장미란	대한민국 강원도	000-7000-0001
+4	추신수	미국 클리블랜드	000-8000-0001
+5	박세리	대한민국 부산	
+*/
+
+update a_enrol
+set enr_grade=enr_grade+5;
+
+select * from a_enrol;
+101	20131001 	85
+104	20131001 	61
+106	20132003 	77
+101	20131025 	70
+104	20131025 	70
+107	20143054 	46
+108	20151062 	97
+109	20152088 	90
+110	20152088 	
+111	20153075 	
+103	20152088 	50
+108	20151062 	86
+102	20153075 	71
+105	20153075 	61
+102	20153088 	66
+105	20153088 	83
+
+
+update a_enrol
+set enr_grade = enr_grade+10
+where sub_no=(select sub_no
+                from subject
+                where sub_name='시스템분석설계');
+                
+select * from a_enrol;
+/*
+101	20131001 	85
+104	20131001 	71
+106	20132003 	77
+101	20131025 	70
+104	20131025 	80
+107	20143054 	46
+108	20151062 	97
+109	20152088 	90
+110	20152088 	
+111	20153075 	
+103	20152088 	50
+108	20151062 	86
+102	20153075 	71
+105	20153075 	61
+102	20153088 	66
+105	20153088 	83
+*/
+
+
+delete from a_enrol
+where stu_no=20131001;
+
+select * from a_enrol;
+/*
+106	20132003 	77
+101	20131025 	70
+104	20131025 	80
+107	20143054 	46
+108	20151062 	97
+109	20152088 	90
+110	20152088 	
+111	20153075 	
+103	20152088 	50
+108	20151062 	86
+102	20153075 	71
+105	20153075 	61
+102	20153088 	66
+105	20153088 	83
+*/
+
+
+--과목명이 기계요소설계인 과목번호와
+--일치하는 튜플 삭제해주세요
+delete from a_enrol
+where sub_no=(select sub_no
+              from subject
+              where sub_name='기계요소설계');
+    
+select * from a_enrol;
+/*
+106	20132003 	77
+101	20131025 	70
+104	20131025 	80
+107	20143054 	46
+108	20151062 	97
+109	20152088 	90
+110	20152088 	
+111	20153075 	
+103	20152088 	50
+108	20151062 	86
+102	20153075 	71
+102	20153088 	66
+*/
+
+delete from a_enrol; 
+--테이블은 남아있지만 데이터는 하나도 없다.
+--(모든 튜플을 삭제했기 때문에)
+select * from a_enrol;
+--데이터 값은 없지만 테이블 구조는 존재한다.
+
+
+1.	사원 테이블의 구조를 검색하라.
+desc emp;
+/*
+이름       널?       유형           
+-------- -------- ------------ 
+EMPNO    NOT NULL NUMBER(4)    
+ENAME             VARCHAR2(10) 
+JOB               VARCHAR2(9)  
+MGR               NUMBER(4)    
+HIREDATE          DATE         
+SAL               NUMBER(7,2)  
+COMM              NUMBER(7,2)  
+DEPTNO            NUMBER(2)    
+*/
+
+2.	부서 테이블의 구조를 검색하라.
+desc dept;
+/*
+이름     널?       유형           
+------ -------- ------------ 
+DEPTNO NOT NULL NUMBER(2)    
+DNAME           VARCHAR2(14) 
+LOC             VARCHAR2(13) 
+*/
+
+3.	급여 테이블의 구조를 검색하라.
+desc salgrade;
+/*
+이름    널? 유형          
+----- -- ----------- 
+GRADE    NUMBER(7,2) 
+LOSAL    NUMBER(7,2) 
+HISAL    NUMBER(7,2) 
+*/
+
+4.	사원들의 사원번호, 사원이름, 사원직무를 검색하라.
+select empno, ename, job from emp;
+/*
+7839	KING	PRESIDENT
+7566	JONES	MANAGER
+7698	BLAKE	MANAGER
+7782	CLARK	MANAGER
+7788	SCOTT	ANALYST
+7902	FORD	ANALYST
+7499	ALLEN	SALESMAN
+7521	WARD	SALESMAN
+7654	MARTIN	SALESMAN
+7844	TURNER	SALESMAN
+7900	JAMES	CLERK
+7934	MILLER	CLERK
+7369	SMITH	CLERK
+7876	ADAMS	CLERK
+*/
+
+5.	부서의 부서번호와 부서이름을 검색하라.
+select deptno, dname from dept;
+/*
+10	ACCOUNTING
+20	RESEARCH
+30	SALES
+40	OPERATIONS
+*/
+
+6.	부서의 부서이름과 지역을 검색하라.
+/*
+select dname, loc from dept;
+ACCOUNTING	NEW YORK
+RESEARCH	DALLAS
+SALES	CHICAGO
+OPERATIONS	BOSTON
+*/
+
+7.	사원들의 급여와 커미션을 검색하라.
+select sal, comm from emp;
+/*
+5000	
+2975	
+2850	
+2450	
+3000	
+3000	
+1600	300
+1250	500
+1250	1400
+1500	0
+950	
+1300	
+800	
+1100	
+*/
+
+8.	사원들의 입사일 중복을 제거하고 검색하라.
+select distinct hiredate from emp;
+/*
+81/11/17
+81/06/09
+82/01/23
+81/12/03
+81/02/22
+81/02/20
+81/04/02
+81/05/01
+87/07/13
+81/09/28
+81/09/08
+80/12/17
+*/
+
+9.	사원들의 상급자사원번호(mgr)중복을 제거하고 검색하라.
+select distinct mgr from emp;
+/*
+7782
+7788
+7698
+7566
+7902
+
+7839
+*/
+
+10.	사원들의 부서번호 중복을 제거하고 검색하라.
+select distinct deptno from emp;
+/*
+30
+10
+20
+*/
+
+11.	사원들의 이름과 6개월 급여의 합을 검색하라.
+select ename, sal*6 from emp;
+/*
+KING	30000
+JONES	17850
+BLAKE	17100
+CLARK	14700
+SCOTT	18000
+FORD	18000
+ALLEN	9600
+WARD	7500
+MARTIN	7500
+TURNER	9000
+JAMES	5700
+MILLER	7800
+SMITH	4800
+ADAMS	6600
+*/
+
+12.	사원들의 6개월 커미션(comm)의 합을 검색하라.
+select comm*6 from emp;
+/*
+
+
+
+
+
+1800
+3000
+8400
+0
+
+
+
+*/
+
+13.	사원이름을 ‘name’으로 사원의 급여를 ‘salary’로 열의 이름을 부여하여 검색하라.
+select ename as name, sal as salary from emp;
+/*
+KING	5000
+JONES	2975
+BLAKE	2850
+CLARK	2450
+SCOTT	3000
+FORD	3000
+ALLEN	1600
+WARD	1250
+MARTIN	1250
+TURNER	1500
+JAMES	950
+MILLER	1300
+SMITH	800
+ADAMS	1100
+*/
+
+14.	사원의 사원번호, 사원이름, 입사일, 부서번호를 한글로 바꾸어 검색하라.
+select empno as 사원번호, ename as 사원이름, hiredate as 입사일, deptno as 부서번호 from emp;
+/*
+7839	KING	81/11/17	10
+7566	JONES	81/04/02	20
+7698	BLAKE	81/05/01	30
+7782	CLARK	81/06/09	10
+7788	SCOTT	87/07/13	20
+7902	FORD	81/12/03	20
+7499	ALLEN	81/02/20	30
+7521	WARD	81/02/22	30
+7654	MARTIN	81/09/28	30
+7844	TURNER	81/09/08	30
+7900	JAMES	81/12/03	30
+7934	MILLER	82/01/23	10
+7369	SMITH	80/12/17	20
+7876	ADAMS	87/07/13	20
+*/
+
+15.	부서번호, 부서이름, 지역을 한글 제목으로 검색하라.
+select deptno as 부서번호, dname as 부서이름, loc as 지역 from dept;
+/*
+10	ACCOUNTING	NEW YORK
+20	RESEARCH	DALLAS
+30	SALES	CHICAGO
+40	OPERATIONS	BOSTON
+*/
+
+16.	사원의 사원직무와 사원이름을 합쳐서 검색하라.
+select job || ename from emp;
+/*
+PRESIDENTKING
+MANAGERJONES
+MANAGERBLAKE
+MANAGERCLARK
+ANALYSTSCOTT
+ANALYSTFORD
+SALESMANALLEN
+SALESMANWARD
+SALESMANMARTIN
+SALESMANTURNER
+CLERKJAMES
+CLERKMILLER
+CLERKSMITH
+CLERKADAMS
+*/
+
+17.	입사일(hiredate) 사원이름을 ’80-12-17에 입사한 SMITH입니다’ 식으로 검색하라.
+select hiredate ||'에 입사한 ' || ename||'입니다' from emp;
+/*
+81/11/17에 입사한 KING입니다
+81/04/02에 입사한 JONES입니다
+81/05/01에 입사한 BLAKE입니다
+81/06/09에 입사한 CLARK입니다
+87/07/13에 입사한 SCOTT입니다
+81/12/03에 입사한 FORD입니다
+81/02/20에 입사한 ALLEN입니다
+81/02/22에 입사한 WARD입니다
+81/09/28에 입사한 MARTIN입니다
+81/09/08에 입사한 TURNER입니다
+81/12/03에 입사한 JAMES입니다
+82/01/23에 입사한 MILLER입니다
+80/12/17에 입사한 SMITH입니다
+87/07/13에 입사한 ADAMS입니다
+*/
+
+18.	10번 부서에 근무하는 사원이름을 검색하라.
+select ename from emp where deptno = 10;
+/*
+KING
+CLARK
+MILLER
+*/
+
+19.	급여가 2000 이상인 사원들의 사원번호, 사원이름을 검색하라.
+select empno, ename from emp where sal >2000;
+/*
+7839	KING
+7566	JONES
+7698	BLAKE
+7782	CLARK
+7788	SCOTT
+7902	FORD
+*/
+
+20.	사원직무가 “CLERK”인 사원들의 사원번호, 사원이름을 검색하라.
+select empno, ename from emp where job ='CLERK';
+/*
+7900	JAMES
+7934	MILLER
+7369	SMITH
+7876	ADAMS
+*/
+
+21.	1980년 12월 17일에 입사한 사원이름을 검색하라.
+select ename from emp where hiredate ='80/12/17';
+--SMITH
+
+22.	부서번호 30이외의 부서이름과 지역을 검색하라.
+select dname loc from dept where deptno<>30;
+/*
+ACCOUNTING
+RESEARCH
+OPERATIONS
+*/
+
+23.	급여등급이 5인 급여의 상위급여와 하위급여를 검색하라.
+select losal, hisal from salgrade where grade ='5';
+--3001	9999
+
+24.	‘WARD’사원의 모든 정보를 검색하라.
+select * from emp where ename = 'WARD';
+--7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+
+25.	10번 부서의 근무하는 MANAGER의 사원이름을 검색하라.
+select ename from emp where job='MANAGER';
+/*
+JONES
+BLAKE
+CLARK
+*/
+
+26.	급여가 2000이상이며, 30번 부서에 근무하는 사원들의 사원번호와 사원이름을 검색하라.
+select empno, ename from emp where sal>2000 and deptno ='30';
+--7698	BLAKE
+
+27.	사원직무가 “CLERK”이며, 81년 이후에 입사한 사원들의 사원번호와 사원이름을 검색하라.
+select empno, ename from emp where job='CLERK' and hiredate>'1981-01-01';
+/*
+7900	JAMES
+7934	MILLER
+7876	ADAMS
+*/
+
+28.	20부서 외에 근무하는 MANAGER의 사원이름을 검색하라.
+select ename from emp where job='MANAGER' and deptno<>20;
+/*
+BLAKE
+CLARK
+*/
+
+29.	BOSTON이외 지역에 있는 부서이름을 검색하라.
+select dname from dept where loc<>'BOSTON';
+/*
+ACCOUNTING
+RESEARCH
+SALES
+*/
+
+30.	SALEMAN이며 급여가 1500이상인 사원이름을 검색하라.
+select ename from emp
+where sal <= 1500 and job = 'SALESMAN';
+/*
+WARD
+MARTIN
+TURNER
+*/
+
+31.	급여가 1000이상이며, 2500이하인 사원의 사원번호, 사원이름, 급여를 검색하라.
+select empno,ename,sal
+from emp
+where sal between 1000 and 2500;
+/*
+7782	CLARK	2450
+7499	ALLEN	1600
+7521	WARD	1250
+7654	MARTIN	1250
+7844	TURNER	1500
+7934	MILLER	1300
+7876	ADAMS	1100
+*/
+
+32.	사원번호가 75XX인 사원의 사원번호, 사원이름, 부서번호를 검색하라.
+select empno, ename, deptno
+from emp
+where empno like '75%';
+/*
+7566	JONES	20
+7521	WARD	30
+*/
+
+33.	부서번호가 10 또는 30에 근무하는 사원들의 사원이름과 급여를 검색하라.
+select ename,sal
+from emp
+where deptno =10 or deptno=30;
+/*
+KING	5000
+BLAKE	2850
+CLARK	2450
+ALLEN	1600
+WARD	1250
+MARTIN	1250
+TURNER	1500
+JAMES	950
+MILLER	1300
+*/
+
+34.	상급자사원번호가 76으로 시작하는 사원들의 사원이름을 검색하라.
+select ename
+from emp
+where mgr like '76%';
+/*
+ALLEN
+WARD
+MARTIN
+TURNER
+JAMES
+*/
+
+35.	사원번호가 79로 시작하는 사원들의 사원이름, 급여, 커미션을 검색하라.
+select ename,sal,comm
+from emp
+where mgr like '79%';
+--SMITH	800	
+36.	1981년 2월에 입사한 사원의 사원번호, 사원이름, 부서번호를 검색하라.
+select empno,ename,deptno
+from emp
+where hiredate like '81/02%';
+/*
+7499	ALLEN	30
+7521	WARD	30
+*/
+
+37.	사원이름 중간에 ‘A’가 들어있는 사원의 사원번호와 사원이름을 검색하라.
+select empno,ename
+from emp
+where ename like '%A%';
+/*
+7698	BLAKE
+7782	CLARK
+7499	ALLEN
+7521	WARD
+7654	MARTIN
+7900	JAMES
+7876	ADAMS
+*/
+
+38.	상급자사원번호가 NULL인 사원의 사원번호와 사원이름을 검색하라.
+select empno,ename
+from emp
+where mgr is null;
+--7839	KING
+
+39.	상급자사원번호가 NULL이 아닌 사원의 사원번호, 이름, 상급자사원번호를 검색하라.
+select empno,ename,mgr
+from emp
+where mgr is not null;
+/*
+7566	JONES	7839
+7698	BLAKE	7839
+7782	CLARK	7839
+7788	SCOTT	7566
+7902	FORD	7566
+7499	ALLEN	7698
+7521	WARD	7698
+7654	MARTIN	7698
+7844	TURNER	7698
+7900	JAMES	7698
+7934	MILLER	7782
+7369	SMITH	7902
+7876	ADAMS	7788
+*/
+
+40.	사원번호가 7902 또는 7781인 사원이름을 검색하라.
+select ename
+from emp
+where mgr ='7902'or mgr = '7781';
+--SMITH
+
+create table test1
+(u_id varchar2(10),
+u_date date);
+
+desc test1;
+
+--varchar2(n): 가변길이 문자 데이터에 대한 정의
+--number(n,m): 숫자 데이터에 대한 정의로 n은 자릿수, m은 소수이하자리수
+--char(n): 문자 데이터에 대한 정의
+--date: 날짜 데이터에 대한 정의
+--long: 2GB의 가변길이 문자 데이터에 대한 정의
+--기존의 학생 테이블을 이용하여 새로운 테이블을 생성하고 싶다.
+--student 테이블을 복사하지만, 기계과인 학생들만으로 한정하고 있다.
+create table t_student
+as select * from student
+where stu_dept='기계';
+
+desc t_student;
+/*
+이름         널? 유형           
+---------- -- ------------ 
+STU_NO        CHAR(9)      
+STU_NAME      VARCHAR2(12) 
+STU_DEPT      VARCHAR2(20) 
+STU_GRADE     NUMBER(1)    
+STU_CLASS     CHAR(1)      
+STU_GENDER    CHAR(1)      
+STU_HEIGHT    NUMBER(5,2)  
+STU_WEIGHT    NUMBER(5,2)  
+*/
+
+select * from t_student;
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+*/
+
+--<테이블 변경> alter
+alter table t_student
+add(army char(1));
+--(add): 기존 테이블에 새로운 열을 추가하는 작업
+
+
+
+desc t_student;
+/*
+이름         널? 유형           
+---------- -- ------------ 
+STU_NO        CHAR(9)      
+STU_NAME      VARCHAR2(12) 
+STU_DEPT      VARCHAR2(20) 
+STU_GRADE     NUMBER(1)    
+STU_CLASS     CHAR(1)      
+STU_GENDER    CHAR(1)      
+STU_HEIGHT    NUMBER(5,2)  
+STU_WEIGHT    NUMBER(5,2)  
+ARMY          CHAR(1)      
+*/
+
+--(modify): 기존 테이블에 열의 구조 변경
+alter table t_student
+modify(army number);
+
+desc t_student;
+/*
+이름         널? 유형           
+---------- -- ------------ 
+STU_NO        CHAR(9)      
+STU_NAME      VARCHAR2(12) 
+STU_DEPT      VARCHAR2(20) 
+STU_GRADE     NUMBER(1)    
+STU_CLASS     CHAR(1)      
+STU_GENDER    CHAR(1)      
+STU_HEIGHT    NUMBER(5,2)  
+STU_WEIGHT    NUMBER(5,2)  
+ARMY          NUMBER    
+*/
+
+alter table t_student
+drop(army);
+
+--<테이블 이름 변경>
+rename t_student to test_student;
+
+desc t_student;
+/*
+오류:
+ORA-04043: t_student 객체가 존재하지 않습니다.
+*/
+
+desc test_student;
+이름         널? 유형           
+---------- -- ------------ 
+STU_NO        CHAR(9)      
+STU_NAME      VARCHAR2(12) 
+STU_DEPT      VARCHAR2(20) 
+STU_GRADE     NUMBER(1)    
+STU_CLASS     CHAR(1)      
+STU_GENDER    CHAR(1)      
+STU_HEIGHT    NUMBER(5,2)  
+STU_WEIGHT    NUMBER(5,2)  
+ARMY          NUMBER      
+
+--<테이블 내의 데이터 삭제>
+--test_student내의 모든 데이터를 삭제함
+truncate table test_student;
+
+select * from test_student;
+--테이블 구조는 있지만 데이터가 삭제되어 있다.
+
+--delete의 경우 트랜잭션을 종료하여야만 최종 데이터가 삭제되지만
+--truncate의 경우 auto commit이 발생하여 트랜잭션을 종료할 필요가 없다.
+
+drop table test_student; --테이블 삭제
+
+desc test_student;
+/*
+오류:
+ORA-04043: test_student 객체가 존재하지 않습니다.
+*/
+
+desc student;
+desc subject;
+desc enrol;
+--학생의 이름과 점수를 추출(join)
+select student.stu_name, enr_grade from student, enrol 
+where student.stu_no = enrol.stu_no;
+/*
+김종헌	80
+김종헌	56
+박희철	72
+조민우	45
+옥성우	65
+옥성우	65
+김인중	81
+유가인	41
+옥한빛	66
+옥한빛	56
+이태연	61
+이태연	78
+*/
+
+--이름이 '옥한빛'인 학생이 수강하는 과목이름을 추출해라.
+--2020.07.28
+
+select stu_name, sub_name
+from student, subject, enrol
+where enrol.sub_no = subject.sub_no
+and student.stu_no = enrol.stu_no
+and student.stu_name='옥한빛';
+/*
+옥한빛	기계공작법
+옥한빛	기계요소설계
+*/
+
+--여학생이 수강중인 과목의 과목이름을 모두 추출해라.
+select sub_name
+from subject, student, enrol
+where student.stu_no=enrol.stu_no
+and enrol.sub_no=subject.sub_no
+and stu_gender='F'
+/*
+기계공작법
+기계요소설계
+CAD응용실습
+컴퓨터개론
+시스템분석설계;
+*/

@@ -113,6 +113,97 @@ INSERT INTO Orders VALUES (8, 3, 10, 12000, TO_DATE('2014-07-08','yyyy-mm-dd'));
 INSERT INTO Orders VALUES (9, 2, 10, 7000, TO_DATE('2014-07-09','yyyy-mm-dd'));
 INSERT INTO Orders VALUES (10, 3, 8, 13000, TO_DATE('2014-07-10','yyyy-mm-dd'));
 
+=========================================================
+/*<부서, 사원, 급여 테이블>*/
+
+--DEPT 테이블 생성
+create table dept(
+deptno number(2)
+constraint pk_dept primary key,
+dname varchar2(14), 
+loc varchar2(13));
+
+-DEPT 테이블에 값 대입
+insert into dept values(10, 'ACCOUNTING', 'NEW YORK');
+insert into dept values(20, 'RESEARCH', 'DALLAS');
+insert into dept values(30, 'SALES', 'CHICAGO');
+insert into dept values(40, 'OPERATIONS', 'BOSTON');
+
+--EMP 테이블 생성
+create table emp(
+empno number(4)
+constraint pk_emp primary key,
+ename varchar2(10),
+job varchar2(9),
+mgr number(4),
+hiredate date,
+sal number(7,2),
+comm number(7,2),
+deptno number(2));
+
+-EMP 테이블에 값 대입
+insert into emp values(7839,'KING','PRESIDENT',NULL,to_date('17-11-1981','dd-mm-yyyy'),5000,NULL,10);
+insert into emp values(7566,'JONES','MANAGER',7839,to_date('2-4-1981','dd-mm-yyyy'),2975,NULL,20);
+insert into emp values(7698,'BLAKE','MANAGER',7839,to_date('1-5-1981','dd-mm-yyyy'),2850,NULL,30);
+insert into emp values(7782,'CLARK','MANAGER',7839,to_date('9-6-1981','dd-mm-yyyy'),2450,NULL,10);
+insert into emp values(7788,'SCOTT','ANALYST',7566,to_date('13-07-1987','dd-mm-yyyy'),3000,NULL,20);
+insert into emp values(7902,'FORD','ANALYST',7566,to_date('3-12-1981','dd-mm-yyyy'),3000,NULL,20);
+insert into emp values(7499,'ALLEN','SALESMAN',7698,to_date('20-2-1981','dd-mm-yyyy'),1600,300,30);
+insert into emp values(7521,'WARD','SALESMAN',7698,to_date('22-2-1981','dd-mm-yyyy'),1250,500,30);
+insert into emp values(7654,'MARTIN','SALESMAN',7698,to_date('28-9-1981','dd-mm-yyyy'),1250,1400,30);
+insert into emp values(7844,'TURNER','SALESMAN',7698,to_date('8-9-1981','dd-mm-yyyy'),1500,0,30);
+insert into emp values(7900,'JAMES','CLERK',7698,to_date('3-12-1981','dd-mm-yyyy'),950,NULL,30);
+insert into emp values(7934,'MILLER','CLERK',7782,to_date('23-1-1982','dd-mm-yyyy'),1300,NULL,10);
+insert into emp values(7369,'SMITH','CLERK',7902,to_date('17-12-1980','dd-mm-yyyy'),800,NULL,20);
+insert into emp values(7876,'ADAMS','CLERK',7788,to_date('13-07-1987','dd-mm-yyyy'),1100,NULL,20);
+
+--SALGRADE 테이블 생성
+create table salgrade(
+grade number(7,2),
+losal number(7,2),
+hisal number(7,2));
+
+-SALGRADE 테이블에 값 대입
+insert into salgrade values(1,700,1200);
+insert into salgrade values(2,1201,1400);
+insert into salgrade values(3,1401,2000);
+insert into salgrade values(4,2001,3000);
+insert into salgrade values(5,3001,9999);
+
+-- a_enrol 테이블을 생성
+-- 하는데 enrol 테이블 중 stu_no 20150000보다 작은 것들을
+-- 추출해서 복사한다. (테이블 복사)
+create table a_enrol
+as select *
+from enrol
+where stu_no<20150000;
+
+select * from a_enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+*/
+
+-SALGRADE 테이블에 값 대입
+insert into a_enrol
+(sub_no, stu_no, enr_grade)
+values(108,20151062,92);
+
+insert into a_enrol
+values(109,20152088,85); 
+
+insert into a_enrol(sub_no, stu_no) values(110, 20152088);
+
+insert into a_enrol values(111, 20153075, null);
+
+
+-- 이렇게도 삽입이 가능하다. 하지만 순서대로 입력해주어야 한다.
+
+=======================================================================
 -- 여기는 3장에서 사용되는 Imported_book 테이블
 
 CREATE TABLE Imported_Book (
