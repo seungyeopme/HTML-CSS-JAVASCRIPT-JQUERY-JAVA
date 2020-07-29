@@ -1077,3 +1077,360 @@ select * from b_student; --rollback을 해서 다시 데이터가 보여지고 �
 */
 
 commit; --커밋 완료.
+
+select count(*)from student;
+/*10*/
+
+select count(stu_dept), count(distinct stu_dept)from student;
+/*10	3*/
+
+--학과별로 그룹화하여 학과별 평균 체중 추출
+select stu_dept, avg(stu_weight) from student
+group by stu_dept;
+/*
+기계	59
+전기전자	66
+컴퓨터정보	66.5
+*/
+
+--기계과 학생들 중 학년별 평균키가 160이상인 학년과 평균 신장 추출
+select avg(stu_height), stu_grade from student
+where stu_dept = '기계'
+group by stu_grade
+having avg(stu_height) >= 160;
+/*169.5	1*/
+
+--상급자사원번호가 NULL인 경우 'CEO'로 바꾸어 사원번호, 사원이름, 상급자사원번호를 검색하라.
+select empno, ename, mgr, nvl(to_char(mgr), 'CEO') from emp;
+/*
+7839	KING		CEO
+7566	JONES	7839	7839
+7698	BLAKE	7839	7839
+7782	CLARK	7839	7839
+7788	SCOTT	7566	7566
+7902	FORD	7566	7566
+7499	ALLEN	7698	7698
+7521	WARD	7698	7698
+7654	MARTIN	7698	7698
+7844	TURNER	7698	7698
+7900	JAMES	7698	7698
+7934	MILLER	7782	7782
+7369	SMITH	7902	7902
+7876	ADAMS	7788	7788
+*/
+
+--컴퓨터정보 학과와 같은 반인 다른학과의 학생 정보를 In을 이용하여 추출
+select * from student
+where stu_class in
+    (select stu_class 
+    from student
+    where stu_dept='컴퓨터정보')
+    and stu_dept<>'컴퓨터정보';
+/*
+20132003 	박희철	전기전자	3	B	M		63
+20142021 	심수정	전기전자	2	A	F	168	45
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+20152088 	조민우	전기전자	1	C	M	188	90
+*/
+
+45. 10, 20번부서 사원들 중 최고 급여를 받는 사원의 사원번호, 사원이름, 급여를검색하라. (부질의)
+--10,20번 -> 그룹핑의 조건
+--최고 급여 -> 조건
+select deptno, empno, ename, sal from emp 
+where sal in
+    (select max(sal) from emp 
+    group by deptno 
+    having deptno=10 or deptno=20);
+/*
+10	7839	KING	5000
+20	7788	SCOTT	3000
+20	7902	FORD	3000
+*/
+
+46. 30번 부서의사원 중 최저 급여를 받는 사원의 사원번호, 사원이름, 급여를검색하라. (부질의)
+/*
+select deptno, empno, ename, sal from emp 
+where sal in
+    (select min(sal) from emp 
+    group by deptno 
+    having deptno=30);
+*/
+--30	7900	JAMES	950
+
+47. 전체 사원들중 최고 커미션을 받는 사원의 사원번호, 사원이름, 커미션을검색하라. (부질의)
+select empno, ename, comm from emp 
+where comm in
+(select max(comm) from emp);
+--7654	MARTIN	1400
+
+48. 전체 사원들중 최저 커미션을 받는 사원의 사원번호, 사원이름, 커미션을검색하라. (부질의)
+select empno, ename, comm from emp 
+where comm in
+    (select min(comm) from emp);
+--7844	TURNER	0
+
+49. 전체 사원의 사원이름 중 MAX와 MIN값을 검색하라.
+select max(ename), min(ename) from emp;
+--WARD	ADAMS
+
+50. 전체 사원의입사일 중 MAX와 MIN값을 검색하라.
+select max(hiredate), min(hiredate) from emp;
+--87/07/13	80/12/17
+
+--사원 이름의 개수 추출
+select count(ename) from emp;
+--14
+
+--사원테이블의 튜플 수 검색  --튜플 = 행 
+select count(*)from emp;
+--14
+
+--부서별 사원들의 인원수 검색
+select deptno, count(deptno) from emp
+group by deptno;
+/*
+30	6
+10	3
+20	5
+*/
+
+--상급자사원번호별 사원들의 인원 수 검색
+select count(mgr) from emp
+group by mgr;
+/*
+1
+1
+5
+2
+1
+0
+3
+*/
+
+--equi 조인, 가장 많이 사용한다.
+select student.stu_no from student, enrol
+where student.stu_no=enrol.stu_no;
+/*
+20131001 
+20131025 
+20153075 
+20153088 
+20152088 
+20131001 
+20131025 
+20153075 
+20153088 
+20132003 
+20143054 
+20151062 
+*/
+
+--natural 조인
+select stu_no from student natural join enrol;
+/*
+20131001 
+20131025 
+20153075 
+20153088 
+20152088 
+20131001 
+20131025 
+20153075 
+20153088 
+20132003 
+20143054 
+20151062 
+*/
+
+--join using 조인
+select stu_no from student join enrol using(stu_no);
+/*
+20131001 
+20131025 
+20153075 
+20153088 
+20152088 
+20131001 
+20131025 
+20153075 
+20153088 
+20132003 
+20143054 
+20151062 
+*/
+
+--체중이 60이상인 학생이 수강하는 과목의 과목이름을 모두 검색하라. (equi join)
+select sub_name from subject, student, enrol
+where student.stu_no = enrol.stu_no 
+and enrol.sub_no  = subject.sub_no 
+and student.stu_weight >= 60;
+/*
+컴퓨터개론
+컴퓨터개론
+기계공작법
+기초전자실험
+시스템분석설계
+시스템분석설계
+기계요소설계
+전자회로실험
+소프트웨어공학
+*/
+
+--컴퓨터정보과에 개설된 과목을 수강하는 모든 학생의 학번과 이름을 검색하라.
+select student.stu_no, stu_name
+from student, subject, enrol
+where student.stu_no = enrol.stu_no 
+and enrol.sub_no  = subject.sub_no  
+and sub_dept = '컴퓨터정보';
+/*
+20131001 	김종헌
+20131025 	옥성우
+20151062 	김인중
+*/
+
+--여학생이면서 구봉규 교수의 과목을 수강하는 학생의 이름을 검색하라.
+select stu_name
+from student, enrol, subject
+where student.stu_no = enrol.stu_no 
+and enrol.sub_no  = subject.sub_no  
+and student.stu_gender = 'F' 
+and subject.sub_prof = '구봉규';
+--유가인
+
+/*<constraint 제약조건>
+: 데이터베이스 상태가 항상 만족해야 할 기본 규칙
+
+1)도메인 제약 조건
+2)키 제약 조건 : 테이블에서 각 튜플을 유일하게 식별할 수 있는 수단(기본키)
+3)무결성 제약 조건 : 기본키에 있는 속성 값들은 어떠한 경우에도 널 값을 가질 수 없다!!!
+                    
+UNIQUE KEY: 열 또는 열 조합이 유일성(유일한 값)을 가져야 한다.
+PRIMARY KEY: (NOT NULL+UNIQUE) 열에 NULL 값 허용 안됨, 유일성 가져야 함.
+FOREIGN KEY : 해당 컬럼에 참조하는 테이블로부터 존재하는 값들만 사용한다는 의미의 제약조건
+            
+constraint stu_no NOT NULL; //학번은 널 값이 되어서는 안된다.
+*/
+
+create table t_student(
+stu_no char(9),
+stu_name varchar2(12)
+constraint u_stu_name unique,
+stu_dept varchar2(20)
+constraint n_stu_dept not null,
+stu_grade number(1),
+stu_class char(1),
+stu_gender char(1),
+stu_height number(5,2),
+stu_weight number(5,2),
+constraint pt_stu_no
+primary key(stu_no));
+
+--t_enrol 테이블 생성
+--sub_no 고정된 길이 3,
+--stu_no 고정된 길이 9,
+--enr_grade 숫자 3
+--기본키를 sub_no와 stu_no로 준다
+create table t_enrol(
+    sub_no char(3),
+    stu_no char(9),
+    enr_grade number(3),
+        constraint p_enrol primary key(sub_no, stu_no));
+        
+/*<제약 조건 삭제>*/
+alter table t_enrol
+drop constraint p_enrol cascade;
+
+/*<제약 조건의 활성화, 비활성화>*/
+alter table t_student
+disable constraint n_stu_dept; --비활성화
+
+alter table t_student
+enable constraint n_stu_dept; --활성화
+
+51. 사원 테이블과 부서 테이블을 natural join해라.
+select * from emp natural join dept;
+/*
+10	7839	KING	PRESIDENT		81/11/17	5000		ACCOUNTING	NEW YORK
+20	7566	JONES	MANAGER	7839	81/04/02	2975		RESEARCH	DALLAS
+30	7698	BLAKE	MANAGER	7839	81/05/01	2850		SALES	CHICAGO
+10	7782	CLARK	MANAGER	7839	81/06/09	2450		ACCOUNTING	NEW YORK
+20	7788	SCOTT	ANALYST	7566	87/07/13	3000		RESEARCH	DALLAS
+20	7902	FORD	ANALYST	7566	81/12/03	3000		RESEARCH	DALLAS
+30	7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	SALES	CHICAGO
+30	7521	WARD	SALESMAN	7698	81/02/22	1250	500	SALES	CHICAGO
+30	7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	SALES	CHICAGO
+30	7844	TURNER	SALESMAN	7698	81/09/08	1500	0	SALES	CHICAGO
+30	7900	JAMES	CLERK	7698	81/12/03	950		SALES	CHICAGO
+10	7934	MILLER	CLERK	7782	82/01/23	1300		ACCOUNTING	NEW YORK
+20	7369	SMITH	CLERK	7902	80/12/17	800		RESEARCH	DALLAS
+20	7876	ADAMS	CLERK	7788	87/07/13	1100		RESEARCH	DALLAS
+*/
+
+52. 사원번호, 사원이름, 부서이름을 검색하라.(equi)
+select empno, ename, dname from dept, emp where dept.deptno = emp.deptno;
+/*
+7839	KING	ACCOUNTING
+7566	JONES	RESEARCH
+7698	BLAKE	SALES
+7782	CLARK	ACCOUNTING
+7788	SCOTT	RESEARCH
+7902	FORD	RESEARCH
+7499	ALLEN	SALES
+7521	WARD	SALES
+7654	MARTIN	SALES
+7844	TURNER	SALES
+7900	JAMES	SALES
+7934	MILLER	ACCOUNTING
+7369	SMITH	RESEARCH
+7876	ADAMS	RESEARCH
+*/
+
+53. 사원번호, 사원이름, 부서이름을 검색하라.(natural)
+select empno, ename, dname from dept natural join emp;
+/*
+7839	KING	ACCOUNTING
+7566	JONES	RESEARCH
+7698	BLAKE	SALES
+7782	CLARK	ACCOUNTING
+7788	SCOTT	RESEARCH
+7902	FORD	RESEARCH
+7499	ALLEN	SALES
+7521	WARD	SALES
+7654	MARTIN	SALES
+7844	TURNER	SALES
+7900	JAMES	SALES
+7934	MILLER	ACCOUNTING
+7369	SMITH	RESEARCH
+7876	ADAMS	RESEARCH
+*/
+
+54. 사원번호, 사원이름, 부서이름을 검색하라.(join~using)
+select empno, ename, dname from dept join emp using(deptno); 
+/*
+7839	KING	ACCOUNTING
+7566	JONES	RESEARCH
+7698	BLAKE	SALES
+7782	CLARK	ACCOUNTING
+7788	SCOTT	RESEARCH
+7902	FORD	RESEARCH
+7499	ALLEN	SALES
+7521	WARD	SALES
+7654	MARTIN	SALES
+7844	TURNER	SALES
+7900	JAMES	SALES
+7934	MILLER	ACCOUNTING
+7369	SMITH	RESEARCH
+7876	ADAMS	RESEARCH
+*/
+
+55. 지역이 NEW YORK인 사원이름을 검색하라.(equi)
+select ename from emp,dept 
+where dept.deptno = emp.deptno
+and loc = 'NEW YORK';
+/*
+KING
+CLARK
+MILLER
+*/
