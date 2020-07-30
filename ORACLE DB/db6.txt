@@ -1,0 +1,705 @@
+--2020.07.30
+
+select * from emp natural join dept;
+
+--사원번호, 부서이름 검색
+select empno, dname from emp natural join dept;
+/*
+7839	ACCOUNTING
+7566	RESEARCH
+7698	SALES
+7782	ACCOUNTING
+7788	RESEARCH
+7902	RESEARCH
+7499	SALES
+7521	SALES
+7654	SALES
+7844	SALES
+7900	SALES
+7934	ACCOUNTING
+7369	RESEARCH
+7876	RESEARCH
+*/
+
+--지역이 NEW YORK인 사원이름 검색
+select ename, loc from emp natural join dept
+where loc='NEW YORK';
+/*
+KING	NEW YORK
+CLARK	NEW YORK
+MILLER	NEW YORK
+*/
+
+--지역이 NEW YORK인 사원의 사원번호, 사원이름을 사원번호 순으로 검색
+select empno, ename from emp, dept where emp.deptno = dept.deptno and loc='NEW YORK';
+/*
+7839	KING
+7782	CLARK
+7934	MILLER
+*/
+
+1.ADAMS사원이 근무 중인 부서이름과 지역을검색하라.(equi join)
+select dname,loc, ename from dept, emp where dept.deptno = emp.deptno
+and ename='ADAMS';
+/*
+RESEARCH	DALLAS	ADAMS
+*/
+
+2.급여가 2000이상인 사원들의 사원명과 지역을검색하라. (natural join)
+select ename, loc from emp natural join dept
+where sal >2000;
+/*
+KING	NEW YORK
+JONES	DALLAS
+BLAKE	CHICAGO
+CLARK	NEW YORK
+SCOTT	DALLAS
+FORD	DALLAS
+*/
+
+3.3번을equi join으로 바꿔라.
+
+4.급여가 1000 이상 2000 이하인 사원들의 사원번호, 사원이름, 부서이름을 사원번호순으로 검색하라. (join using)
+select empno, ename, dname from emp join dept using(deptno);
+/*
+7839	KING	ACCOUNTING
+7566	JONES	RESEARCH
+7698	BLAKE	SALES
+7782	CLARK	ACCOUNTING
+7788	SCOTT	RESEARCH
+7902	FORD	RESEARCH
+7499	ALLEN	SALES
+7521	WARD	SALES
+7654	MARTIN	SALES
+7844	TURNER	SALES
+7900	JAMES	SALES
+7934	MILLER	ACCOUNTING
+7369	SMITH	RESEARCH
+7876	ADAMS	RESEARCH
+*/
+
+5.사원직무가 SALESMAN이면서 CHICAGO 지역에 근무 중인 사원명을 검색하라.
+select ename from emp natural join dept
+where loc = 'CHICAGO' and job = 'SALESMAN';
+/*
+ALLEN
+WARD
+MARTIN
+TURNER
+*/
+
+6.NEW YORK이나 DALLAS 지역에 근무하는 사원들의 사원번호와 사원이름을 사원번호 순으로 검색하라. (equi join)
+select empno, ename from emp, dept where dept.deptno = emp.deptno 
+and loc='NEW YORK' or loc='DALLAS' order by empno; 
+/*
+7369	SMITH
+7499	ALLEN
+7521	WARD
+7566	JONES
+7654	MARTIN
+7698	BLAKE
+7782	CLARK
+7782	CLARK
+7788	SCOTT
+7839	KING
+7839	KING
+7844	TURNER
+7876	ADAMS
+7900	JAMES
+7902	FORD
+7934	MILLER
+7934	MILLER
+*/
+
+7.부서이름이 ACCOUNTING이거나, 지역이 CHICAGO인 사원의 사원번호와 사원이름을 검색하라. (equi join)
+select empno, ename from dept, emp where dept.deptno = emp.deptno
+and loc='CHICAGO' or dname='ACCOUNTING';
+/*
+7839	KING
+7566	JONES
+7698	BLAKE
+7782	CLARK
+7788	SCOTT
+7902	FORD
+7499	ALLEN
+7521	WARD
+7654	MARTIN
+7844	TURNER
+7900	JAMES
+7934	MILLER
+7369	SMITH
+7876	ADAMS
+7698	BLAKE
+7499	ALLEN
+7521	WARD
+7654	MARTIN
+7844	TURNER
+7900	JAMES
+*/
+
+8.NEW YORK이나 DALLAS 지역에 근무하는 사원들의 사원번호와 사원이름을 사원번호 순으로 검색하라. (natural join)
+select empno, ename from emp natural join dept
+where dept.loc in('NEW YORK', 'DALLAS')
+order by 1;
+/*
+7369	SMITH
+7566	JONES
+7782	CLARK
+7788	SCOTT
+7839	KING
+7876	ADAMS
+7902	FORD
+7934	MILLER
+*/
+
+9.BLAKE 사원보다 많은 급여를 받는 사원이름을검색하라. (부질의)
+select ename from emp 
+where sal> (select
+sal from emp 
+where ename='BLAKE') and ename<>'BLAKE';
+/*
+KING
+JONES
+SCOTT
+FORD
+*/
+
+10.FORD 사원과 같은 부서에 근무하는 사원이름을 검색하라. (부질의)
+select ename from emp 
+where deptno = (select
+deptno from emp
+where ename= 'FORD') and ename<>'FORD';
+/*
+JONES
+SCOTT
+SMITH
+ADAMS
+*/
+
+11. FORD 사원과 같은 급여를 받는 사원의 사원번호를검색하라. (부질의)
+select empno, sal from emp
+where sal = (select
+sal from emp
+where ename = 'FORD');
+/*
+7788	3000
+7902	3000
+*/
+
+12. 부서이름이 ‘SALES’이면서 사원직무가 ‘MANAGER’인 사원의 사원번호, 사원이름을 사원이름 순으로 검색하라. (natural join)
+select empno, ename, dname, job from emp natural join dept
+where dname = 'SALES'
+and job = 'MANAGER';
+--7698	BLAKE	SALES	MANAGER
+
+13. SCOTT 사원보다 많은 급여를 받는 사원 정보를검색하라. (부질의)
+select * from emp 
+where sal >(select sal from emp 
+    where ename='SCOTT');
+--7839	KING	PRESIDENT		81/11/17	5000		10
+
+14. ALLEN 사원보다 적은 급여를 받는 사원 정보를검색하라. (부질의)
+select * from emp where sal <(select sal from emp where ename='ALLEN');
+/*
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30
+7900	JAMES	CLERK	7698	81/12/03	950		30
+7934	MILLER	CLERK	7782	82/01/23	1300		10
+7369	SMITH	CLERK	7902	80/12/17	800		20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+15. 전체 사원의 평균 급여보다 급여가 많은 사원 정보를 검색하라. (부질의)
+select * from emp where sal >(select avg(sal) from emp);
+/*
+7839	KING	PRESIDENT		81/11/17	5000		10
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30
+7782	CLARK	MANAGER	7839	81/06/09	2450		10
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+*/
+
+16. CHICAGO 지역에 위치하는 부서에 근무하는사원 정보를 검색하라. (부질의)
+select * from emp, dept where loc in(select loc from dept where loc='CHICAGO');
+/*
+7839	KING	PRESIDENT		81/11/17	5000		10	30	SALES	CHICAGO
+7566	JONES	MANAGER	7839	81/04/02	2975		20	30	SALES	CHICAGO
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30	30	SALES	CHICAGO
+7782	CLARK	MANAGER	7839	81/06/09	2450		10	30	SALES	CHICAGO
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20	30	SALES	CHICAGO
+7902	FORD	ANALYST	7566	81/12/03	3000		20	30	SALES	CHICAGO
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30	30	SALES	CHICAGO
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30	30	SALES	CHICAGO
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30	30	SALES	CHICAGO
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30	30	SALES	CHICAGO
+7900	JAMES	CLERK	7698	81/12/03	950		30	30	SALES	CHICAGO
+7934	MILLER	CLERK	7782	82/01/23	1300		10	30	SALES	CHICAGO
+7369	SMITH	CLERK	7902	80/12/17	800		20	30	SALES	CHICAGO
+7876	ADAMS	CLERK	7788	87/07/13	1100		20	30	SALES	CHICAGO
+*/
+
+select * from emp
+where deptno=(select deptno
+                from dept
+                where loc='CHICAGO');
+/*
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30
+7900	JAMES	CLERK	7698	81/12/03	950		30
+*/
+
+desc a_enrol;
+/*
+이름        널? 유형        
+--------- -- --------- 
+SUB_NO       CHAR(3)   
+STU_NO       CHAR(9)   
+ENR_GRADE    NUMBER(3) 
+*/
+
+insert into a_enrol values(108, 20151111, 84);
+
+select * from a_enrol;
+--108	20151111 	84
+
+drop table a_enrol; 
+--Table A_ENROL이(가) 삭제되었습니다.
+
+--enrol 테이블에서 학번이 2015 이전 학생들만 복사
+create table a_enrol as select * from enrol
+where stu_no < 20150000;
+--Table A_ENROL이(가) 생성되었습니다.
+
+desc a_enrol;
+/*
+이름        널? 유형        
+--------- -- --------- 
+SUB_NO       CHAR(3)   
+STU_NO       CHAR(9)   
+ENR_GRADE    NUMBER(3) 
+*/
+
+select * from a_enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+*/
+
+insert into a_enrol values(108, 20151055, 90);
+insert into a_enrol values(109, 20152055, 84);
+insert into a_enrol values(110, 20153055, 74);
+
+select * from a_enrol;
+/*
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+101	20131025 	65
+104	20131025 	65
+107	20143054 	41
+108	20151055 	90
+109	20152055 	84
+110	20153055 	74
+*/
+
+--2015로 시작되는 학번 추출
+select * from a_enrol
+where stu_no like'2015%'; 
+/*
+108	20151055 	90
+109	20152055 	84
+110	20153055 	74
+*/
+
+--2015로 시작되는 학번들을 a_enrol테이블에 삽입(insert)
+insert into a_enrol 
+select * from enrol
+where stu_no like'2015%';
+
+select * from a_enrol;
+
+desc a_enrol;
+/*
+이름        널? 유형        
+--------- -- --------- 
+SUB_NO       CHAR(3)   
+STU_NO       CHAR(9)   
+ENR_GRADE    NUMBER(3
+*/
+
+--점수들을 다 10점씩 증가시켜주세요.
+update a_enrol set enr_grade = enr_grade+10;
+
+--과목명이 데이터베이스인 점수를 10점 증가시켜주세요.
+update a_enrol set enr_grade = enr_grade+10
+where sub_no=(select sub_no 
+              from subject 
+              where sub_name='데이터베이스');
+              
+--튜플 삭제 20132003학번 삭제
+delete from a_enrol 
+where stu_no=20132003;
+
+과목이 데이터베이스인 과목번호 삭제
+delete from a_enrol
+where stu_no=(select sub_no
+            from subject
+            where sub_name='데이터베이스');
+desc student;
+테이블 생성
+1. 학생테이블로부터 학년이 1 또는 2학년인 조건들만 복사하여 student1 테이블을 생성한다.
+create table student1 as select * from student
+where stu_grade = 1 or stu_grade = 2;
+
+create table student1 as select * from student
+where stu_grade in(1,2);
+--Table STUDENT1이(가) 생성되었습니다.
+
+select * from student1;
+/*
+20153075 	옥한빛	기계	1	C	M	177	80
+20153088 	이태연	기계	1	C	F	162	50
+20143054 	유가인	기계	2	C	F	154	47
+20152088 	조민우	전기전자	1	C	M	188	90
+20142021 	심수정	전기전자	2	A	F	168	45
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+*/
+
+2. 과목테이블을 복사하여 subject1 테이블을 생성한다.
+create table subject1 as select * from subject;
+
+select * from subject1;
+/*
+111	데이터베이스	이재영	2	컴퓨터정보
+110	자동제어	정순정	2	전기전자
+109	자동화설계	박민영	3	기계
+101	컴퓨터개론	강종영	3	기계
+102	기계공작법	김태영	1	기계
+103	기초전자실험	김유석	1	전기전자
+104	시스템분석설계	강석현	3	컴퓨터정보
+105	기계요소설계	김명성	1	기계
+106	전자회로실험	최영민	3	전기전자
+107	CAD응용실습	구봉규	2	기계
+108	소프트웨어공학	권민성	1	컴퓨터정보
+*/
+
+3. 수강테이블을 복사하여 enrol1 테이블을 생성한다.
+create table enrol1 as select * from enrol;
+
+/*
+select * from enrol1;
+101	20131001 	80
+104	20131001 	56
+106	20132003 	72
+103	20152088 	45
+101	20131025 	65
+104	20131025 	65
+108	20151062 	81
+107	20143054 	41
+102	20153075 	66
+105	20153075 	56
+102	20153088 	61
+105	20153088 	78
+*/
+DESC STUDENT1;
+1. 학번 20101059, 이름 조병준, 학과 컴퓨터정보, 학년 1, 반 B, 키 164, 몸무게 70인 남학생이 추가되었다.
+insert into student1 values(20101059, '조병준', '컴퓨터정보', 1, 'B', 'M', 164, 70);
+--1 행 이(가) 삽입되었습니다.
+
+2. 학번 20102038, 이름 남지선, 학과 전기전자, 학년 1, 반 C, 여학생이 추가되었다.
+insert into student1 values(20102038, '남지선', '전기전자', 1, 'C', 'F', NULL, NULL);
+--1 행 이(가) 삽입되었습니다.
+
+3. Student1 테이블에 학생 테이블의 3학년 학생들 데이터를 복사하라.
+insert into student1 
+select * from student
+where stu_grade = 3;
+--3개 행 이(가) 삽입되었습니다.
+
+4. 학번 20131001반을 B로 바꾸어라.
+update student1 set stu_class = 'B'
+where stu_no='20131001';
+--1 행 이(가) 업데이트되었습니다.
+
+5. 20152088 학생의 키가 2cm자랐다.
+update student1 set stu_height = stu_height+2 where stu_no=20152088;
+--1 행 이(가) 업데이트되었습니다.
+
+모든 학생 학년이 다 1학년씩 올랐다.
+update student1 set stu_grade = stu_grade+1;
+--12개 행 이(가) 업데이트되었습니다.
+
+--view
+--데이터베이스 내의 "가상 테이블" 사용자들에게는 데이터가 있는 테이블처럼 보이나
+--실제로는 데이터는 존재하지 않으며 사용할 때 데이터 베이스 테이블로부터 유도되어 운영됨.
+--뷰를 통해 사용자와 관련된 데이터만 제공하므로 원하는 데이터만을 조작할 수 있게 함으로써
+--보안 기능이 강화된다.
+
+create or replace view v_student1
+as select * from student 
+where stu_dept='컴퓨터정보'; 
+--View V_STUDENT1이(가) 생성되었습니다.
+
+select * from v_student1;
+/*
+20151062 	김인중	컴퓨터정보	1	B	M	166	67
+20141007 	진현무	컴퓨터정보	2	A	M	174	64
+20131001 	김종헌	컴퓨터정보	3	C	M		72
+20131025 	옥성우	컴퓨터정보	3	A	F	172	63
+*/
+
+/*<조인뷰: 2개 이상 테이블로부터 유도된 뷰>*/
+create view v_enrol1
+as select sub_name, enrol.sub_no, stu_no, enr_grade
+from enrol, subject
+where enrol.sub_no = subject.sub_no;
+--View V_ENROL1이(가) 생성되었습니다.
+
+--위 뷰를 아래처럼 사용 가능하다.
+/*
+create view v_enrol1
+as select sub_name, a.sub_no, stu_no, enr_grade
+from enrol a, subject b
+where a.sub_no = b.sub_no;
+*/
+
+select * from v_enrol1;
+/*
+컴퓨터개론	101	20131001 	80
+시스템분석설계	104	20131001 	56
+전자회로실험	106	20132003 	72
+기초전자실험	103	20152088 	45
+컴퓨터개론	101	20131025 	65
+시스템분석설계	104	20131025 	65
+소프트웨어공학	108	20151062 	81
+CAD응용실습	107	20143054 	41
+기계공작법	102	20153075 	66
+기계요소설계	105	20153075 	56
+기계공작법	102	20153088 	61
+기계요소설계	105	20153088 	78
+*/
+
+desc student1;
+desc enrol1;
+desc subject1;
+1.	20153088학생이 자퇴하였다.
+delete from student1 where stu_no=20153088;
+--1 행 이(가) 삭제되었습니다.
+
+2.	과목번호 112, 과목이름 자동화시스템, 교수명 고종민, 학년 3, 학과 기계가 추가되었다.
+insert into subject1 values(112, '자동화시스템', '고종민', 3, '기계');
+--1 행 이(가) 삽입되었습니다.
+
+3.	과목번호가 110에서 501로 변경되었다.
+update subject1 set sub_no = 501
+where sub_no = 110;
+--1 행 이(가) 업데이트되었습니다.
+
+4.	과목번호 101이 폐강되었다. 
+delete from subject1 where sub_no=101;
+--1 행 이(가) 삭제되었습니다.
+
+5.	enrol1테이블에서 subject1에 없는 과목번호를 999로 변경해라.
+update enrol1 set sub_no = 999
+where sub_no not in (select sub_no
+                    from subject1);
+--2개 행 이(가) 업데이트되었습니다.
+
+6.	enrol1테이블에서 student1에 없는 학번을 99999999로 변경해라.
+update enrol1 set stu_no = 99999999 where sub_no not in (select stu_no from subject1);
+--12개 행 이(가) 업데이트되었습니다.
+
+7.	enrol1테이블에서 과목번호 999를 삭제하라.
+delete from enrol1 sub_no 
+where sub_no = 999;
+--2개 행 이(가) 삭제되었습니다.
+
+8.	Enrol1테이블에서 학번 99999999를 삭제하라.
+delete from enrol1 stu_no
+where stu_no = 99999999;
+--10개 행 이(가) 삭제되었습니다.
+
+/*
+<Top-N query>
+최대, 최소 값을 가진 열의 데이터 추출
+
+ex) 키가 큰 상위 5명 학생
+    성적 높은 상위 5명 학생
+*/
+
+=>학생테이블에서 키가 큰 상위 5명 학생의 학번, 이름, 키 검색하는 코드
+select stu_no, stu_name, stu_height 
+from (select stu_no, stu_name, stu_height
+        from student
+        where stu_height is not null
+        order by stu_height desc) 
+where rownum <= 5;
+/*
+20152088 	조민우	188
+20153075 	옥한빛	177
+20141007 	진현무	174
+20131025 	옥성우	172
+20142021 	심수정	168
+*/
+
+--sequence 문
+/*
+Oracle 에서는 MySql에 있는 Auto_Increment 기능이 없다.
+     그렇기에 자동으로 인덱스값을 증가시켜주기 위해서는 시퀀스를 생성해서 사용해     
+      야한다.
+*/
+
+--시퀀스 seq1을 생성하며, 100부터 2씩 증가 1000의 최대값을 가진다.
+create sequence seq1
+increment by 2
+start with 100
+maxvalue 1000;
+--Sequence SEQ1이(가) 생성되었습니다.
+
+select seq1.nextval from dual;
+--실행을 하면 2씩 증가
+/*100*/ 
+/*102*/
+
+--시퀀스 삭제
+drop sequence seq1;
+--Sequence SEQ1이(가) 삭제되었습니다.
+
+create table customers(
+c_code varchar2(4) primary key,
+c_name varchar2(30),
+c_ceo varchar2(12),
+c_addr varchar(100),
+c_phone varchar2(13)
+);
+--Table CUSTOMERS이(가) 생성되었습니다.
+
+create table product(
+p_code char(3) primary key,
+p_name varchar2(30),
+p_cost number,
+p_group varchar(30)
+);
+--Table PRODUCT이(가) 생성되었습니다.
+
+create table stock(
+p_code char(3) primary key,
+s_qty number,
+s_lastdate date
+);
+--Table STOCK이(가) 생성되었습니다.
+
+desc customers;
+/*
+이름      널?       유형            
+------- -------- ------------- 
+C_CODE  NOT NULL VARCHAR2(4)   
+C_NAME           VARCHAR2(30)  
+C_CEO            VARCHAR2(12)  
+C_ADDR           VARCHAR2(100) 
+C_PHONE          VARCHAR2(13)  
+*/
+
+desc product;
+/*
+이름      널?       유형           
+------- -------- ------------ 
+P_CODE  NOT NULL CHAR(3)      
+P_NAME           VARCHAR2(30) 
+P_COST           NUMBER       
+P_GROUP          VARCHAR2(30) 
+*/
+
+desc stock;
+/*
+이름         널?       유형      
+---------- -------- ------- 
+P_CODE     NOT NULL CHAR(3) 
+S_QTY               NUMBER  
+S_LASTDATE          DATE    
+*/
+
+insert into product values('202','유선마우스', 180000, '마우스');
+insert into product values('301', '무선마우스',8000, '키보드');
+insert into product values('302', '유선키보드',22000, '키보드');
+insert into product values('401', '2채널 스피커',10000, '스피커');
+insert into product values('402', '5.1채널 스피커',120000, '스피커');
+
+select * from product;
+/*
+202	유선마우스	180000	마우스
+301	무선마우스	8000	키보드
+302	유선키보드	22000	키보드
+401	2채널 스피커	10000	스피커
+402	5.1채널 스피커	120000	스피커
+*/
+
+--저장 프로시저(Stored Procedure)
+--프로그래머가 생성해 놓은 쿼리문을 마치 하나의 메소드 형식으로 관리하는 것
+
+/*
+declare
+begin
+exception
+*/
+
+/*
+or replace 
+--이미 같은 이름의 프로시저가 존재하는 경우 기존의 프로시저 내용을
+--지우고 새로운 내용으로 바꿔준다.
+*/
+
+--프로시저 test2 생성
+-->학번, 학년을 입력으로 해당 학생의 학년을 수정하는 프로시저
+create or replace procedure test2
+(v_stu_no in student.stu_no%type,
+v_stu_grade in student.stu_grade%type)
+is
+begin  
+    update student
+    set stu_grade=v_stu_grade
+    where stu_no=v_stu_no;
+end test2;
+/
+--Procedure TEST2이(가) 컴파일되었습니다.
+
+select * from student where stu_no=20153075;
+--20153075 	옥한빛	기계	1	C	M	177	80
+
+execute test2(20153075,3);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+select * from student where stu_no=20153075;
+20153075 	옥한빛	기계	3	C	M	177	80
+
+--프로시저 test3 생성
+create or replace procedure test3
+(v_stu_no in student.stu_no%type,
+v_stu_name out student.stu_name%type)
+is
+begin  
+    select stu_name
+    into v_stu_name
+    from student
+    where stu_no=v_stu_no;
+end test3;
+/
+--Procedure TEST3이(가) 컴파일되었습니다.
+
+--변수 선언
+variable d_stu_name varchar2(12);
+
+execute test3(20153075,:d_stu_name);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+print d_stu_name;
+--옥한빛
