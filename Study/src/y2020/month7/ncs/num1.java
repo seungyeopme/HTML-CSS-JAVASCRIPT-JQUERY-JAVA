@@ -2,7 +2,7 @@ package y2020.month7.ncs;
 
 import java.util.Scanner;
 
-//ncs 출제 문제
+//ncs 출제 예상 문제
 class Worker{
 	private int id;
 	private String name;

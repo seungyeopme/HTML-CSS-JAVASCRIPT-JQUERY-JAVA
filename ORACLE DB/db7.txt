@@ -504,3 +504,1354 @@ where rownum<=2;
 ACCOUNTING
 RESEARCH
 */
+
+--프로시저
+--입력 in
+--검색 out
+/*
+create or replace procedure 프로시저명
+(변수 in student.stu_no%type)
+
+is 
+
+begin
+        sql
+end 프로시저명;
+/
+*/
+
+create sequence seq1 
+    increment by 1
+    start with 201
+    maxvalue 999;
+--Sequence SEQ1이(가) 생성되었습니다.
+
+
+--프로시저 test5
+create procedure test5
+(v_sub_name in subject.sub_name%type,--서브젝트테이블에 있는 과목명과 동일한 타입
+v_sub_prof in subject.sub_prof%type,
+v_sub_grade in subject.sub_grade%type,
+v_sub_dept in subject.sub_dept%type)
+
+is
+begin
+    insert
+        into subject
+                values(seq1.nextval,
+                    v_sub_name,
+                    v_sub_prof,
+                    v_sub_grade,
+                    v_sub_dept);
+        commit;
+end test5;
+/
+--Procedure TEST5이(가) 컴파일되었습니다.
+
+select * from subject;
+--2020.07.31
+/*
+update set where
+
+delete from where
+
+insert into values
+*/
+
+desc student;
+desc subject;
+desc enrol;
+desc emp;
+
+--sub_no가 104인 성적을 5점 감소시켜주세요
+update enrol 
+set enr_grade = enr_grade - 5
+where sub_no=104;
+--2개 행 이(가) 업데이트되었습니다.
+
+1.	20 또는 30인 부서번호만 사원(emp)테이블에서 복사하여 emp1테이블을 생성해라.
+create table emp1 as select * from emp
+where deptno = '20' or deptno = '30';
+--Table EMP1이(가) 생성되었습니다.
+
+2.	dept 테이블을 복사하여 dept1테이블을 생성해라.
+create table dept1 as select * from dept;
+--Table DEPT1이(가) 생성되었습니다.
+
+3.	salgrade테이블을 복사하여 salgrade1테이블을 생성해라.
+create table salgrade1 as select * from salgrade;
+--Table SALGRADE1이(가) 생성되었습니다.
+
+4.	각각의 테이블을 확인한다.
+desc emp1;
+/*
+이름       널? 유형           
+-------- -- ------------ 
+EMPNO       NUMBER(4)    
+ENAME       VARCHAR2(10) 
+JOB         VARCHAR2(9)  
+MGR         NUMBER(4)    
+HIREDATE    DATE         
+SAL         NUMBER(7,2)  
+COMM        NUMBER(7,2)  
+DEPTNO      NUMBER(2)  
+*/
+select * from emp1;
+/*
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30
+7900	JAMES	CLERK	7698	81/12/03	950		30
+7369	SMITH	CLERK	7902	80/12/17	800		20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+
+desc dept1;
+/*
+이름     널? 유형           
+------ -- ------------ 
+DEPTNO    NUMBER(2)    
+DNAME     VARCHAR2(14) 
+LOC       VARCHAR2(13) 
+*/
+
+select * from dept1;
+/*
+10	ACCOUNTING	NEW YORK
+20	RESEARCH	DALLAS
+30	SALES	CHICAGO
+40	OPERATIONS	BOSTON
+*/
+
+desc salgrade1;
+/*
+이름    널? 유형          
+----- -- ----------- 
+GRADE    NUMBER(7,2) 
+LOSAL    NUMBER(7,2) 
+HISAL    NUMBER(7,2) 
+*/
+
+select * from salgrade1;
+/*
+1	700	1200
+2	1201	1400
+3	1401	2000
+4	2001	3000
+5	3001	9999
+*/
+
+5.	사원번호 7401, 사원이름 HOMER, 급여 1300, 부서번호 10인 사원이 오늘 입사하였다.
+insert into emp1 
+(empno, ename, sal, deptno, hiredate)
+values(7401, 'HOMER', 1300, 10, trunc(sysdate,'dd'));
+--1 행 이(가) 삽입되었습니다.
+
+6.	사원번호 7323, 사원이름 BRANDA, 부서번호 30, 사원번호 7499와 동일한 급여를 받는 사원이 입사하였다. (부질의)
+insert into emp1 
+(empno, ename, deptno, sal) 
+values(7323,'BRANDA',30, (select sal from emp where empno=7499) );
+--1 행 이(가) 삽입되었습니다.
+
+7.	사원(emp)테이블에서 부서번호가 10인 데이터를 emp1테이블에 삽입해라.
+insert into emp1
+select * from emp
+where deptno=10;
+--3개 행 이(가) 삽입되었습니다.
+
+8.	사원번호 7369의 사원직무를 ANALYST로 바꾸어라.
+update emp1 set job='ANALYST'
+where empno =7369;
+--1 행 이(가) 업데이트되었습니다.
+
+9.	부서번호 20인 직원들의 급여를 10% 감하라.
+update emp1 set sal=sal*0.9
+where deptno = 20;
+--5개 행 이(가) 업데이트되었습니다.
+
+10.	모든 사원의 급여를 +100 증가시켜라
+update emp1 set sal=sal+100;
+--16개 행 이(가) 업데이트되었습니다.
+
+11.	지역이 DALLAS인 사원들의 급여를 10감하라. (부질의)
+update emp1 set sal=sal-10
+where deptno=
+    (select deptno from dept where loc='DALLAS');
+--5개 행 이(가) 업데이트되었습니다.
+
+12.	사원번호 7499가 퇴사하였다.
+delete from emp1 where empno=7499;
+--1 행 이(가) 삭제되었습니다.
+
+13.	부서번호 50, 부서이름 ‘PLANNING’, 지역 ‘MIAMI’가 추가되었다.
+insert into dept1 values(50,'PLANNING','MIAMI');
+--1 행 이(가) 삽입되었습니다.
+
+14.	부서번호가 40인 부서가 60으로 변경되었다.
+update emp1 set deptno=60 where deptno=40;
+--0개 행 이(가) 업데이트되었습니다.
+
+15.	Dept1 테이블에 없는 부서번호들을 갖고 있는 사원들의 부서번호를 99로 변경하라. (부질의)
+update dept1 set deptno=99 
+where deptno =(select deptno from dept1 where deptno is null);
+--0개 행 이(가) 업데이트되었습니다
+
+/*두번째 방법*/
+update dept1 set deptno=99
+where deptno not in(select deptno from dept1);
+--0개 행 이(가) 업데이트되었습니다.
+
+16.	JONES, JOSH, CLARK가 30번 부서로 바뀌었다.
+update emp1 set deptno=30 where ename in('JONES','JOSH','CLARK');
+--2개 행 이(가) 업데이트되었습니다.
+
+17.	커미션이 null인 데이터를 0으로 바꾸어라.
+update emp1 set comm=nvl(to_char(comm),0);
+--15개 행 이(가) 업데이트되었습니다.
+
+18.	Emp1 전체 테이블의 데이터를 삭제하라.
+drop table emp1;
+--Table EMP1이(가) 삭제되었습니다.
+
+desc t_enrol;
+/*
+*Action:
+이름        널?       유형        
+--------- -------- --------- 
+SUB_NO    NOT NULL CHAR(3)   
+STU_NO    NOT NULL CHAR(9)   
+ENR_GRADE          NUMBER(3) 
+*/
+
+/*테이블 삭제*/
+drop table t_enrol;
+--Table T_ENROL이(가) 삭제되었습니다.
+
+/*테이블 생성*/
+create table t_enrol(
+sub_no char(3),
+stu_no number(9),
+enr_grade number(3),
+    constraint enr_sub_no_fk1
+    foreign key(sub_no)
+    references subject(sub_no),
+    
+    constraint enr_stu_no_fk1
+    foreign key(stu_no)
+    references student(stu_no),
+    
+    constraint enr_pk1 
+    primary key (sub_no, stu_no)); 
+/*
+오류 보고 -
+ORA-02267: 열의 데이터 유형이 참조 열의 데이터 유형과 일치하지 않습니다
+02267. 00000 -  "column type incompatible with referenced column type"
+*Cause:    The data type or collation of the referencing column was
+           incompatible with the data type or collation of the referenced
+           column.
+*Action:   Select a compatible data type for the referencing column.
+           Also, the collation of a character column in a foreign key must
+           match the collation of the corresponding column in the primary
+           key.
+*/    
+/*제약 조건의 확인*/
+select * 
+from user_constraints
+where table_name='T_STUDENT';
+/*
+SYS	N_STU_DEPT	C	T_STUDENT	"STU_DEPT" IS NOT NULL	"STU_DEPT" IS NOT NULL				ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/29					3
+SYS	PT_STU_NO	P	T_STUDENT						ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/29	SYS	PT_STU_NO			3
+SYS	U_STU_NAME	U	T_STUDENT						ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/29	SYS	U_STU_NAME			3
+*/
+
+/*
+제약 조건 명은 t_tbl_pk
+키 값은 t_empno로 설정
+*/
+create table t_tbl(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2),
+t_comm     number(7,2),
+t_deptno   number(2),
+
+constraint t_tbl_pk primary key(t_empno));
+--Table T_TBL이(가) 생성되었습니다.
+
+desc t_tbl; --구조 확인
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+T_EMPNO    NOT NULL NUMBER(4)    
+T_ENAME             VARCHAR2(40) 
+T_JOB               VARCHAR2(9)  
+T_MGR               NUMBER(4)    
+T_HIREDATE          DATE         
+T_SAL               NUMBER(7,2)  
+T_COMM              NUMBER(7,2)  
+T_DEPTNO            NUMBER(2)   
+*/
+
+
+--Table T_TBL에 값 삽입
+insert into t_tbl values(7566,'JONES','MANAGER',7839,to_date('2-4-1981','dd-mm-yyyy'),2975,NULL,20);
+insert into t_tbl values(7788,'SCOTT','ANALYST',7566,to_date('13-07-1987','dd-mm-yyyy'),3000,NULL,20);
+insert into t_tbl values(7902,'FORD','ANALYST',7566,to_date('3-12-1981','dd-mm-yyyy'),3000,NULL,20);
+insert into t_tbl values(7369,'SMITH','CLERK',7902,to_date('17-12-1980','dd-mm-yyyy'),800,NULL,20);
+insert into t_tbl values(7876,'ADAMS','CLERK',7788,to_date('13-07-1987','dd-mm-yyyy'),1100,NULL,20);
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+select * from t_tbl;
+/*
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7369	SMITH	CLERK	7902	80/12/17	800		    20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+
+/*
+create alter drop(행)
+
+update insert delete(튜플)
+*/
+
+--t_tbl에 성별 열을 삽입해라. 데이터 타입은 char(1)로 설정해라.
+alter table t_tbl add (t_gender char(1)); 
+--Table T_TBL이(가) 변경되었습니다.
+
+desc t_tbl;
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+T_EMPNO    NOT NULL NUMBER(4)    
+T_ENAME             VARCHAR2(40) 
+T_JOB               VARCHAR2(9)  
+T_MGR               NUMBER(4)    
+T_HIREDATE          DATE         
+T_SAL               NUMBER(7,2)  
+T_COMM              NUMBER(7,2)  
+T_DEPTNO            NUMBER(2)    
+T_GENDER            CHAR(1)      
+*/
+
+--t_tbl 테이블에 성별 열의 구조를 변경하고 확인해라
+-->varchar2(10)으로 변경해라.
+alter table t_tbl modify(t_gender varchar2(10));
+--Table T_TBL이(가) 변경되었습니다.
+
+desc t_tbl;
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+T_EMPNO    NOT NULL NUMBER(4)    
+T_ENAME             VARCHAR2(40) 
+T_JOB               VARCHAR2(9)  
+T_MGR               NUMBER(4)    
+T_HIREDATE          DATE         
+T_SAL               NUMBER(7,2)  
+T_COMM              NUMBER(7,2)  
+T_DEPTNO            NUMBER(2)    
+T_GENDER            VARCHAR2(10) 
+*/
+
+--성별 열 삭제
+--원래 삭제 되지만, 시스템 계정이여서 삭제가 되지 않고 있다.
+/*
+alter table t_tbl drop (t_gender); ORA-12988: SYS에 의해 소유된 테이블에서 열을 삭제할 수 없습니다
+12988. 00000 -  "cannot drop column from table owned by SYS"
+*Cause:    An attempt was made to drop a column from a system table.
+*Action:   This action is not allowed
+*/
+
+create table t_emp10(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2),
+t_comm     number(7,2),
+t_deptno   number(2),
+
+constraint t_emp10_pk primary key(t_empno));
+--Table T_EMP10이(가) 생성되었습니다.
+
+--Table T_EMP10에 값 삽입
+insert into t_emp10 values(7839,'KING','PRESIDENT',NULL,to_date('17-11-1981','dd-mm-yyyy'),5000,NULL,10);
+insert into t_emp10 values(7782,'CLARK','MANAGER',7839,to_date('9-6-1981','dd-mm-yyyy'),2450,NULL,10);
+insert into t_emp10 values(7934,'MILLER','CLERK',7782,to_date('23-1-1982','dd-mm-yyyy'),1300,NULL,10);
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+select * from t_emp10;
+/*
+7839	KING	PRESIDENT		81/11/17	5000		10
+7782	CLARK	MANAGER	7839	81/06/09	2450		10
+7934	MILLER	CLERK	7782	82/01/23	1300		10
+*/
+
+--t_tbl 테이블에 모든 데이터 삭제
+truncate table t_tbl;
+--Table T_TBL이(가) 잘렸습니다.
+
+select * from t_tbl;
+--데이터가 삭제 되었기 때문에 구조는 남아있지만 데이터는 없다.
+
+--sal에 NOT NULL 제약 조건의 t_emp3를 생성해라.
+create table t_emp3(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2) NOT NULL,
+t_comm     number(7,2),
+t_deptno   number(2),
+
+constraint t_emp3_pk primary key(t_empno));
+--Table T_EMP3이(가) 생성되었습니다.
+
+--t_emp2 테이블에서 기본키는 t_empno, 외래키는 deptno
+create table t_emp2(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2),
+t_comm     number(7,2),
+t_deptno   number(2)
+    constraint t_emp2_fk references dept(deptno),
+    constraint t_emp2_pk primary key(t_empno));
+--Table T_EMP2이(가) 생성되었습니다.
+
+--t_tbl 테이블에 대한 제약조건을 검색해라.
+select *
+from user_constraints 
+where table_name='T_TBL';
+/*
+SYS	SYS_C007860	C	T_TBL	"T_EMPNO" IS NOT NULL	"T_EMPNO" IS NOT NULL				ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	GENERATED NAME			20/07/31					3
+SYS	T_TBL_PK	P	T_TBL						ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/31	SYS	T_TBL_PK			3
+*/
+
+--t_emp2 테이블에 외래키 제약 조건 비활성화해라.
+alter table t_emp2 disable constraint t_emp2_fk;
+--Table T_EMP2이(가) 변경되었습니다.
+
+--t_emp2 테이블에 외래키 제약 조건을 다시 활성화해라.
+alter table t_emp2 enable constraint t_emp2_fk;
+--Table T_EMP2이(가) 변경되었습니다.
+
+--t_emp2 테이블에 외래키 제약 조건을 삭제해라.
+alter table t_emp2 drop constraint t_emp2_fk;
+--Table T_EMP2이(가) 변경되었습니다.
+
+--t_emp2 테이블 삭제해라.
+drop table t_emp2;
+--Table T_EMP2이(가) 삭제되었습니다.
+
+
+--emp테이블로부터 20번 부서의 사원들로 이루어져 있는 뷰를 생성하라. (뷰 이름: v_emp20)
+create view v_emp20 
+as select * from emp
+where deptno=20;
+--View V_EMP20이(가) 생성되었습니다.
+
+--뷰 검색
+select * from v_emp20;
+/*
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7369	SMITH	CLERK	7902	80/12/17	800		    20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+
+--사원번호, 사원이름, 부서이름을 가지는 뷰(v_emp_dept) 생성해라. (join view)
+create view v_emp_dept
+as select empno, ename, dname
+from emp, dept
+where emp.deptno = dept.deptno;
+--View V_EMP_DEPT이(가) 생성되었습니다.
+
+select * from v_emp_dept;
+/*
+7839	KING	ACCOUNTING
+7566	JONES	RESEARCH
+7698	BLAKE	SALES
+7782	CLARK	ACCOUNTING
+7788	SCOTT	RESEARCH
+7902	FORD	RESEARCH
+7499	ALLEN	SALES
+7521	WARD	SALES
+7654	MARTIN	SALES
+7844	TURNER	SALES
+7900	JAMES	SALES
+7934	MILLER	ACCOUNTING
+7369	SMITH	RESEARCH
+7876	ADAMS	RESEARCH
+*/
+
+
+--가장 최근에 입사한 5명의 사원번호, 사원이름, 입사일 검색하라. (top-N 질의-부질의)
+--조건은 hiredate가 not null
+--입사날짜를 내림차순으로 
+select empno, ename, hiredate 
+from (select empno, ename, hiredate
+        from emp
+        where hiredate is not null
+        order by hiredate desc)
+where rownum<=5;
+/*
+7788	SCOTT	87/07/13
+7876	ADAMS	87/07/13
+7934	MILLER	82/01/23
+7902	FORD	81/12/03
+7900	JAMES	81/12/03
+*/
+
+desc emp;
+desc dept;
+--부서별 평균 급여가 가장 큰 부서 2개의 부서 이름을 구해라. 
+--(부질의, top-n, group by, order by, equi join 사용)
+-->부서이름을 내림차순시켜주세요.
+select dname from (select dname, avg(sal) 
+                    from dept, emp
+                    where dept.deptno = emp.deptno
+                    group by dname
+                    order by 2 desc)
+where rownum<=2;
+/*
+ACCOUNTING
+RESEARCH
+*/
+
+--프로시저
+--입력 in
+--검색 out
+/*
+create or replace procedure 프로시저명
+(변수 in student.stu_no%type)
+
+is 
+
+begin
+        sql
+end 프로시저명;
+/
+*/
+
+create sequence seq1 
+    increment by 1
+    start with 201
+    maxvalue 999;
+--Sequence SEQ1이(가) 생성되었습니다.
+
+
+--프로시저 test5
+create procedure test5
+(v_sub_name in subject.sub_name%type,--서브젝트테이블에 있는 과목명과 동일한 타입
+v_sub_prof in subject.sub_prof%type,
+v_sub_grade in subject.sub_grade%type,
+v_sub_dept in subject.sub_dept%type)
+
+is
+begin
+    insert
+        into subject
+                values(seq1.nextval,
+                    v_sub_name,
+                    v_sub_prof,
+                    v_sub_grade,
+                    v_sub_dept);
+        commit;
+end test5;
+/
+--Procedure TEST5이(가) 컴파일되었습니다.
+
+select * from subject;
+--2020.07.31
+/*
+update set where
+
+delete from where
+
+insert into values
+*/
+
+desc student;
+desc subject;
+desc enrol;
+desc emp;
+
+--sub_no가 104인 성적을 5점 감소시켜주세요
+update enrol 
+set enr_grade = enr_grade - 5
+where sub_no=104;
+--2개 행 이(가) 업데이트되었습니다.
+
+1.	20 또는 30인 부서번호만 사원(emp)테이블에서 복사하여 emp1테이블을 생성해라.
+create table emp1 as select * from emp
+where deptno = '20' or deptno = '30';
+--Table EMP1이(가) 생성되었습니다.
+
+2.	dept 테이블을 복사하여 dept1테이블을 생성해라.
+create table dept1 as select * from dept;
+--Table DEPT1이(가) 생성되었습니다.
+
+3.	salgrade테이블을 복사하여 salgrade1테이블을 생성해라.
+create table salgrade1 as select * from salgrade;
+--Table SALGRADE1이(가) 생성되었습니다.
+
+4.	각각의 테이블을 확인한다.
+desc emp1;
+/*
+이름       널? 유형           
+-------- -- ------------ 
+EMPNO       NUMBER(4)    
+ENAME       VARCHAR2(10) 
+JOB         VARCHAR2(9)  
+MGR         NUMBER(4)    
+HIREDATE    DATE         
+SAL         NUMBER(7,2)  
+COMM        NUMBER(7,2)  
+DEPTNO      NUMBER(2)  
+*/
+select * from emp1;
+/*
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30
+7900	JAMES	CLERK	7698	81/12/03	950		30
+7369	SMITH	CLERK	7902	80/12/17	800		20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+
+desc dept1;
+/*
+이름     널? 유형           
+------ -- ------------ 
+DEPTNO    NUMBER(2)    
+DNAME     VARCHAR2(14) 
+LOC       VARCHAR2(13) 
+*/
+
+select * from dept1;
+/*
+10	ACCOUNTING	NEW YORK
+20	RESEARCH	DALLAS
+30	SALES	CHICAGO
+40	OPERATIONS	BOSTON
+*/
+
+desc salgrade1;
+/*
+이름    널? 유형          
+----- -- ----------- 
+GRADE    NUMBER(7,2) 
+LOSAL    NUMBER(7,2) 
+HISAL    NUMBER(7,2) 
+*/
+
+select * from salgrade1;
+/*
+1	700	1200
+2	1201	1400
+3	1401	2000
+4	2001	3000
+5	3001	9999
+*/
+
+5.	사원번호 7401, 사원이름 HOMER, 급여 1300, 부서번호 10인 사원이 오늘 입사하였다.
+insert into emp1 
+(empno, ename, sal, deptno, hiredate)
+values(7401, 'HOMER', 1300, 10, trunc(sysdate,'dd'));
+--1 행 이(가) 삽입되었습니다.
+
+6.	사원번호 7323, 사원이름 BRANDA, 부서번호 30, 사원번호 7499와 동일한 급여를 받는 사원이 입사하였다. (부질의)
+insert into emp1 
+(empno, ename, deptno, sal) 
+values(7323,'BRANDA',30, (select sal from emp where empno=7499) );
+--1 행 이(가) 삽입되었습니다.
+
+7.	사원(emp)테이블에서 부서번호가 10인 데이터를 emp1테이블에 삽입해라.
+insert into emp1
+select * from emp
+where deptno=10;
+--3개 행 이(가) 삽입되었습니다.
+
+8.	사원번호 7369의 사원직무를 ANALYST로 바꾸어라.
+update emp1 set job='ANALYST'
+where empno =7369;
+--1 행 이(가) 업데이트되었습니다.
+
+9.	부서번호 20인 직원들의 급여를 10% 감하라.
+update emp1 set sal=sal*0.9
+where deptno = 20;
+--5개 행 이(가) 업데이트되었습니다.
+
+10.	모든 사원의 급여를 +100 증가시켜라
+update emp1 set sal=sal+100;
+--16개 행 이(가) 업데이트되었습니다.
+
+11.	지역이 DALLAS인 사원들의 급여를 10감하라. (부질의)
+update emp1 set sal=sal-10
+where deptno=
+    (select deptno from dept where loc='DALLAS');
+--5개 행 이(가) 업데이트되었습니다.
+
+12.	사원번호 7499가 퇴사하였다.
+delete from emp1 where empno=7499;
+--1 행 이(가) 삭제되었습니다.
+
+13.	부서번호 50, 부서이름 ‘PLANNING’, 지역 ‘MIAMI’가 추가되었다.
+insert into dept1 values(50,'PLANNING','MIAMI');
+--1 행 이(가) 삽입되었습니다.
+
+14.	부서번호가 40인 부서가 60으로 변경되었다.
+update emp1 set deptno=60 where deptno=40;
+--0개 행 이(가) 업데이트되었습니다.
+
+15.	Dept1 테이블에 없는 부서번호들을 갖고 있는 사원들의 부서번호를 99로 변경하라. (부질의)
+update dept1 set deptno=99 
+where deptno =(select deptno from dept1 where deptno is null);
+--0개 행 이(가) 업데이트되었습니다
+
+/*두번째 방법*/
+update dept1 set deptno=99
+where deptno not in(select deptno from dept1);
+--0개 행 이(가) 업데이트되었습니다.
+
+16.	JONES, JOSH, CLARK가 30번 부서로 바뀌었다.
+update emp1 set deptno=30 where ename in('JONES','JOSH','CLARK');
+--2개 행 이(가) 업데이트되었습니다.
+
+17.	커미션이 null인 데이터를 0으로 바꾸어라.
+update emp1 set comm=nvl(to_char(comm),0);
+--15개 행 이(가) 업데이트되었습니다.
+
+18.	Emp1 전체 테이블의 데이터를 삭제하라.
+drop table emp1;
+--Table EMP1이(가) 삭제되었습니다.
+
+desc t_enrol;
+/*
+*Action:
+이름        널?       유형        
+--------- -------- --------- 
+SUB_NO    NOT NULL CHAR(3)   
+STU_NO    NOT NULL CHAR(9)   
+ENR_GRADE          NUMBER(3) 
+*/
+
+/*테이블 삭제*/
+drop table t_enrol;
+--Table T_ENROL이(가) 삭제되었습니다.
+
+/*테이블 생성*/
+create table t_enrol(
+sub_no char(3),
+stu_no number(9),
+enr_grade number(3),
+    constraint enr_sub_no_fk1
+    foreign key(sub_no)
+    references subject(sub_no),
+    
+    constraint enr_stu_no_fk1
+    foreign key(stu_no)
+    references student(stu_no),
+    
+    constraint enr_pk1 
+    primary key (sub_no, stu_no)); 
+/*
+오류 보고 -
+ORA-02267: 열의 데이터 유형이 참조 열의 데이터 유형과 일치하지 않습니다
+02267. 00000 -  "column type incompatible with referenced column type"
+*Cause:    The data type or collation of the referencing column was
+           incompatible with the data type or collation of the referenced
+           column.
+*Action:   Select a compatible data type for the referencing column.
+           Also, the collation of a character column in a foreign key must
+           match the collation of the corresponding column in the primary
+           key.
+*/    
+/*제약 조건의 확인*/
+select * 
+from user_constraints
+where table_name='T_STUDENT';
+/*
+SYS	N_STU_DEPT	C	T_STUDENT	"STU_DEPT" IS NOT NULL	"STU_DEPT" IS NOT NULL				ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/29					3
+SYS	PT_STU_NO	P	T_STUDENT						ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/29	SYS	PT_STU_NO			3
+SYS	U_STU_NAME	U	T_STUDENT						ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/29	SYS	U_STU_NAME			3
+*/
+
+/*
+제약 조건 명은 t_tbl_pk
+키 값은 t_empno로 설정
+*/
+create table t_tbl(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2),
+t_comm     number(7,2),
+t_deptno   number(2),
+
+constraint t_tbl_pk primary key(t_empno));
+--Table T_TBL이(가) 생성되었습니다.
+
+desc t_tbl; --구조 확인
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+T_EMPNO    NOT NULL NUMBER(4)    
+T_ENAME             VARCHAR2(40) 
+T_JOB               VARCHAR2(9)  
+T_MGR               NUMBER(4)    
+T_HIREDATE          DATE         
+T_SAL               NUMBER(7,2)  
+T_COMM              NUMBER(7,2)  
+T_DEPTNO            NUMBER(2)   
+*/
+
+
+--Table T_TBL에 값 삽입
+insert into t_tbl values(7566,'JONES','MANAGER',7839,to_date('2-4-1981','dd-mm-yyyy'),2975,NULL,20);
+insert into t_tbl values(7788,'SCOTT','ANALYST',7566,to_date('13-07-1987','dd-mm-yyyy'),3000,NULL,20);
+insert into t_tbl values(7902,'FORD','ANALYST',7566,to_date('3-12-1981','dd-mm-yyyy'),3000,NULL,20);
+insert into t_tbl values(7369,'SMITH','CLERK',7902,to_date('17-12-1980','dd-mm-yyyy'),800,NULL,20);
+insert into t_tbl values(7876,'ADAMS','CLERK',7788,to_date('13-07-1987','dd-mm-yyyy'),1100,NULL,20);
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+select * from t_tbl;
+/*
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7369	SMITH	CLERK	7902	80/12/17	800		    20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+
+/*
+create alter drop(행)
+
+update insert delete(튜플)
+*/
+
+--t_tbl에 성별 열을 삽입해라. 데이터 타입은 char(1)로 설정해라.
+alter table t_tbl add (t_gender char(1)); 
+--Table T_TBL이(가) 변경되었습니다.
+
+desc t_tbl;
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+T_EMPNO    NOT NULL NUMBER(4)    
+T_ENAME             VARCHAR2(40) 
+T_JOB               VARCHAR2(9)  
+T_MGR               NUMBER(4)    
+T_HIREDATE          DATE         
+T_SAL               NUMBER(7,2)  
+T_COMM              NUMBER(7,2)  
+T_DEPTNO            NUMBER(2)    
+T_GENDER            CHAR(1)      
+*/
+
+--t_tbl 테이블에 성별 열의 구조를 변경하고 확인해라
+-->varchar2(10)으로 변경해라.
+alter table t_tbl modify(t_gender varchar2(10));
+--Table T_TBL이(가) 변경되었습니다.
+
+desc t_tbl;
+/*
+이름         널?       유형           
+---------- -------- ------------ 
+T_EMPNO    NOT NULL NUMBER(4)    
+T_ENAME             VARCHAR2(40) 
+T_JOB               VARCHAR2(9)  
+T_MGR               NUMBER(4)    
+T_HIREDATE          DATE         
+T_SAL               NUMBER(7,2)  
+T_COMM              NUMBER(7,2)  
+T_DEPTNO            NUMBER(2)    
+T_GENDER            VARCHAR2(10) 
+*/
+
+--성별 열 삭제
+--원래 삭제 되지만, 시스템 계정이여서 삭제가 되지 않고 있다.
+/*
+alter table t_tbl drop (t_gender); ORA-12988: SYS에 의해 소유된 테이블에서 열을 삭제할 수 없습니다
+12988. 00000 -  "cannot drop column from table owned by SYS"
+*Cause:    An attempt was made to drop a column from a system table.
+*Action:   This action is not allowed
+*/
+
+create table t_emp10(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2),
+t_comm     number(7,2),
+t_deptno   number(2),
+
+constraint t_emp10_pk primary key(t_empno));
+--Table T_EMP10이(가) 생성되었습니다.
+
+--Table T_EMP10에 값 삽입
+insert into t_emp10 values(7839,'KING','PRESIDENT',NULL,to_date('17-11-1981','dd-mm-yyyy'),5000,NULL,10);
+insert into t_emp10 values(7782,'CLARK','MANAGER',7839,to_date('9-6-1981','dd-mm-yyyy'),2450,NULL,10);
+insert into t_emp10 values(7934,'MILLER','CLERK',7782,to_date('23-1-1982','dd-mm-yyyy'),1300,NULL,10);
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+select * from t_emp10;
+/*
+7839	KING	PRESIDENT		81/11/17	5000		10
+7782	CLARK	MANAGER	7839	81/06/09	2450		10
+7934	MILLER	CLERK	7782	82/01/23	1300		10
+*/
+
+--t_tbl 테이블에 모든 데이터 삭제
+truncate table t_tbl;
+--Table T_TBL이(가) 잘렸습니다.
+
+select * from t_tbl;
+--데이터가 삭제 되었기 때문에 구조는 남아있지만 데이터는 없다.
+
+--sal에 NOT NULL 제약 조건의 t_emp3를 생성해라.
+create table t_emp3(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2) NOT NULL,
+t_comm     number(7,2),
+t_deptno   number(2),
+
+constraint t_emp3_pk primary key(t_empno));
+--Table T_EMP3이(가) 생성되었습니다.
+
+--t_emp2 테이블에서 기본키는 t_empno, 외래키는 deptno
+create table t_emp2(
+t_empno    number(4) NOT NULL,
+t_ename    varchar2(40),
+t_job      varchar2(9),
+t_mgr      number(4),
+t_hiredate date,
+t_sal      number(7,2),
+t_comm     number(7,2),
+t_deptno   number(2)
+    constraint t_emp2_fk references dept(deptno),
+    constraint t_emp2_pk primary key(t_empno));
+--Table T_EMP2이(가) 생성되었습니다.
+
+--t_tbl 테이블에 대한 제약조건을 검색해라.
+select *
+from user_constraints 
+where table_name='T_TBL';
+/*
+SYS	SYS_C007860	C	T_TBL	"T_EMPNO" IS NOT NULL	"T_EMPNO" IS NOT NULL				ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	GENERATED NAME			20/07/31					3
+SYS	T_TBL_PK	P	T_TBL						ENABLED	NOT DEFERRABLE	IMMEDIATE	VALIDATED	USER NAME			20/07/31	SYS	T_TBL_PK			3
+*/
+
+--t_emp2 테이블에 외래키 제약 조건 비활성화해라.
+alter table t_emp2 disable constraint t_emp2_fk;
+--Table T_EMP2이(가) 변경되었습니다.
+
+--t_emp2 테이블에 외래키 제약 조건을 다시 활성화해라.
+alter table t_emp2 enable constraint t_emp2_fk;
+--Table T_EMP2이(가) 변경되었습니다.
+
+--t_emp2 테이블에 외래키 제약 조건을 삭제해라.
+alter table t_emp2 drop constraint t_emp2_fk;
+--Table T_EMP2이(가) 변경되었습니다.
+
+--t_emp2 테이블 삭제해라.
+drop table t_emp2;
+--Table T_EMP2이(가) 삭제되었습니다.
+
+
+--emp테이블로부터 20번 부서의 사원들로 이루어져 있는 뷰를 생성하라. (뷰 이름: v_emp20)
+create view v_emp20 
+as select * from emp
+where deptno=20;
+--View V_EMP20이(가) 생성되었습니다.
+
+--뷰 검색
+select * from v_emp20;
+/*
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7369	SMITH	CLERK	7902	80/12/17	800		    20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+*/
+
+--사원번호, 사원이름, 부서이름을 가지는 뷰(v_emp_dept) 생성해라. (join view)
+create view v_emp_dept
+as select empno, ename, dname
+from emp, dept
+where emp.deptno = dept.deptno;
+--View V_EMP_DEPT이(가) 생성되었습니다.
+
+select * from v_emp_dept;
+/*
+7839	KING	ACCOUNTING
+7566	JONES	RESEARCH
+7698	BLAKE	SALES
+7782	CLARK	ACCOUNTING
+7788	SCOTT	RESEARCH
+7902	FORD	RESEARCH
+7499	ALLEN	SALES
+7521	WARD	SALES
+7654	MARTIN	SALES
+7844	TURNER	SALES
+7900	JAMES	SALES
+7934	MILLER	ACCOUNTING
+7369	SMITH	RESEARCH
+7876	ADAMS	RESEARCH
+*/
+
+
+--가장 최근에 입사한 5명의 사원번호, 사원이름, 입사일 검색하라. (top-N 질의-부질의)
+--조건은 hiredate가 not null
+--입사날짜를 내림차순으로 
+select empno, ename, hiredate 
+from (select empno, ename, hiredate
+        from emp
+        where hiredate is not null
+        order by hiredate desc)
+where rownum<=5;
+/*
+7788	SCOTT	87/07/13
+7876	ADAMS	87/07/13
+7934	MILLER	82/01/23
+7902	FORD	81/12/03
+7900	JAMES	81/12/03
+*/
+
+desc emp;
+desc dept;
+--부서별 평균 급여가 가장 큰 부서 2개의 부서 이름을 구해라. 
+--(부질의, top-n, group by, order by, equi join 사용)
+-->부서이름을 내림차순시켜주세요.
+select dname from (select dname, avg(sal) 
+                    from dept, emp
+                    where dept.deptno = emp.deptno
+                    group by dname
+                    order by 2 desc)
+where rownum<=2;
+/*
+ACCOUNTING
+RESEARCH
+*/
+
+--프로시저
+--입력 in
+--검색 out
+/*
+create or replace procedure 프로시저명
+(변수 in student.stu_no%type)
+
+is 
+
+begin
+        sql
+end 프로시저명;
+/
+*/
+
+create sequence seq1 
+    increment by 1
+    start with 201
+    maxvalue 999;
+--Sequence SEQ1이(가) 생성되었습니다.
+
+
+--프로시저 test5
+create procedure test5
+(v_sub_name in subject.sub_name%type,--서브젝트테이블에 있는 과목명과 동일한 타입
+v_sub_prof in subject.sub_prof%type,
+v_sub_grade in subject.sub_grade%type,
+v_sub_dept in subject.sub_dept%type)
+
+is
+begin
+    insert
+        into subject
+                values(seq1.nextval,
+                    v_sub_name,
+                    v_sub_prof,
+                    v_sub_grade,
+                    v_sub_dept);
+        commit;
+end test5;
+/
+--Procedure TEST5이(가) 컴파일되었습니다.
+
+select * from subject;
+/*
+111	데이터베이스	이재영	2	컴퓨터정보
+110	자동제어	정순정	2	전기전자
+109	자동화설계	박민영	3	기계
+101	컴퓨터개론	강종영	3	기계
+102	기계공작법	김태영	1	기계
+103	기초전자실험	김유석	1	전기전자
+104	시스템분석설계	강석현	3	컴퓨터정보
+105	기계요소설계	김명성	1	기계
+106	전자회로실험	최영민	3	전기전자
+107	CAD응용실습	구봉규	2	기계
+108	소프트웨어공학	권민성	1	컴퓨터정보
+*/
+
+execute test5('앱프로그래밍', '홍길동', 3, '컴퓨터정보');
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+select * from subject;
+/*
+111	데이터베이스	이재영	2	컴퓨터정보
+110	자동제어	정순정	2	전기전자
+109	자동화설계	박민영	3	기계
+101	컴퓨터개론	강종영	3	기계
+102	기계공작법	김태영	1	기계
+103	기초전자실험	김유석	1	전기전자
+104	시스템분석설계	강석현	3	컴퓨터정보
+105	기계요소설계	김명성	1	기계
+106	전자회로실험	최영민	3	전기전자
+107	CAD응용실습	구봉규	2	기계
+108	소프트웨어공학	권민성	1	컴퓨터정보
+201	앱프로그래밍	홍길동	3	컴퓨터정보
+*/
+
+
+create or replace function test6
+(v_enr_grade in number)
+return char
+
+is 
+
+enr_score char;
+
+begin
+if v_enr_grade >= 90 then enr_score:='A';
+elsif v_enr_grade >= 80 then enr_score:='B';
+elsif v_enr_grade >= 70 then enr_score:='C';
+elsif v_enr_grade >= 60 then enr_score:='D';
+else enr_score:='F';
+
+end if;
+return (enr_score);
+end test6;
+/
+--Function TEST6이(가) 컴파일되었습니다.
+
+--함수에 반환값이 있으며, 이를 위해 변수를 선언한다!!!
+
+variable d_score char;
+execute :d_score := test6(95);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+print d_score;
+/*
+D_SCORE
+--------------------------------------------------------------------------------
+A
+*/
+
+
+/*프로시저 문제 1======================================================================*/
+/*
+신입사원을 채용하였다.
+
+사원번호, 사원이름, 사원직무, 상급자사원번호, 급여, 부서번호를 입력받아
+
+사원 테이블에 삽입하는 프로시저를 작성해라.
+*/
+
+desc emp;
+/*
+이름       널?       유형           
+-------- -------- ------------ 
+EMPNO    NOT NULL NUMBER(4)    
+ENAME             VARCHAR2(10) 
+JOB               VARCHAR2(9)  
+MGR               NUMBER(4)    
+HIREDATE          DATE         
+SAL               NUMBER(7,2)  
+COMM              NUMBER(7,2)  
+DEPTNO            NUMBER(2)    
+*/
+
+create or replace procedure pro(
+ v_empno in emp.empno%type,
+ v_ename in emp.ename%type,
+ v_job in emp.job%type,
+ v_mgr in emp.mgr%type,
+ v_sal in emp.sal%type,
+ v_deptno in emp.deptno%type)
+
+is 
+begin
+   insert into emp values(
+   v_empno,
+   v_ename,
+   v_job,
+   v_mgr,
+   '',
+   v_sal,
+   '',
+   v_deptno);
+commit;
+end pro;
+/
+--Procedure PRO이(가) 컴파일되었습니다.
+
+execute pro(7888, '히히히', '대리', 7832, 7000, 20);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+select * from emp;
+/*
+7839	KING	PRESIDENT		    81/11/17	5000	    	10
+7566	JONES	MANAGER	    7839	81/04/02	2975		    20
+7698	BLAKE	MANAGER	    7839	81/05/01	2850		    30
+7782	CLARK	MANAGER	    7839	81/06/09	2450		    10
+7788	SCOTT	ANALYST	    7566	87/07/13	3000		    20
+7902	FORD	ANALYST	    7566	81/12/03	3000		    20
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300 	30
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	    30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	 0	    30
+7900	JAMES	CLERK	    7698	81/12/03	950		        30
+7934	MILLER	CLERK	    7782	82/01/23	1300		    10
+7369	SMITH	CLERK	    7902	80/12/17	800		        20
+7876	ADAMS	CLERK	    7788	87/07/13	1100		    20
+7888	히히히	대리	        7832		        7000		    20
+*/
+/*프로시저 문제 1======================================================================*/
+
+/*프로시저 문제 2======================================================================*/
+/*
+부서번호를 변경하는 프로시저를 작성해라.
+(emp 테이블에서) - update~set~where
+(입력된 사원번호가 같을 때 부서번호 변경해라)
+
+변수: v_empno, v_deptno
+*/
+
+desc emp;
+
+create or replace procedure pro1(
+ v_empno in emp.empno%type,
+ v_deptno in emp.deptno%type
+ )
+ is
+ begin
+    update emp
+    set deptno = v_deptno
+    where empno = v_empno;
+    
+commit;
+end pro1;
+/
+--Procedure PRO1이(가) 컴파일되었습니다.
+
+select * from emp; --empno가 7839인 컬럼에서 deptno가 10으로 설정되어 있다.
+/*
+7839	KING	PRESIDENT		81/11/17	5000		10
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30
+7782	CLARK	MANAGER	7839	81/06/09	2450		10
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30
+7900	JAMES	CLERK	7698	81/12/03	950		30
+7934	MILLER	CLERK	7782	82/01/23	1300		10
+7369	SMITH	CLERK	7902	80/12/17	800		20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+7888	히히히	대리	7832		7000		20
+*/
+
+execute pro1(7839,60); --empno가 7839인 컬럼에서 deptno를 60으로 변경하는 프로시저
+
+select * from emp; -- empno가 7839인 컬럼에서 deptno가 10에서 60으로 변경되었다.
+/*
+7839	KING	PRESIDENT		81/11/17	5000		60
+7566	JONES	MANAGER	7839	81/04/02	2975		20
+7698	BLAKE	MANAGER	7839	81/05/01	2850		30
+7782	CLARK	MANAGER	7839	81/06/09	2450		10
+7788	SCOTT	ANALYST	7566	87/07/13	3000		20
+7902	FORD	ANALYST	7566	81/12/03	3000		20
+7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30
+7521	WARD	SALESMAN	7698	81/02/22	1250	500	30
+7654	MARTIN	SALESMAN	7698	81/09/28	1250	1400	30
+7844	TURNER	SALESMAN	7698	81/09/08	1500	0	30
+7900	JAMES	CLERK	7698	81/12/03	950		30
+7934	MILLER	CLERK	7782	82/01/23	1300		10
+7369	SMITH	CLERK	7902	80/12/17	800		20
+7876	ADAMS	CLERK	7788	87/07/13	1100		20
+7888	히히히	대리	7832		7000		20
+*/
