@@ -535,3 +535,4 @@ select distinct f_prof_return(107) from subject;
 --3. TOO_MANY_ROWS
     --select문에 into절을 사용할 경우 select절의 결과가 복수행일 경우
 */
+--test
