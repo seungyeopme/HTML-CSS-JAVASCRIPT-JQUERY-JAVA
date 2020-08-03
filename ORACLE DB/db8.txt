@@ -1,0 +1,537 @@
+--2020.08.03
+
+/*
+--테이블 생성
+create table a(
+v_stu_no number not null, 
+
+...
+constraint stu_no_pk primary key(v_stu_no);
+           제약조건명              (기본키)
+        
+                    reference 외래키
+*/
+
+--rename student to a_student;
+
+/*PL/SQL*/
+--오라클에서 제공하는 프로그래밍 언어
+--일반 프로그래밍 요소 다 가직 있고, DB 업무처리하기 위한 최적화된 언어
+--declare(선언부): 변수, 상수, 커서
+--begin(실행부): SQL에 선택, 반복처리 등
+--end 
+
+/*SP(Stored Procedure : 저장 프로시저)*/
+--서버에 저장해놓고 주기적으로 반복해서 사용
+
+set serveroutput on --pl/sql 표준출력
+declare
+    v_num number:=1; --변수 선언
+    begin
+        if v_num = 1 then
+         dbms_output.put_line('DB');
+    else
+        dbms_output.put_line('C');
+    end if;
+end;
+/
+/*
+DB
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
+
+/*반복처리문*/
+--1. loop~end loop
+--2. for~loop
+--3. while~loop
+
+--1. loop~end loop
+set serveroutput on
+declare
+    v_cnt number:=0;
+    v_sum number:=0; --초기식
+begin
+        loop
+            v_cnt := v_cnt + 1; 
+            v_sum := v_sum + v_cnt;
+            dbms_output.put_line(v_cnt||' '||v_sum);
+            exit when v_cnt = 10;--조건식
+        end loop;
+end;
+/
+/*
+1 1
+2 3
+3 6
+4 10
+5 15
+6 21
+7 28
+8 36
+9 45
+10 55
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
+
+--2. for~loop
+set serveroutput on
+declare
+    v_cnt number:=0;
+    v_sum number:=0; --초기식
+begin
+        for
+            v_cnt in 1..10 loop 
+            v_sum := v_sum + v_cnt;
+            dbms_output.put_line(v_cnt||' '||v_sum);
+            
+        end loop;
+end;
+/
+/*
+1 1
+2 3
+3 6
+4 10
+5 15
+6 21
+7 28
+8 36
+9 45
+10 55
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
+
+--3. while~loop
+set serveroutput on
+declare
+    v_cnt number:=0;
+    v_sum number:=0; --초기식
+begin
+       while v_cnt<=9 loop
+        v_cnt :=v_cnt + 1;
+            v_sum := v_sum + v_cnt;
+            dbms_output.put_line(v_cnt||' '||v_sum);
+            
+        end loop;
+end;
+/
+/*
+1 1
+2 3
+3 6
+4 10
+5 15
+6 21
+7 28
+8 36
+9 45
+10 55
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
+
+/*<SP : 저장 프로시저>*/
+/*
+create or replace procedure test
+(v_stu_no in student.stu_no%type, v_stu_name out student.stu_name%type)
+is
+begin
+    select stu_no
+    into v_stu_no
+end test;
+/
+variable d_stu_name varchar2(20);
+execute test(123123, :d_stu_name);
+print d_stu_name;
+*/
+
+/*
+in: 입력
+out: 검색(반환 받을 값)
+in out: 입력, 검색(프로시저가 처리된 후 반환되는 값 처리)
+*/
+
+
+--학생의 점수를 임의 점수만큼 올려줌. 그 결과를 출력
+--조건은 학번과 과목번호가 같아야 함
+create or replace procedure test4
+(v_sub_no in enrol.sub_no%type,
+ v_stu_no in enrol.stu_no%type,
+ v_enr_grade in out enrol.enr_grade%type)
+ is
+    begin
+    update enrol 
+    set enr_grade = enr_grade + v_enr_grade
+    where stu_no=v_stu_no and sub_no=v_sub_no;
+    
+    select enr_grade into v_enr_grade from enrol
+    where stu_no=v_stu_no and sub_no=v_sub_no;
+end test4;
+/
+--Procedure TEST4이(가) 컴파일되었습니다.
+
+variable d_enr_grade number 
+begin :d_enr_grade :=10; 
+end;
+/
+--PL/SQL 프로시저가 성공적으로 완료되었습니다
+
+execute test4(104, 20131001, :d_enr_grade);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+print d_enr_grade;
+/*
+D_ENR_GRADE
+-----------
+         10
+*/
+
+/*
+create or replace function test6
+(v_stu_no in number)
+return number
+
+is
+
+v_no number;
+*/
+
+--최고 급여를 받는 사원이름 출력하는 함수
+create or replace function prop
+    return emp.ename%type
+is
+    v_ename emp.ename%type;
+begin
+    select ename into v_ename
+    from emp
+    where sal = (select max(sal) from emp);
+    return v_ename;
+end prop;
+/
+--Function PROP이(가) 컴파일되었습니다.
+
+select distinct prop()
+from emp;
+--히히히
+    
+/*
+variable d_ename varchar2;
+execute :d_ename := prop(80);
+print d_ename;
+*/
+
+--학과를 입력받아 학과 점수의 표준편차를 출력
+--stddev 함수 (표준 편차 활용)
+--select절에 함수 호출
+
+create or replace function fun
+(v_dept in student.stu_dept%type)
+return number
+
+is
+
+v_stddev number;
+
+begin
+select stddev(enr_grade) into v_stddev
+from student natural join enrol
+where stu_dept = v_dept;
+return v_stddev;
+end fun;
+/
+--Function FUN이(가) 컴파일되었습니다.
+
+select distinct fun('기계')
+from student;
+--13.57571360923616420114715998610370080317
+
+--사원번호 7566의 상급자 사원번호를 1234, 부서번호를 20으로 바꿔라.
+update emp set deptno = 20, mgr =1234
+where empno = 7566;
+--1 행 이(가) 업데이트되었습니다.
+
+--사원번호와 사원이름을 입력하여 해당 사원의 사원직무를 수정해라.
+--(사원번호와 사원직무가 일치)
+CREATE OR REPLACE PROCEDURE emp2
+(v_no in emp.empno%type,
+ v_job in emp.job%type)
+is
+begin
+    update emp
+    set job = v_job
+    where empno = v_no; 
+
+end emp2;
+/
+--Procedure EMP2이(가) 컴파일되었습니다.
+
+/*<커서와 fetch>*/
+--PL/SQL에서 select문을 이용한 검색을 했을 때, 
+--결과가 한 행인 경우가 있고, 복수 행인 경우가 있다.
+--검색의 결과가 복수 행일 경우 into절을 이용할 수 없다.
+
+-->cursor와 fetch
+    --쿼리문에 의해 반환되는 결과값들을 저장하는 메모리 공간이 커서이다.
+    --SQL 커서는 Oracle 서버에서 할당한 전용 메모리 영역에 대한 포인터이다.
+    --질의의 결과로 얻어진 여러 행이 저장된 메모리상의 위치.
+    --커서는 SELECT 문의 결과 집합을 처리하는데 사용된다.
+    --결과가 복수행이기 때문에 반복적으로 데이터 행을 읽는 과정이 필요!!!
+
+--커서 처리단계
+--1. 명시적 커서 선언
+    --cursor 커서명
+--2. 커서 오픈(open)
+--3. 커서에서 데이터 추출(fetch)
+--4. 커서 종료(close)
+
+/*
+is절에서 커서 선언
+begin절에서 커서 오픈(open),
+커서에서 데이터 추출(fetch) -> 반복문
+*/
+
+--프로시저명은 test10
+--학번은 student 테이블에 있는 학번과 동일한 타입, 이름도 동일
+set serveroutput on
+create or replace procedure test10
+(v_stu_no in student.stu_no%type)
+is
+v_stu_name student.stu_name%type;
+begin
+select stu_name into v_stu_name from student
+where stu_no = v_stu_no;
+    dbms_output.put_line(v_stu_name);
+exception
+    when no_data_found then
+    dbms_output.put_line('데이터 없다');
+end test10;
+/
+--Procedure TEST10이(가) 컴파일되었습니다.
+
+/***************************************************************************/
+--커서 선언
+--과목번호가 101번인 데이터 중 학번, 과목번호 , 점수를 뽑아 t_cursor에 넣어주는 코드
+set serveroutput on
+create or replace procedure test7
+is
+v_stu_no enrol.stu_no%type;
+v_sub_no enrol.sub_no%type;
+v_enr_grade enrol.enr_grade%type;
+
+cursor t_cursor is
+ select stu_no,sub_no,enr_grade
+ from enrol
+ where sub_no=101; 
+begin
+ open t_cursor;
+ loop
+     fetch t_cursor into v_stu_no,v_sub_no,v_enr_grade;
+     exit when t_cursor%NOTFOUND;
+     dbms_output.put_line(v_stu_no||' '||  v_sub_no||' '||v_enr_grade);
+ end loop;
+ close t_cursor;
+end test7;
+/
+--Procedure TEST7이(가) 컴파일되었습니다.
+
+execute test7;
+/*
+20131001  101 80
+20131025  101 65
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
+/***************************************************************************/
+
+--급여가 2000 이상인 사원의 사원번호(emp), 사원이름(emp), 
+--부서이름(dept)을 부서이름 순으로 검색하는 프로시저 작성(커서, 조인)
+set serveroutput on
+create or replace procedure test8
+is
+v_empno emp.empno%type;
+v_ename emp.ename%type;
+v_dname dept.dname%type;
+
+cursor re is
+    select empno, ename, dname
+    from emp natural join dept
+    where sal >= 2000
+    order by dname;
+begin
+ open re;
+ loop
+     fetch re into v_empno,v_ename,v_dname;
+     exit when re%NOTFOUND;
+     dbms_output.put_line(v_empno||' '|| v_ename||' '||v_dname);
+ end loop;
+ close re;
+end test8;
+/
+--Procedure TEST8이(가) 컴파일되었습니다.
+
+execute test8;
+/*
+7782 CLARK ACCOUNTING
+7888 히히히 RESEARCH
+7788 SCOTT RESEARCH
+7902 FORD RESEARCH
+7566 JONES RESEARCH
+7698 BLAKE SALES
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
+/***************************************************************************/
+
+/***************************************************************************/
+--triger
+    --DB를 이용하면서 어떤 조건에 맞는 이벤트가 일어나는지를 감시하다 조건에 맞으면 후속 이벤트를 발생시킴
+
+--before / after
+
+/*테이블 생성*/
+create table tmp_tbl1
+(userid varchar2(10),
+workdate date, 
+bigo char(1));
+--Table TMP_TBL1이(가) 생성되었습니다.
+-----------------------여기까지 테이블 생성
+create or replace trigger tri1
+    after update --어떤 값이 update 될 때
+    on student   --student 테이블에서
+    for each row
+    begin
+    insert into tmp_tbl1
+    values(user, sysdate, 'U');
+end tri1;
+--현재 시스템 계정이여서 안되는 것이고, 시스템 계정이 아니라면 실행이 가능한 트리거문이다.
+/*
+ORA-04089: SYS 소유의 객체에 대한 트리거를 작성할 수 없습니다
+04089. 00000 -  "cannot create triggers on objects owned by SYS"
+*Cause:    An attempt was made to create a trigger on an object owned by SYS.
+*Action:   Do not create triggers on objects owned by SYS.
+*/
+
+update student
+set stu_weight = stu_weight*0.9;
+--10개 행 이(가) 업데이트되었습니다.
+
+select * from tmp_tbl1; --현재 시스템 계정이여서 트리거 생성되지 않아서 확인 불가
+/***************************************************************************/
+
+/***************************************************************************/
+/*
+=> 커서를 이용하여 질의 수행결과 반환되는 여러 행을 처리 할수 있다.
+=> 커서 사용 순서
+
+        1. 커서 선언
+         CURSOR 커서이름 IS select문장;
+
+         2. 커서 열기
+         OPEN 커서이름;
+
+         3.커서로부터 데이터 읽기(LOOP end의 반복문을 활용한다)
+          FETCH 커서이름 INTO 저장할 로컬변수
+
+         4. 커서닫기
+          CLOSE 커서이름
+
+       => 커서 속성
+         %FOUND  -- PL/SQL코드가 마지막으로 얻은 커서의 결과 set에 레코드가 있다면 참.
+         %NOTFOUND -- %FOUND의 반대
+         %ROWCOUNT -- 커서에서 얻은 레코드수 반환
+         %ISOPEN -- 커서가 열렸고 아직 닫히지 않은 상태라면 참
+*/
+/***************************************************************************/
+
+/***************************************************************************/
+--수강(enrol)테이블에 데이터 추가하는 프로시저
+--execute p_enrol('101', '20153088', 40);--> 학번 20153088으로 101번 과목이 40점 추가되었다.
+
+create or REPLACE PROCEDURE p_enrol
+(v_sub_no in enrol.sub_no%type,
+v_stu_no in enrol.stu_no%type,
+v_enr_grade in enrol.enr_grade%type)
+is
+begin
+insert into enrol values(v_sub_no,v_stu_no,v_enr_grade);
+end p_enrol;
+/
+--Procedure P_ENROL이(가) 컴파일되었습니다.
+
+execute p_enrol(101,20153088,40);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+select * from enrol;
+/*
+101	20131001 	80
+104	20131001 	61
+106	20132003 	72
+103	20152088 	45
+101	20131025 	65
+104	20131025 	60
+108	20151062 	81
+107	20143054 	41
+102	20153075 	66
+105	20153075 	56
+102	20153088 	61
+105	20153088 	78
+101	20153088 	40
+*/
+/***************************************************************************/
+
+/***************************************************************************/
+/*
+과목번호 입력하면 교수명을 반환하는 함수
+
+실행)
+variable x varchar2(10);
+
+execute :x := f_prof_return(999);
+과목번호 없다
+
+execute :x := f_prof_return(107);
+구봉규
+*/
+create or replace function f_prof_return
+(v_sub_no in subject.sub_no%type)
+
+return subject.sub_prof%TYPE
+
+is 
+v_sub_prof subject.sub_prof%TYPE;
+
+begin
+select sub_prof into v_sub_prof
+from subject
+where sub_no = v_sub_no;
+
+return(v_sub_prof);
+end f_prof_return;
+/
+
+select distinct f_prof_return(107) from subject;
+--구봉규
+
+--Function F_PROF_RETURN이(가) 컴파일되었습니다.
+/***************************************************************************/
+
+/*
+--PL/SQL블록이 실행되는 동안에 에러가 발생하거나 예외적인 상황 발생
+
+--<PL/SQL 블록의 처리 중 자주 발생하는 에러>
+--1. NO_DATA_FOUND
+    --검색문 사용 후 결과가 있는 지 여부 판단
+--2. NOT_LOGGED_ON
+    --데이터베이스에 연결 상태 판단
+--3. TOO_MANY_ROWS
+    --select문에 into절을 사용할 경우 select절의 결과가 복수행일 경우
+*/
