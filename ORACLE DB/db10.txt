@@ -1,0 +1,344 @@
+--2020.08.05
+
+--체중이 50~60 사이의 데이터 검색
+select * from student
+where stu_weight > 50 and stu_weight <60;
+/*
+20132003 	박희철	전기전자	3	B	M		56.7
+20141007 	진현무	컴퓨터정보	2	A	M	174	57.6
+20131025 	옥성우	컴퓨터정보	3	A	F	172	56.7
+*/
+
+select empno from emp
+where hiredate=to_date('2020-08-05', 'yyyy-mm-dd');
+
+select stu_dept, max(stu_height)
+from student
+group by stu_dept 
+having max(stu_height) >= 170;
+/*
+기계	177
+전기전자	188
+컴퓨터정보	174
+*/
+
+select * from student;
+/*
+20153075 	옥한빛	기계	3	C	M	177	72
+20153088 	이태연	기계	1	C	F	162	45
+20143054 	유가인	기계	2	C	F	154	42.3
+20152088 	조민우	전기전자	1	C	M	188	81
+20142021 	심수정	전기전자	2	A	F	168	40.5
+20132003 	박희철	전기전자	3	B	M		56.7
+20151062 	김인중	컴퓨터정보	1	B	M	166	60.3
+20141007 	진현무	컴퓨터정보	2	A	M	174	57.6
+20131001 	김종헌	컴퓨터정보	3	C	M		64.8
+20131025 	옥성우	컴퓨터정보	3	A	F	172	56.7
+*/
+
+SELECT TO_DATE('2020-08-05', 'YYYY-MM-DD') FROM DUAL;
+--20/08/05
+
+desc student;
+--체중이 60이상인 학생들만 선택하여 학과별로 그룹화하고 그룹별 학생 수 출력
+select stu_dept, count(*) from student
+where stu_weight >= 60
+group by stu_dept;
+/*
+기계	        1
+전기전자	    1
+컴퓨터정보	2
+*/
+
+--학과별 학생들의 학생수를 학생수가 많은 순으로 검색
+select stu_dept, count(*) from student 
+group by stu_dept
+order by 2 desc;
+/*
+컴퓨터정보	4
+기계	        3
+전기전자	    3
+*/
+
+create table cust --고객 테이블
+(
+       C_NO NUMBER(3) NOT NULL,
+       C_NAME VARCHAR2(10),
+       C_FLAG NUMBER(1),
+       C_ADDR VARCHAR2(20),
+       C_PHONE VARCHAR2(20),
+       CONSTRAINT c_no_pk PRIMARY KEY (C_NO)
+);
+--Table CUST이(가) 생성되었습니다.
+
+insert into cust values(101,'김진수',1,'서울 성북구','02-455-5544');
+insert into cust values(102,'김영희',2,'서울 강서구','02-299-2565');
+insert into cust values(103,'이영수',3,'서울 서초구','02-555-5555');
+insert into cust values(104,'김진숙',1,'서울 동대문구','02-444-4444');
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+create table video(
+v_no number not null,
+v_name varchar2(20),
+v_actor varchar2(20),
+v_group varchar2(10),
+constraint v_no_pk primary key(v_no)
+);
+--Table VIDEO이(가) 생성되었습니다.
+
+insert into video values(1,'극한직업','류승룡 이하늬','코미디');
+insert into video values(2,'기생충','송강호','드라마');
+insert into video values(3,'엑시트','조정석 윤아','코미디');
+insert into video values(4,'봉오동전투','유해진','액션');
+insert into video values(5,'나쁜녀석들','마동석','액션');
+insert into video values(6,'82년생김지영','정유미 공유','드라마');
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+create table rent
+(
+    r_no number(1)
+    constraint pk_rent primary key,
+    r_date date,
+    c_no number(3)
+    constraint c_no_fk references cust(c_no),
+    r_rentfee number(5),
+    v_no number(1)
+    constraint v_no_fk references video(v_no)
+);
+--Table RENT이(가) 생성되었습니다.
+
+​INSERT INTO RENT VALUES (1,TO_DATE('2020-07-30','YYYY-MM-DD'),101, 1000, 1);
+INSERT INTO RENT VALUES (2,TO_DATE('2020-07-30','YYYY-MM-DD'),101, 500, 2);
+INSERT INTO RENT VALUES (3,TO_DATE('2020-08-02','YYYY-MM-DD'),103,500, 5);
+INSERT INTO RENT VALUES (4,TO_DATE('2020-08-02','YYYY-MM-DD'),102, 1000, 6);
+INSERT INTO RENT VALUES (5,TO_DATE('2020-08-02','YYYY-MM-DD'),102, 1000, 3);
+INSERT INTO RENT VALUES (6,TO_DATE('2020-08-03','YYYY-MM-DD'),104, 2000, 2);
+/*
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+*/
+
+4. 고객 테이블의 구조를 검색해라. (3점)
+desc cust;
+/*
+이름      널?       유형           
+------- -------- ------------ 
+C_NO    NOT NULL NUMBER(3)    
+C_NAME           VARCHAR2(10) 
+C_FLAG           NUMBER(1)    
+C_ADDR           VARCHAR2(20) 
+C_PHONE          VARCHAR2(20) 
+*/
+
+5. 고객 테이블의 고객이름, 등급, 주소를 검색해라. (3점)
+select c_name, c_flag, c_addr from cust;
+/*
+김진수	1	서울 성북구
+김영희	2	서울 강서구
+이영수	3	서울 서초구
+김진숙	1	서울 동대문구
+*/
+
+6. 비디오이름과 고객번호, 반납일을 equi join, natural join, join~using을 다 써서 검색해라. (10점)
+select video.v_no, cust.c_no, rent.r_date from cust, video, rent
+where cust.c_no=rent.c_no and video.v_no=rent.v_no;
+/*
+2	101	20/07/30
+5	103	20/08/02
+6	102	20/08/02
+3	102	20/08/02
+2	104	20/08/03
+*/
+
+select v_no,c_no,r_date from cust natural join rent video natural join rent;
+/*
+2	101	20/07/30
+5	103	20/08/02
+6	102	20/08/02
+3	102	20/08/02
+2	104	20/08/03
+*/
+
+select v_no,c_no,r_date from cust join rent using(C_NO)join video using(V_NO);
+/*
+2	101	20/07/30
+5	103	20/08/02
+6	102	20/08/02
+3	102	20/08/02
+2	104	20/08/03
+*/
+
+7. 이영수 고객이 대여한 비디오이름과 주연배우를 검색해라. (equi join) (3점)
+SELECT V_NAME,V_ACTOR FROM VIDEO,CUST WHERE C_NAME ='이영수';
+/*
+극한직업	류승룡 이하늬
+기생충	송강호
+엑시트	조정석 윤아
+봉오동전투	유해진
+나쁜녀석들	마동석
+82년생김지영	정유미 공유
+*/
+
+8. 기생충을 대여한 고객들의 고객번호와 이름을 검색해라. (3점)
+SELECT C_NO,C_NAME FROM VIDEO,CUST WHERE V_NAME ='기생충';
+/*
+101	김진수
+102	김영희
+103	이영수
+104	김진숙
+*/
+
+9. 등급이 1등급인 고객이 대여한 비디오 이름을 모두 검색해라. (3점)
+SELECT V_NAME FROM VIDEO,CUST WHERE C_FLAG =1;
+
+select v_name
+from video, cust, rent
+where cust.c_no=rent.c_no and rent.v_no=video.v_no
+and rent.c_no in(select c_no from rent natural join cust where c_flag=1);
+/*
+기생충
+기생충
+*/
+
+10. 대여료가 2000원 이상인 고객의 수를 검색해라. (3점)
+SELECT COUNT(*) FROM RENT WHERE R_RENTFEE>=2000;
+--1
+
+11. 고객번호가 103보다 작은 값만 나오도록 대여테이블을 복사하여 a_rent 테이블을 만든다. (5점)
+create table a_rent as
+select * from rent
+where c_no < 103;
+--Table A_RENT이(가) 생성되었습니다.
+
+12. 위에서 만든 a_rent테이블에 (9, 2020-08-01, 101, 1000, 3)을 삽입한다. (3점)
+insert into a_rent values(9, to_date('2020-08-01','YYYY-MM-DD'), 101, 1000, 3);
+--행 이(가) 삽입되었습니다.
+
+13. 고객테이블의 ‘10’ 으로 시작하는 고객 데이터를 a_rent 테이블에 삽입한후, 내용을 확인해라. (5점)
+insert into a_rent
+select * from rent
+where c_no like '10%';
+--5개 행 이(가) 삽입되었습니다.
+
+select * from a_rent;
+2	20/07/30	101	500	2
+4	20/08/02	102	1000	6
+5	20/08/02	102	1000	3
+9	20/08/01	101	1000	3
+2	20/07/30	101	500	2
+3	20/08/02	103	500	5
+4	20/08/02	102	1000	6
+5	20/08/02	102	1000	3
+6	20/08/03	104	2000	2
+
+14. 고객번호를 입력으로 고객이름을 검색하는 프로시저를 만들어라. 
+create or replace procedure pro1
+(
+    v_c_no in cust.c_no%type,
+    v_c_name out cust.c_name%type
+)
+is
+begin
+    select c_name into v_c_name from cust 
+    where c_no = v_c_no;
+end pro1;
+/
+--Procedure PRO1이(가) 컴파일되었습니다.
+
+variable cc_name varchar2(20);
+execute pro1(103, :cc_name);
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+print cc_name;
+/*
+CC_NAME
+--------------------------------------------------------------------------------
+이영수
+*/
+
+--1학년이면 신장을 +5cm 증가
+--2학년이면 신장을 +10cm 증가
+--3학년이면 신장을 +15cm 증가
+--(select ~ case)
+select stu_name, stu_height,
+    case stu_grade
+    when 1 then stu_height+5
+    when 2 then stu_height+10
+    when 3 then stu_height+15
+    else stu_height
+    end
+from student;
+/*
+옥한빛	177	192
+이태연	162	167
+유가인	154	164
+조민우	188	193
+심수정	168	178
+박희철		
+김인중	166	171
+진현무	174	184
+김종헌		
+옥성우	172	187
+*/
+
+--rent 테이블에 대여번호 열의 구조를 변경시켜 주세요.
+    --char(1)로 
+alter table rent(
+    modify (r_no char(1));
+--코드 상으로 만 확인, 실행은 여기 테이블 구조에서는 실행이 안된다.
+
+--제약조건 명 검색
+select * from user_constraints
+where table_name = 'cust';
+
+--가장 최근에 대여한 고객 4명의 이름과 주소 출력
+select c_name, c_addr from (select c_name, c_addr from cust natural join rent
+order by r_date desc)
+where rownum<=4;
+/*
+김진숙	서울 동대문구
+이영수	서울 서초구
+김영희	서울 강서구
+김영희	서울 강서구
+*/
