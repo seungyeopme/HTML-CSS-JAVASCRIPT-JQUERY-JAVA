@@ -342,3 +342,60 @@ where rownum<=4;
 김영희	서울 강서구
 김영희	서울 강서구
 */
+
+--고객번호와 고객이름을 입력하여 해당 고객의 고객이름을 수정하는 프로시저를 만들어라.
+    --고객번호는 103으로 입력하고, 고객 이름을 이철수로 수정)
+create or replace procedure pro2
+(
+    v_c_no in cust.c_no%type,
+    v_c_name in cust.c_name%type
+)
+is  
+begin
+    update cust
+    set c_name = v_c_name
+    where c_no=v_c_no;
+end pro2;
+/
+--Procedure PRO2이(가) 컴파일되었습니다.
+
+execute pro2(103, '이철수');
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+select * from cust;
+/*
+101	김진수	1	서울 성북구	02-455-5544
+102	김영희	2	서울 강서구	02-299-2565
+103	이철수	3	서울 서초구	02-555-5555
+104	김진숙	1	서울 동대문구	02-444-4444
+*/
+
+--비디오번호가 2일 때 고객번호와 대여료를 구해라 (커서 사용)
+set serveroutput on
+create or replace procedure pro3
+is
+c_v_no rent.v_no%type;
+c_c_no rent.c_no%type;
+c_r_rentfee rent.r_rentfee%type;
+
+cursor cc is
+select c_no, v_no, r_rentfee from rent
+where v_no = 2;
+begin open cc;
+loop fetch cc into c_c_no , c_v_no, c_r_rentfee;
+exit when cc%notfound;
+dbms_output.put_line(c_c_no||' '||c_v_no||' '||c_r_rentfee);
+end loop;
+close cc;
+end pro3;
+/
+--Procedure PRO3이(가) 컴파일되었습니다.
+
+execute pro3;
+/*
+101 2 500
+104 2 2000
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+*/
