@@ -1,0 +1,200 @@
+create table patient( 
+p_no number(20) not null,
+p_name varchar2(20),
+p_grade number(1),
+p_adr varchar2(20),
+p_phone varchar2(20),
+P_dept varchar2(20),
+constraint p_no_pk primary key (p_no)
+);
+--Table PATIENT이(가) 생성되었습니다.
+
+INSERT INTO patient VALUES (1001, '김철수', 1, '서울 송파구', '02-455-5544', '내과');
+INSERT INTO patient VALUES (1002, '이영수', 2, '서울 강서구', '02-299-2565', '이비인후과');
+INSERT INTO patient VALUES (1003, '이영철', 3, '서울 서초구', '02-555-5555', '소아과');
+INSERT INTO patient VALUES (1004, '김진숙', 1, '서울 강남구', '02-444-4444', '소아과');
+INSERT INTO patient VALUES (1005, '최현철', 3, '서울 은평구', '02-123-4544', '정혀외과');
+INSERT INTO patient VALUES (1006, '박민재', 3, '서울 강동구', '02-442-4844', '안과');
+
+create table hospital(
+h_no number(1) not null,
+h_name varchar2(20),
+h_dept varchar2(20),
+constraint h_no_pk primary key (h_no)
+);
+--Table HOSPITAL이(가) 생성되었습니다.
+
+INSERT INTO hospital VALUES (1, '김영철', '내과');
+INSERT INTO hospital VALUES (2, '안상현', '소아과');
+INSERT INTO hospital VALUES (3, '김사라', '소아과');
+INSERT INTO hospital VALUES (4, '김명종', '정형과');
+INSERT INTO hospital VALUES (5, '김민지', '안과');
+INSERT INTO hospital VALUES (6, '이상철', '이비인후과');
+
+create table en(
+e_no number(1) primary key,
+e_date date,
+p_no number(20),
+e_price number(20),
+e_rentfee number(10),
+h_no number(1)
+);
+--Table EN이(가) 생성되었습니다.
+INSERT INTO en VALUES (1, '2020-08-06', 1001, 250000, 605, 1);
+INSERT INTO en VALUES (2, '2020-07-30', 1003, 570000, 303, 2);
+INSERT INTO en VALUES (3, '2020-08-02', 1006, 250000, 201, 5);
+INSERT INTO en VALUES (4, '2020-08-01', 1002, 830000, 204, 6);
+INSERT INTO en VALUES (5, '2020-08-02', 1005, 300000, 345, 4);
+INSERT INTO en VALUES (6, '2020-08-03', 1004, 500000, 602, 2);
+
+
+
+
+4.
+desc hospital;
+이름     널?       유형           
+------ -------- ------------ 
+H_NO   NOT NULL NUMBER(1)    
+H_NAME          VARCHAR2(20) 
+H_DEPT          VARCHAR2(20) 
+
+5.
+select p_name, p_grade, p_adr from patient;
+
+6.
+select h_name || h_dept from hospital;
+
+7.
+select h_name, h_dept from hospital natural join patient
+where p_name ='이영철';
+
+8.
+select p_no, p_name from patient
+where p_dept = '소아과';
+
+9.
+select h_name from hospital natural join patient
+where p_grade = '1';
+
+10.
+--금액이 50만원 이상인 환자의 수를 검색해라. (출제)
+select count(*) from patient
+natural join en 
+where e_price >= 500000;
+
+select count(*) from en
+where e_price >= 500000;
+
+11.
+--환자번호가 1003 이외의 환자이름과 주소를 검색해라.
+select p_name, p_adr from patient
+where p_no<>'1003';
+
+12.
+--금액이 50만원 이상이고 201호에 입원한 환자들의 번호와 과 번호를 검색해라.
+select p_no, h_no from en
+where e_price >500000 
+and e_rentfee = 201;
+
+13.
+--환자이름이 이씨 성을 가진 환자들을 검색해라.
+select p_name from patient
+where p_name like'이%';
+
+14.
+--병원과가 소아과나 내과인 의사이름을 검색해라 (in)
+select h_name from hospital
+where h_dept = '소아과' 
+or h_dept='내과';
+
+15. 
+
+16.
+--등급이 3인 환자들만 선택하여 등록한 병원과로 그룹화하고 그룹별 환자수를 구한다. (출제)
+select count(*), p_dept from patient 
+where p_grade=3 
+group by p_dept;
+
+17.
+--이영수 환자가 등록한 의사 이름과 등록한 병원과를 검색하는데 equi join, natural join,
+    --join using을 각각 사용해라.
+--(natural join)
+select h_name, h_dept from patient natural join hospital
+natural join en
+where p_name='이영수';
+
+--(equi join)
+select h_name, h_dept from hospital, patient, en
+where hospital.h_no=en.h_no
+and patient.p_no=en.p_no
+and p_name='이영수';
+
+--(join using)
+select h_name, h_dept from patient 
+join hospital using(p_no) 
+join en using(h_no) 
+where p_name='이영수';
+
+18.
+--이상철 교수가 진료한는 병원과에 등록한 환자 이름을 검색하라.
+select p_name from patient natural join hospital
+natural join en
+where h_name = '이상철';
+
+19.
+--이비인후과에 등록한 환자들의 환자번호와 이름을 검색해라.
+select p_no, p_name from patient
+where p_dept = '이비인후과';
+
+20.
+create table a_en as
+select * from en
+where p_no < 1004;
+--Table A_EN이(가) 생성되었습니다.
+
+21.
+INSERT INTO a_en VALUES (7, '2020-08-01', 1007,70000, 202,3);
+
+22.
+insert into a_en
+select p_no from patient where p_no like'10%';
+
+23.
+select e_rentfee+1000 from en
+where p_no = 1001;
+
+24.
+update en set e_price+5
+where e_no = 4;
+
+25.
+select e_price+3 from en natural join hospital
+where h_dept = '이비인후과';
+
+26.
+--병원과가 소아과인 데이터들의 뷰를 생성해라 (출제)
+create view vi 
+as select * from hospital
+where h_dept = '소아과';
+
+27.
+--등록 테이블에서 금액이 큰 상위 5명의 환자번호, 입원실을 검색해라.(금액은 큰 순서대로 출력) (출제)
+select p_no, e_rentfee from en
+order by e_price
+rownum <= 5;
+
+28.
+create or replace procedure pa
+(
+    v_p_no in patient.p_no%type,
+    v_p_name in patient.p_name%type
+)
+is
+begin
+    
+end pa;
+/
+
+29.
+
+30.
