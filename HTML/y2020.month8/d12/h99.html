@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+-자식 셀렉터 => div > strong
+-자손 셀렉터 => div strong
+-->
+<html>
+    <head>
+        <title> </title>
+    <style>
+      div > strong{
+          background-color: yellow;
+          color: blue;
+      }
+      p > strong {
+          color: red;
+      }
+      em {
+          color: black;
+      }
+      body{
+          color: green;
+      }
+      #cen{
+          text-align: center;
+      }
+      p{
+          text-indent: 100px;
+      }
+
+    </style>
+    </head>
+    <body>       
+       <h2>제목</h2>
+       <hr>
+       <div id="cen"><strong>center</strong></div>
+       <div class="in">
+          <p>
+            <em>네 힘으로</em>안될 일에 눈을 감고
+            <strong>지나치게 앞 일에</strong>
+            <br>
+            매여 
+            <strong>지금 가진 것을</strong> 잃지는
+            마라.
+        </p>  
+       </div>
+    </body>
+</html>

@@ -59,22 +59,19 @@ f_M
 0 300
 */
 public class n2 {
+	static int m1;
 	public static void main(String[] args) {
+		
 		Scanner s=new Scanner(System.in);
-		int sum = 0;
-		
-		int m1 = s.nextInt();
-		int su = s.nextInt();
-		int m2[] = new int[su];
-		
-		for(int i=0; i<su; i++) {
-			m2[i] = s.nextInt();
-			
+		int money=s.nextInt();
+		int num=s.nextInt();
+		int ary[]=new int[num];
+		for(int i=0;i<num;i++) {
+			ary[i]=s.nextInt();
 		}
-		for(int i=0; i<m2.length; i++) {
-			sum = m1 - m2[i];
-			
-			System.out.println(sum);
+		for(int i=0;i<num;i++) {
+			money=money-ary[i];
+			System.out.println(money);
 		}
 	}
 }
