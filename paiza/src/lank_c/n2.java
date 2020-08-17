@@ -1,7 +1,32 @@
 package lank_c;
 
 import java.util.Scanner;
-
+/*
+public class n2 {
+	public static void main(String[] args) {
+		
+		Scanner s=new Scanner(System.in);
+		
+		int money=s.nextInt();
+		int num=s.nextInt();
+		double sum=0;
+		int ary[]=new int[num];
+		double point[]=new double[num];
+		
+		for(int i=0;i<num;i++) {
+			ary[i]=s.nextInt();
+		}
+		for(int i=0;i<num;i++) {
+			money=money-ary[i];
+			System.out.println(money);
+			point[i]=ary[i]*0.1;
+			System.out.println(point[i]);
+			sum = sum+point[i];
+		}
+		System.out.println(sum);
+	}
+}
+ */
 /*
  paiza시에 살고있는 당신은 평소의 이동 수단은 모든 paiza 버스를 사용합니다. 
  paiza 버스에서 paica는 IC 카드를 승차권으로 사용할 수 있습니다. 
@@ -56,22 +81,26 @@ f_M
 출력 2
 2000 100
 1000 200
-0 300
+0    300
 */
 public class n2 {
-	static int m1;
 	public static void main(String[] args) {
-		
-		Scanner s=new Scanner(System.in);
-		int money=s.nextInt();
-		int num=s.nextInt();
-		int ary[]=new int[num];
-		for(int i=0;i<num;i++) {
-			ary[i]=s.nextInt();
+		 Scanner s = new Scanner(System.in);
+			
+			int a1 = s.nextInt();
+			int a2 = s.nextInt();
+			
+			int p = 0;
+			int[] b = new int[a2];
+			for (int i = 0; i < a2; i++) {
+				b[i] = s.nextInt();
+				if (p > b[i])
+					p = p - b[i];
+				else {
+					a1 = a1 - b[i];
+					p = p + b[i] / 10;
+				}
+				System.out.println(a1 + " " + p);
+			}
 		}
-		for(int i=0;i<num;i++) {
-			money=money-ary[i];
-			System.out.println(money);
-		}
-	}
 }
