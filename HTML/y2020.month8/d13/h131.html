@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<!--
+사진1에
+box-shadow: 
+사진2에
+box-shadow:
+-->
+    <head>
+        <title></title>
+        <style>
+            div{
+                width: 150px;
+                height: 80px;
+                padding: 10px;
+                border: 1px solid fuchsia;
+                background-image: url("sp.jpg");
+                background-size: 150px 100px;
+                background-repeat: no-repeat;
+            }
+            .aa{
+                box-shadow:2px 2px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+            }
+            /*
+            box-shadow: 10px 10px 5px skyblue
+                        가로 세로 번짐정도 색상
+            */
+            .bb{
+                box-shadow: 10px 10px 5px skyblue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="aa">사진1</div>
+        <div class="bb">사진2</div>
+    </body>
+</html>
