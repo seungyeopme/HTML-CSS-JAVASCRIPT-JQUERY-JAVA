@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            @keyframes tt{
+                0% {
+                    color: red;
+                }
+                30% {
+                    color: blue;
+                }
+                100%{
+                    color: yellow;
+                }
+            }
+            span{
+                font-size: 50px;
+                animation-name: tt;
+                animation-duration: 3s;
+                animation-iteration-count: infinite;/*무한 반복*/
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            <span>span</span>
+            3초마다 색깔이 변하면서 무한반복한다.
+        </p>
+    </body>
+</html>
