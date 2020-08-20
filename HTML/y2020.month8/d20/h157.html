@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+2. 이미지를 1초동안 무한번 반복되게 설정해라 처음에는 
+   0도에서 360도로 회전하도록 작성해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style>
+            @keyframes one{
+                from{
+                    transform : rotate(0deg);
+                }
+                
+                to{
+                    transform: rotate(360deg);
+                }   
+            }
+            #a{
+                    animation-name: one;
+                    animation-duration: 1s;
+                    animation-iteration-count:infinite;
+                }
+        </style>
+    </head>
+    <body>
+            <img id="a" src="coffee.jpg">
+    </body>
+</html>
