@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function fun() {
+                var r=eval("2*6+3");
+                document.write(r + "<br>");
+
+                var a=parseInt("40"); //문자열을 정수로 변경
+                document.write(a + "<br>");
+
+                /*
+                isNan 매개변수가 숫자가 아니면 true, 
+                숫자이면 false를 반환합니다.
+                */
+                var n=parseInt("gilding");
+                n=isNaN(n);
+                document.write(n);
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            fun();
+        </script>
+    </body>
+</html>

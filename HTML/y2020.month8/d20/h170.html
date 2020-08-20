@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+         
+        </style>
+    </head>
+    <body>
+        <script>
+        /*
+        1~10까지 범위 안에서 4로 나눈 나머지가 1인 수만 합 구하기(continue)
+        1 5 9 => 1+5+9 =15
+        */
+        var sum=0;
+        for(var i=1;i<=10; i++) {
+            if(i%4!=1){
+                continue;
+            }
+            else{
+                sum+=i;
+            }
+        }
+        document.write(sum);
+        </script>
+    </body>
+</html>
