@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <script>
+            /*
+            오전이면 yellow
+            오후이면 green색으로 배경색 변경됨
+            현재 시간까지 출력
+            */
+            var now = new Date();
+            var nowHour = now.getHours();
+            var notMt = now.getMinutes();
+
+            if(nowHour <= 12 && nowHour >=6){
+                document.body.style.backgroundColor="yellow";
+            }
+            else{
+                document.body.style.backgroundColor="green";s
+            }
+
+        </script>
+    </body>
+</html>
