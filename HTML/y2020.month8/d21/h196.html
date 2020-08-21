@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title> 웹 폼</title>
+<style>
+    .login{
+        margin-bottom: 20px;
+    }
+    .register{
+        margin-bottom: 20px;
+    }
+    .easys{
+        margin-bottom: 20px;
+    }
+    .sendform input[type=submit]{
+        margin-left: 42%;
+    }
+    ul>li>label{
+        float: left;
+        margin: 0 auto 0 auto;
+        width: 120px;
+    }
+</style>
+</head>
+<body>
+    <form>
+        <fieldset class="login">
+        <legend>로그인</legend>
+            <label for="user_id">아이디 </label>
+            <input type="text" id="user_id" size="10" autofocus>    
+            <label for="user_pw">비밀번호 </label>
+            <input type="password" id="user_pw" size="10">
+            <input type="submit" value="로그인">
+        </fieldset>
+
+        <fieldset class="register">
+        <legend>가입하기</legend>
+            <ul>
+                <li>
+                    <label class="reg" for="user_name">아이디 <em>*</em></label>
+                    <input type="text" id="new_id" size="20" autocomplete="on" required>
+                </li>
+                <li>
+                    <label class="reg" for="new_pw1">비밀번호 <em>*</em></label>
+                    <input type="password" id="new_pw1" size="20" required>
+                </li>
+                <li>
+                    <label class="reg" for="new_pw2">비밀번호 확인 <em>*</em></label>
+                    <input type="password" id="new_pw2" size="20" required>
+                </li>
+                <li>
+                    <label class="reg" for="user_name">이름 <em>*</em></label>
+                    <input type="text" id="user_name" size="20" required>
+                </li>
+                <li>
+                    <label class="reg" for="user_mail">메일 주소 <em>*</em></label>
+                    <input type="email" id="user_mail" size="20" required>
+                </li>
+                <li>
+                    <label class="reg" for="user_tel">전화번호 </label>
+                    <input type="tel" id="user_tel" size="20">
+                </li>
+            </ul>
+            </fieldset>
+
+        <fieldset class="easys">
+        <legend>개발자</legend>
+            <textarea name="intro" cols="60" rows="5">
+                자바 개발은 어려우면서도 수월하다.
+                컴퓨터 언어 중 자바가 제일 재밌다.
+            </textarea>
+        </fieldset>
+
+        <fieldset class="sendform">
+            <input type="submit" value="가입하기">
+            <input type="reset" value="다시쓰기">
+        </fieldset>
+ </form>
+</body>
+</html>
