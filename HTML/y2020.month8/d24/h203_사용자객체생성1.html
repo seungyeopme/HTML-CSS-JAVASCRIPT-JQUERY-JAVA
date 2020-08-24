@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        function a() {
+            return this.num;
+        }
+        function plus(money) {
+            this.num+money;
+        }
+        function minus(money){
+            this.num-=money;
+            return money;
+        }
+        var mon=new Object(); //사용자 객체 생성
+        mon.name="김길동";
+        mon.id="123";
+        mon.num=30000; //초기값
+
+        //메소드 작성
+        mon.a=a;
+        mon.plus=plus;
+        mon.minus=minus;
+    </script>
+</head>
+<body>
+    <script>
+        //객체 활용
+        document.write(mon.name+ "<br>");
+        mon.plus(10000);
+        document.write(mon.num + "<br>");
+        mon.minus(5000);
+        document.write(mon.num + "<br>");
+    </script>
+</body>
+</html>

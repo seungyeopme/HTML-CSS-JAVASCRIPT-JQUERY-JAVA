@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        //3.프로토 타입
+        function student(name, score){
+            this.name=name;
+            this.score=score;
+
+            //함수 안에 함수가 있는 구조
+            this.getgrade=function() {
+                if(this.score>90){
+                    return "A";
+                }
+                else if(this.score>80){
+                    return "B";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var a=new student("juli",81);
+        var b=new student("tom",100);
+       
+        document.write(a.name+"학점"+a.getgrade()+"<br>");
+        document.write(b.name+"학점"+b.getgrade());
+    </script>
+</body>
+</html>

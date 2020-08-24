@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        //3. 프로토타입으로 객체 생성
+        function Mon(name,id,n) {
+            this.name=name;
+            this.id=id;
+            this.n=n;
+
+            this.a=function(){
+                return this.n;
+            }
+            this.plus=function(money) {
+                this.n+=money;
+            }
+            this.minus=function(money){
+                this.n-=money;
+                return money;
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var aa=new Mon("tom","123",30000);
+        document.write(aa.name+"<br>");
+
+        aa.plus(10000);
+        document.write(aa.a()+"<br>");
+        aa.minus(5000);
+        document.write(aa.a()+"<br>");
+    </script>
+</body>
+</html>
