@@ -73,9 +73,11 @@ public class Program {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 		String url = "jdbc:oracle:thin:@172.16.7.69:1521/xepdb1";
+		/*String url = "jdbc:oracle:thin:@localhost:49161/xe";*/
 		String sql = "SELECT * FROM NOTICE";
 		
 		Class.forName("oracle.jdbc.driver.OracleDriver");
+		/*Connection con = DriverManager.getConnection(url,"system","oracle");*/
 		Connection con = DriverManager.getConnection(url,"sys as sysdba","1234");
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery(sql);
