@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <script>
+            for(e of [1,2,3,4]) {
+                document.write(e);
+            }
+            document.write("<br>");
+            for(e in [1,2,3,4]) {
+                document.write(e);
+            }
+            document.write("<br>");
+
+            var n=[1,2,3,4]
+            for(var i in n) {
+                document.write(n[i]);
+            }
+            document.write("<br>");
+            for(var i of n) {
+                document.write(i);
+            }
+            document.write("<br>");
+            /*
+            for(const i of [1,2,3,4]) {
+                alert('요소값은 ${i}이다');
+            }
+            */
+        </script>
+    </body>
+</html>
