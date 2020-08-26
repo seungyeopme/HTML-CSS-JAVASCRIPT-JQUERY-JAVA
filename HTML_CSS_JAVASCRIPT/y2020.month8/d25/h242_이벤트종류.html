@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <p id="aa">마우스 올려봐</p>
+        <!--버튼 클릭하면 이벤트 종류 출력-->
+        <button onclick="f(event)">클릭해봐</button>
+        <script>
+            function f(e) {
+                alert(e.type); //이벤트 종류 출력
+            }
+            //마우스 올리면 이벤트 종류 출력
+            document.getElementById("aa").onmouseover=f;
+        </script>
+        <script>
+            
+        </script>
+    </body>
+</html>

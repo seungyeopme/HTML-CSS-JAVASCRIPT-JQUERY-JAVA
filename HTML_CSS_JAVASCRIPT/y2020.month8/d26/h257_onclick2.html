@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+2개 라디오 버튼을 만든다
+1개는 체크가 되어 있는 상태
+
+서울 부산
+
+서울 체크하고 "확인" 버튼 누르면 "서울"을 경고창(alert)출력
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function on() {
+                var n=document.getElementsByName("aa");
+                for(var i=0; i<n.length; i++) {
+                    if(n[i].checked==true) {
+                        var m=n[i];
+                    }
+                }
+                alert(m.value);
+            }
+        </script>
+    </head>
+    <body>
+        <input type="radio" name="aa" value="서울">서울
+        <input type="radio" name="aa" value="부산">부산
+        <br>
+        <input type="button" value="확인" onclick="on()">
+
+        <script>
+            
+        </script>
+    </body>
+</html>

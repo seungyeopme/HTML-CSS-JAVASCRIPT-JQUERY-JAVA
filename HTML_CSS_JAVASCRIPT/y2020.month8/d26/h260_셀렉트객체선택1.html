@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>select 객체에서 선택한 과일출력</title>
+<script>
+    function drawImage() {
+        var found = null;
+        var sel = document.getElementById("a");
+        var img = document.getElementById("aa");
+    
+    for(var i=0; i<sel.length; i++) 
+    {
+        if(sel[i].selected == true) 
+        {
+            found = sel[i];
+            break; 
+        }
+    }
+    //img.src = sel.options[sel.selectedIndex].value;
+    img.src = found.value;
+}
+</script>
+</head>
+    <body onload="drawImage()"> 
+    <h3>select 객체에서 선택한 것 출력</h3>
+    <hr>
+    선택하면 이미지가 출력됩니다.<p>
+    
+    <form>
+        <select id="a" onchange="drawImage()">
+            <option value="coffee.jpg">커피
+            <option value="tomato.jpg" selected>토마토
+            <option value="tangerines.jpg">귤
+        </select>
+    <img id="aa" src="coffee.jpg" alt="">
+</form>
+</body>
+</html> 

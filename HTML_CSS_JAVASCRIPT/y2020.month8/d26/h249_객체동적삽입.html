@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+3.“답보기” 버튼을 클릭하면 서버, 짜장면이 뜨도록 작성해라. 
+  <p>객체를 동적으로 생성하여 삽입해라.
+3.1	 다시 답을 클릭하면 정답이 제거되게 해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function addAnswer(obj, text) {
+                var o = obj.parentElement;
+                var newP = document.createElement("p");
+
+                newP.innerHTML = text;
+                o.appendChild(newP);
+
+                newP.onclick = function() {
+                    var p = this.parentElement;
+                    p.removeChild(this);
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <p><b>Q.컴퓨터 분야 뭐가 관심있니?</p></div>
+        <button onclick="addAnswer(this,'서버')">답보기</button><br><br>
+        <p><b>Q.뭐 먹고 싶니?</p></div>
+        <button onclick="addAnswer(this, '짜장면')">답보기</button>
+        <script>
+            
+        </script>
+    </body>
+</html>

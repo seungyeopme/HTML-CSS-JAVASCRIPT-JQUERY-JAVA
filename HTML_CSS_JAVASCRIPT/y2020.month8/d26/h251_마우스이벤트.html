@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function down(obj) { //마우스 클릭하면
+                obj.style.backgroundColor="yellow";
+            }
+            function over(obj) { //마우스 올리면
+                obj.style.backgroundColor="red";
+            }
+            function out(obj) { //마우스 벗어나면
+                obj.style.backgroundColor="black";
+            }
+            function wheel(e,obj) { //마우스 휠 아래로 돌리며
+                if(e.wheelDelta<0){
+                    obj.style.backgroundColor="blue";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <span onmousedown="down(this)"
+        onmouseover="over(this)"
+        onmouseout="out(this)"
+        onwheel="wheel(event,this)">
+        자바스크립트</span>
+        
+        <script>
+            
+        </script>
+    </body>
+</html>

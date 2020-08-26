@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            var n=null;
+            function cl() {
+                if(n==null || n.closed){
+                    //open("URL","새 창 이름","새 창 옵션")
+                    n=window.open("","w","width=300,height=200");
+
+                    //textarea에 작성한 데이터를 새 브라우저에 출력
+                    var t=document.getElementById("text");
+                    n.document.open();
+                    n.document.write(t.value);
+                    n.document.close();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <p>자바스크립트 코드를 쓰고 버튼을 클릭하자</p>
+        <textarea id="text" rows="10" cols="30"></textarea>
+        <br>
+        <button onclick="cl()">클릭!</button>
+        <script>
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+체크박스 3개 만들어서 가격을 다 더해 총합을 출력한다.
+-->
+<head>
+<style></style>
+<script>
+    function a(){
+        var a=document.getElementById("a");
+        var b=document.getElementById("b");
+        var c=document.getElementById("c");
+        var sum=eval(a.value)+eval(b.value)+eval(c.value);
+        document.write("총합가격"+sum);
+    }
+</script>
+</head>
+    <body>
+        <h3>메뉴</h3>
+        <hr>
+        아메리카노 <input type="checkbox" value="3000" id="a"><br>
+        라떼 <input type="checkbox" value="4500" id="b"><br>
+        우유 <input type="checkbox" value="3500" id="c"><br>
+        <button onclick="a()">총합출력</button>
+    <script>
+    </script>
+</body>
+</html>
