@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        div{
+            display: inline-block;
+            width: 50px;
+            padding: 10px;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+    <script>
+        //배열의 초기값
+        var co=['red', 'orange', 'blue', 'green', 'pink'];
+        for(var i=0; i<co.length; i++) {
+            var str="<div style='background-color:";
+            str+=co[i];
+            str+="'>"+co[i]+"</div>";
+            document.write(str);
+        }
+    </script>
+</body>
+</html>

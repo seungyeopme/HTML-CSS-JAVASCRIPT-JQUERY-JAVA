@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            var n;
+            function aa() {
+                n=document.getElementById("p");
+                
+                // onmouseover => 마우스가 특정 객체 위로 올려지면
+                n.onmouseover=over;
+
+                //onmouseout => 마우스가 특정 객체 밖으로 나가면
+                n.onmouseout=out; 
+            }
+            function over(){
+                n.style.backgroundColor="yellow";
+            }
+            function out(){
+                n.style.backgroundColor="pink";
+            }
+        </script>
+    </head>
+    <body onload="aa()">
+        <p id="p">마우스 올려보기</p>
+        <script>
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        function change() {
+            var n=document.getElementById("java"); //id값 알아내기
+            //스크립트를 black으로 변경
+            //폰트 사이즈 30px
+            //display => block
+            //width 3배
+            //경계선 3px 도트모양 deeppink
+            //margin 10px
+            n.style.color="black";
+            n.style.fontSize="30px";
+            n.style.display="block";
+            n.style.width="3em";
+            n.style.border="3px dotted deeppink";
+            n.style.margin="10px";
+        }
+    </script>
+</head>
+<body>
+    <p style="color: blue">자바
+    <span id="java" style="color: green">스크립트</span>
+    </p>
+    
+    <!--버튼을 클릭했을 때 change()함수 호출-->
+    <input type="button" value="버튼" onclick="change()">
+    <script> 
+    </script>
+</body>
+</html>

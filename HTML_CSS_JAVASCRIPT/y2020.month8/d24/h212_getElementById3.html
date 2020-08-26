@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--
+클릭을 누르면 사진 출력
+-->
+<html>
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        function change() {
+            //id값을 알아낸다
+            var pp=document.getElementById("chi");
+            pp.innerHTML="커피<img src='coffee.jpg'>아메리카노";
+        }
+    </script>
+</head>
+<body>
+    <p id="chi" style="color:blue" onclick="change()">
+    클릭<span style="color:red">해보세요</span>
+    </p>
+    <script>
+    </script>
+</body>
+</html>

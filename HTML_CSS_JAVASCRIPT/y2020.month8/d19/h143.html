@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+1.컴퓨터 글자색 brown, 텍스트 정렬 center
+2.제목 이후에 선 긋기(1픽셀 직선 테두리)
+3.목차 부분 리스트(1픽셀 점선 테두리)
+4.CPU, 컴퓨터구조, 데이터베이스 다 링크장식 없애기(밑줄 없애기)
+5.텍스트들의 글자크기를 1em, 들여쓰기 1em으로 설정
+6.목차, cpu, 컴퓨터구조, 데이터베이스 text-shadow를 사용하여 
+  꾸밈(색은 임의로)
+7.설문조사 링크는 배경색을 pink로 주고 둥근 모서리 테두리로 설정
+8.전체 배경색은 aliceblue
+-->
+<html>
+    <head>
+        <title><Anchor</title>
+        <style>
+            h2{
+                color: brown;
+                text-align: center;
+            }
+            h3{
+                text-shadow:2px 2px 2px gray;
+            }
+            div{
+                border-bottom: solid 1px;
+            }
+            ul{
+                border:1px dotted black;
+                text-shadow:2px 2px 2px gray;
+            }
+            a{
+                text-decoration: none;
+            }
+            body{
+                background-color: aliceblue;
+            }
+            section{
+                font-size: 1em;
+                text-indent: 1em;
+            }
+            .sul{
+                background-color: pink;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+        <div><h2>컴퓨터</h2></div>
+        <p>
+            컴퓨터 기술은 현대의 과학 기술들 중에서 가장 급속히 
+            발전하고 있는 분야이다. 컴퓨터공학은 컴퓨터의 하드웨어와 
+            소프트웨어를 연구하여 컴퓨터와 관련된 여러 기술을 개발하고 
+            학습하며 이를 각 분야에 응용하는 것을 목적으로 하는 학문
+            분야이다.
+        </p>
+        <h3>목차</h3>
+        <ul id="anchor">
+            <li><a href="#content1">CPU</a></li>
+            <li><a href="#content2">컴퓨터구조</a></li>
+            <li><a href="#content3">데이터베이스</a></li>
+        </ul>
+        <p>
+        <a id="content1" href="https://terms.naver.com/entry.nhn?docId=3570778&cid=59088&categoryId=59096" target="_blank"><b>CPU</b></a>
+            컴퓨터의 성능을 가늠하고자 할 때 가장 먼저 살펴보게 되는
+            것이 바로 기본 사양표다. 여기에는 해당 컴퓨터를 구성하고
+             있는 부품의 항목이 일목요연하게 정리되어 있는데, 가장 
+             상단에는 대부분 ‘CPU’라는 항목이 위치해 있다. 그만큼 
+             컴퓨터에서 CPU는 전반적인 성능을 좌우하는 가장 중요한 
+             부품이라고 할 수 있다.
+        </p>
+        <p>​
+        <a id="content2" href="https://terms.naver.com/entry.nhn?docId=2073343&cid=44414&categoryId=44414" target="_blank"><b>컴퓨터구조</b></a>
+            컴퓨터구조(－構造, computer architecture)는 컴퓨터를 
+            구성하는 CPU, 메모리, 입출력장치(I/O 장치)의 기본이 되
+            는 디지털 회로소자의 특성과, CPU의 동작원리와 설계방법
+            을 익히며, CPU의 제어회로 및 마이크로프로그램 등을 연구
+            함으로써 컴퓨터구조에 대한 원리와 특성을 익히는 학문이다
+            . RISC(Reduced Instruction Set Computer) 프로세서 
+            중 하나인 MIPS(Microprocessor without Inter-locked 
+            Pipeline Stages)를 예제로 하여 실제 컴퓨터의 데이터
+             패스와 컨트롤 로직을 설계하고 성능과 관련된 요인들을 
+             공부한다.
+        </p>
+        <p>
+        <a id="content3" href="https://terms.naver.com/entry.nhn?docId=1082446&cid=40942&categoryId=32840" target="_blank"><b>데이터베이스</b></a>
+            여러 사람에 의해 공유되어 사용될 목적으로 통합하여 관리
+            되는 데이터의 집합을 말한다. 자료항목의 중복을 없애고 자
+            료를 구조화하여 저장함으로써 자료 검색과 갱신의 효율을 
+            높인다. 현대적인 의미의 데이터베이스 개념을 확립한 사람
+            은 당시 제너럴일렉트릭사(社)에 있던 C.바크만으로 그는
+             1963년 IDS(Integrated Data Store)라는 데이터베이스
+              관리시스템을 만들었다.
+        </p>
+        <p>
+        <a class="sul" href="h143_connect.html">설문조사</a>
+        </p>
+        </section>
+    </body>
+</html>

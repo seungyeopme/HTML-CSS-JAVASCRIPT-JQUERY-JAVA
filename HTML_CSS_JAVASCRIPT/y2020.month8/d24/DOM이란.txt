@@ -1,0 +1,21 @@
+DOM(Document Object Model)
+1. 각 HTML태그를 하나의 객체로 만듬 (<div>, <p>...)
+2. HTML 태그가 출력된 모양과 컨텐츠를 제어한다.
+
+<DOM 구성요소 5가지>
+1. 프로퍼티(property): DOM 객체의 변수
+   ex) var n=new Object();
+2. 메소드
+3. 컬렉션: 데이터의 집합(배열 형태)
+4. 이벤트 리스너
+5. CSS 스타일
+
+-DOM 객체 구분: id 속성
+<p id="a">안녕</p>
+
+-DOM 객체 찾기: document.getElementById();
+
+var p = document.getElementById("a");
+
+//<p id="a">안녕</p> 문자열의 색을 red로 설정
+p.style.color = "red"; 

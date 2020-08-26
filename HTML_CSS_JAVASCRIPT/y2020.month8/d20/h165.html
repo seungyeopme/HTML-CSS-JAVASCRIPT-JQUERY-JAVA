@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+메뉴를 입력받아
+에스프레소면 4000
+아메리카노 4500
+라떼 5000
+메뉴가 없으면 "메뉴가 없습니다"
+
+switch~case로 
+
+돈이 0원이면 "죄송합니다" -> if
+-->
+<html>
+    <head>
+        <title></title>
+        <style>
+         
+        </style>
+    </head>
+    <body>
+        <script>
+            var menu=prompt("메뉴 입력");
+            var price;
+
+            switch(menu) {
+                case "에스프레소":    
+                    price = 4000;
+                    break;
+                case "아메리카노":
+                    price = 4500;
+                    break;
+                case "라떼" :
+                    price = 5000;
+                    break;
+                default :
+                    document.write("메뉴 없다");
+                    break;
+            }
+            document.write(menu + "는 " +price+ "원");
+            if (price == 0){
+                document.write("못 판다")
+            }
+        </script>
+    </body>
+</html>

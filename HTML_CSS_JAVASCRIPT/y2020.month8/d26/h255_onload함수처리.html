@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+    </style>
+        <script>
+            function on(){
+                var n=document.getElementById("aa");
+                var m=document.getElementById("bb");
+                var b=n.selectedIndex;
+                m.src=n.options[b].value;
+            }
+        </script>
+    </head>
+    <body onload="on()">
+        <select id="aa" onchange="on()">
+            <option value="coffee.jpg">커피
+            <option value="sp.jpg">스펀지밥
+        </select>
+        
+        <span id="span">배고파!!</span>
+        <p><img id="bb" src="sp.jpg"></p>
+    </body>
+</html>

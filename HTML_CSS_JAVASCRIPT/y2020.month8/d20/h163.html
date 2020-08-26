@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+         
+        </style>
+    </head>
+    <body>
+        <script>
+            var x=100;  //전역 변수
+            function f() {
+                var x=10;   //지역 변수
+                document.write(x + "<br>"); //지역 변수 출력
+                document.write(this.x); //전역 변수 출력
+            }
+            f(); //함수 호출
+        </script>
+    </body>
+</html>

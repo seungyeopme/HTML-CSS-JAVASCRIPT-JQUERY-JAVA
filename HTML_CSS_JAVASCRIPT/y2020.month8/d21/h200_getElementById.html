@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <p id="aa"
+            style="color: blue; 
+            background: yellow;"
+            onclick="this.style.color='tomato'">
+            문장이다.</p>
+        <script>
+            //이벤트 처리가 발생한 곳의 위치를 알아낸다.
+            var n=document.getElementById("aa");
+
+            //aa안에 들어있는 데이터값 출력
+            document.write(n.innerHTML+"<br>");
+
+            //어디에서 이벤트 발생했는지 알아내는 작업(객체에 대한 구조 출력)
+            document.write(n.onclick+"<br>");
+
+            //색상이 무엇인지 알아내는 작업
+            document.write(n.style.color);
+        </script>
+    </body>
+</html>

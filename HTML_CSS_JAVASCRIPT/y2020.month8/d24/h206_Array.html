@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        function pr(ary){
+            for(var i=0; i<ary.length; i++) {
+                document.write(ary[i]+" ");
+            }
+            document.write("<br>");
+        }
+    </script>
+</head>
+<body>
+    <script>
+        //Array()에 name객체 존재 
+        //전체 배열(문자열)
+
+        var names=new Array("aaa","b","cc");
+        
+        document.write(names.length+"<br>");
+        document.write(names[2].length+"<br>");
+        
+        //1. 각 요소 출력
+        pr(names);
+        
+        //2. 가장 긴 이름 출력
+        var longest=names[0];//초기값 설정
+        
+        for(i=1;i<names.length;i++){
+            if(names[i].length>longest.length)
+                longest=names[i]; 
+        }
+        document.write(longest+"<br>");
+        
+        //3. 가장 먼저 나오는 이름 출력
+        var n=names[0];
+        for(i=1;i<names.length;i++){
+            if(names[i] < n)
+                n=names[i];
+        }
+        document.write(n +"<br>"); 
+    </script>
+</body>
+</html>

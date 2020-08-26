@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+2.	다음 웹페이지 처럼 구현해라. 
+prompt창에 문자열을 입력하면 그 문자열이 다시 출력되도록 구현해라
+뭘 먹을까요? -> 클릭 -> prompt가 뜸 -> 문자열 입력 -> 문자열 출력
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function ch() {
+                var str = prompt('HTML 텍스트 혹은 그냥 텍스트를 입력하세요.');
+                var c = document.getElementById("aa");
+                c.innerHTML=str;
+            }
+        </script>
+    </head>
+    <body id="aa" onclick="ch()">
+        <h1>innerHTML</h1>
+        <hr>
+        오늘 저녁은 뭘 먹을까요?
+        <script>    
+            
+        </script>
+    </body>
+</html>

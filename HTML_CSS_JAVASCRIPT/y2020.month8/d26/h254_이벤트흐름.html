@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <p style="color:violet">자바
+            <span style="color:tomato" id="aa">
+            스크립트
+            </span>
+        </p>
+        <input type="text">
+        <input type="button" value="결과" id="button">
+        <div id="div" style="color:teal"></div>
+        <script>
+            var d=document.getElementById("div");
+            var b=document.getElementById("button");
+
+            //캡쳐리스너 등록
+            document.body.addEventListener("click",capture,true);
+
+            //버블 리스너 등록(버튼)
+            b.addEventListener("click",bubble,false);
+
+            //버블 등록
+            document.body.addEventListener("click",bubble,false);
+
+            function capture(e) {
+                var n=e.currentTarget;
+                var m=n.tagName; //태그 이름
+                d.innerHTML += m +"태그에" + e.type + "이벤트"+"<br>";
+            }
+            function bubble(e) {
+                var n=e.currentTarget;
+                var m=n.tagName; //태그 이름
+                d.innerHTML += m +"태그에" + e.type + "이벤트"+"<br>";
+            }
+        </script>
+    </body>
+</html>
