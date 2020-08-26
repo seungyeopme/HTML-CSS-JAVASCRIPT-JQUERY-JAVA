@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        function on() {
+            var a=n.innerHTML;//자바스크립트 넘나 재밌는 것
+            var b=a.substr(0, 1);
+            var c=a.substr(1,a.length-1);
+            a=c+b;
+            n.innerHTML=a;
+        }
+    </script>
+</head>
+<body>
+    <div><span id="aa"
+        style="background-color: pink">
+        자바스크립트 넘나 재밌는 것
+        </span>
+    </div>
+    <script>
+        var n=document.getElementById("aa");
+        var t=setInterval("on()",200); //0.2초 주기로 on함수 호출
+        n.onclick=function(e) {
+            clearInterval(t); //타이머 해제
+        }
+    </script>
+</body>
+</html>

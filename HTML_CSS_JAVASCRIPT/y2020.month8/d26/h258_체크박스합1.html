@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+체크박스 3개 만들어서 가격을 다 더해 총합을 출력한다.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function cl() {
+                var str = 0;
+                var v = document.getElementsByClassName("aa");
+                for (var i = 0; i < v.length; i++) {
+                    if (v[i].checked == true)
+                        str += parseInt(v[i].value);
+                    }
+                    alert("가격은 " + str)
+                }
+        </script>
+    </head>
+    <body>
+        <input class="aa" type="checkbox" value="4500">아메리카노
+        <input class="aa" type="checkbox" value="5500">흑당 버블티
+        <input class="aa" type="checkbox" value="6500">아몬드 봉봉
+        <input class="aa" type="button" onclick="cl()" value="결제">
+        <script>
+        </script>
+    </body>
+</html>

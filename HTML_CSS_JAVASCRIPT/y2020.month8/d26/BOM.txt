@@ -1,0 +1,7 @@
+BOM -> Browser Object Model
+
+window 객체 생성 3가지 방법
+1. 브라우저가 새로운 웹 페이지 로드할 때
+2. 자바스크립트 코드로 window 객체 생성
+    window.open();
+3. <iframe>태그 당 하나 씩 window 객체 생성

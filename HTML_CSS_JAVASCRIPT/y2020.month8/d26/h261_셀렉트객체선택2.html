@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+<style>
+</style>
+    <script>
+        function on(){
+            var n=document.getElementById("aa")
+            var m=document.getElementById("bb")
+            var b=n.selectedIndex
+            m.src=n.options[b].value
+        }
+    </script>
+</head>
+    <body>
+        <select id="aa" onchange="on()">
+            <option value="coffee.jpg">커피</option>
+            <option value="tomato.jpg">토마토</option>
+        </select>
+        
+        <img id="bb" src="coffee.jpg">
+    <script>
+</script>
+</body>
+</html>
