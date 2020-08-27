@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+그림 위에 2초 동안 마우스 올리고 있으면 네이버로 이동
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            var n=null;
+            function start(t){
+                n=setTimeout("load('http://www.naver.com')",t);
+                document.getElementById("im").title="시작!!";
+            }
+            function cancel() {
+                if(n!=null){
+                    clearTimeout(n); //타임 중단
+                }
+            }
+            function load(url) {
+                window.location=url;
+            }
+        </script>
+    </head>
+    <body>
+        <img id="im" src="coffee.jpg" 
+        onmouseover="start(2000)" onmouseout="cancel()">
+        <script>
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <canvas id="can"
+        style="background-color: deeppink"
+        width="200" height="150">
+        </canvas>
+        <script>
+            var n=document.getElementById("can");
+            var m=n.getContext("2d");
+
+            m.beginPath(); //1. 빈 경로 생성
+            m.moveTo(100,10); //시작위치
+            m.lineTo(20,50); //직선 추가
+            m.lineTo(150,120); //직선 추가
+            m.stroke(); //경로를 캔버스에 그린다.
+        </script>
+    </body>
+</html>

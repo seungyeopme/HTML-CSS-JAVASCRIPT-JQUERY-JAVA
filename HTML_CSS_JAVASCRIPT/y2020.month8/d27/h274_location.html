@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function load() {
+                var select = document.getElementById("sel");
+
+                //사용자가 선택한 옵션(<option>)인덱스
+                window.location = select.options[select.selectedIndex].value;
+            }
+        </script>
+    </head>
+    <body>
+        <select id="sel">
+            <option value="http://www.daum.net"selected>다음
+            </option>
+            <option value="http://www.google.com">구글
+            </option>
+        </select>
+        <button onclick="load()">사이트</button>
+        <script>
+            
+        </script>
+    </body>
+</html>

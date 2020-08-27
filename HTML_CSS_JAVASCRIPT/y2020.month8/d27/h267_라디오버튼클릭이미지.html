@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+2. 메뉴 3개를 라디오 버튼으로 임의로 설정하고 선택하면 해당 이미지를 
+   출력하는 웹 페이지를 작성해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function drawImage(){
+                var found = null;
+                // food 이름을 가진 모든 태그를 찾는 코드
+                var sel = document.getElementsByName("food");
+                // 찾고자하는 id 값을 찾는 코드 
+                var img = document.getElementById("foodimage");
+            for(var i=0; i<sel.length; i++) {
+                if(sel[i].checked == true) {
+                    found = sel[i];
+                    break;
+                }
+            }
+            img.src = found.value;
+        }
+        </script>
+    </head>
+    <body onload="drawImage()">
+        <h3>라디오 버튼을 클릭하면 이미지를 출력합니다.</h3>
+        <hr> 
+        <form> 
+            <input type="radio" name="food" value="coffee.jpg" onchange="drawImage()">커피
+            <input type="radio" name="food" value="tangerines.jpg" onchange="drawImage()">귤
+            <input type="radio" name="food" value="tomato.jpg" checked onchange="drawImage()">토마토
+            <br>
+        </select>
+        <img id="foodimage" src="coffee.jpg">
+        </form>
+        </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+4. body태그에 “자바스크립트” 문자열을 준다. 웹 페이지가 로드될 때, 
+   “제이쿼리”라는 문자열을 180*50 크기의 새 윈도우에 출력하도록 작성해라. 
+   (onload리스너 등록)
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <p>자바스크립트</p>
+        <script>
+            var win = window.open("", "PopupWin", "width=180,height=50");
+            win.document.write("<p>제이쿼리</p>");
+        </script>
+    </body>
+</html>
+
+<!doctype html>
+<head>
+<style></style>
+<script>
+    function load(){
+        window.open("http://www.naver.com","win","width=180,height=50")
+    }
+</script>
+</head>
+<body onload="load()">
+    <p>자바스크립트</p>
+<script></script>
+</body>
+</html>

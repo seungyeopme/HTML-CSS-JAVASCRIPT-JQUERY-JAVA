@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+window를 onload할 때 아이디를 알아내서 border 2px
+실선 임의의 색 글자색은 orange
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <p id="hello">안녕하세요</p>
+        <script>
+            window.onload = function() {
+                var a = document.getElementById("hello");
+                a.style.color="orange";
+                a.style.border="solid 2px";
+            }
+        </script>
+    </body>
+</html>
