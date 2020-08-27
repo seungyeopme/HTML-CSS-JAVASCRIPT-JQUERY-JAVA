@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<style>
+    span{
+        font-style: italic;
+    }
+    #di{
+        display: inline-block;
+        background-color:deepskyblue;
+    }
+    #aa{
+        display: inline-block;
+        color:orange;
+        width:50em;
+        font-size:30px;
+    }
+</style>
+<script>
+    var n=document.getElementsByTagName("span");
+    function ch(obj){
+        obj.innerHTML=Math.floor(Math.random()*3)+1;
+        if(n[0].innerHTML==n[1].innerHTML && n[1].innerHTML==n[2].innerHTML){
+            var m=document.createElement("div");
+            m.setAttribute("id","aa");
+            m.innerHTML="성공";
+            m.addEventListener("click",
+    function a(){
+    for(var i=0;i&ltn.length;i++){
+        n[i].innerHTML="1";
+    }
+    })
+    obj.parentElement.appendChild(m);
+    }
+    else{
+        var m=document.createElement("div");
+        m.setAttribute("id","aa");
+        m.innerHTML="실패";
+
+        m.addEventListener("click",
+        function a(){
+        for(var i=0;i&ltn.length;i++){
+            n[i].innerHTML="1";
+        }
+    })
+    obj.parentElement.appendChild(m);
+    }
+}
+</script>
+<body>
+    <div id="di">
+    <span id="one"
+    onclick="this.innerHTML=
+    Math.floor(Math.random()*3)+1">1</span>
+    <span id="two"
+    onclick="this.innerHTML=
+    Math.floor(Math.random()*3)+1">1</span>
+    <span id="three"
+    onclick="ch(this)">1</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body onload="on()">
+        <canvas id="can" 
+        style="background-color: beige" 
+        width="500px" height="500px">
+        <script>    
+            var canvas, con;
+            function on() {
+                canvas=document.getElementById("can");
+                con=canvas.getContext("2d");
+
+                con.lineWidth=3; //선 굵기
+                con.strokeStyle="black";
+                canvas.addEventListener("mousedown",function(e){down(e)},false);
+                canvas.addEventListener("mousemove",function(e){move(e)},false);
+                canvas.addEventListener("mouseout",function(e){out(e)},false);
+                canvas.addEventListener("mouseup",function(e){up(e)},false);
+            }
+            var x=0,y=0;
+            var d=false;
+
+            function draw(xx,yy) {
+                con.beginPath();
+                con.moveTo(x,y);
+                con.lineTo(xx,yy);
+                con.stroke();
+            }
+            function down(e) {
+                x=e.offsetX;
+                y=e.offsetY;
+                d=true;
+            }
+            function up(e) {
+                d=false;
+            }
+            function move(e) {
+                if(!d) return;
+                var xx=e.offsetX, yy=e.offsetY;
+                draw(xx,yy);
+                x=xx; y=yy;
+            }
+            function out(e) {
+                d=false;
+            }
+        </script>
+    </body>
+</html>

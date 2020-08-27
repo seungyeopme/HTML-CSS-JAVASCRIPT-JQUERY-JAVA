@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+객체 3가지 방법
+java객체를 만든다
+
+프로퍼티 자바: 9
+
+             HTML: 12
+
+             CSS: 16
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <script>
+            var java = { '자바':9, 'HTML':12, 'CSS':16 };
+
+            var java = {};
+                java['자바'] = 9;
+                java['HTML'] = 12;
+                java['CSS'] = 16;
+
+            var java = new Object();
+                java['자바'] = 9;
+                java['HTML'] = 12;
+                java['CSS'] = 16;
+
+            var java = new Object();
+                java.a = 9;
+                java.b = 12;
+                java.c = 16;
+        </script>
+    </body>
+</html>
