@@ -7,26 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-/*
- 헤더 제목: 지금 책 대여 대여?
-미들왼쪽: <도서목록>, 
-미들오른쪽:<검색창>, <신간요청>, <장르>(라디오 버튼)
-푸터왼쪽: <대여목록>
-푸터오른쪽: <대여일자>,<반납일>, 
-         <대여>, <취소>
-                   라벨
-                   
-제목
-저자
-출판일
-도서번호
-출판사
-책ID
-줄거리
-
-목록추가(버튼) 대여중(버튼)
- */
+//필요없는 레이아웃 ~
 public class layout extends JFrame{
 	public static void main(String[] args) {
 		

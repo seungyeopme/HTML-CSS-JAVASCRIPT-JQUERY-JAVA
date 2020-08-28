@@ -1,0 +1,39 @@
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class ddd extends JFrame{
+	ImageIcon i=new ImageIcon("C://Users//Seulgi//Desktop/bg.png"); //이미지 변경해주세요
+	Image im=i.getImage();
+	 class Background extends JPanel{
+         
+	        public void paintComponent(Graphics g){
+	            super.paintComponent(g);
+	            g.drawImage(im,0,0,getWidth(),getHeight(),this);
+	        }
+	    }
+	ddd(){
+		this.setTitle("도서정보");
+	     
+		Background bg = new Background();
+        bg.setLayout(null);
+        
+        //여기에 Jlabel이랑 위치값조정해서 bg.add();으로 붙여주세요. 프레임대신 bg에 붙여야해요
+        
+        this.add(bg);
+        this.setSize(550,650);
+        this.setVisible(true);
+        setResizable(false); //창크기 조절 불가
+        setLocationRelativeTo(null); 
+
+	}
+	public static void main(String[] args) {
+		new ddd();
+		
+	}
+
+}
