@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 목록추가(버튼) 대여중(버튼)
  */
-public class main extends JFrame{
+public class layout extends JFrame{
 	public static void main(String[] args) {
 		
 		 JFrame frm = new JFrame("도서 대여 프로그램");
