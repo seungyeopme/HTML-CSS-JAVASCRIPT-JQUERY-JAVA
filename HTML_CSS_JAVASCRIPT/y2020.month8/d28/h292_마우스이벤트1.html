@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+8. “자바스크립트”라는 문자열에 마우스를 올렸을 때, 
+   마우스가 객체에 벗어날때 두 가지 이벤트에 대해 글자색을 변경하여 
+   익명 함수로 이벤트 리스너를 작성해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function out(obj) { //마우스 벗어나면
+                obj.style.backgroundColor="blue";
+            }
+            function over(obj) { //마우스 올리면
+              obj.style.backgroundColor="pink";  
+            }
+        </script>
+    </head>
+    <body>
+        <span onmouseover="over(this)" onmouseout="out(this)">자바스크립트</span>
+        <script>
+            
+        </script>
+    </body>
+</html>

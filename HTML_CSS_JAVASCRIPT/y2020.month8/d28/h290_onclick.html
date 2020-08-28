@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+6.1) id가 “di”인 객체를 알아내는 코드를 작성해라.
+var obj = document.getElementById("di");
+
+6.2) <div>태그를 클릭하면 fun()함수가 실행하도록 
+     addEventListener()를 사용하여 작성해라.
+
+6.3) fun()를 익명함수로 작성하여 onclick리스너로 등록해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function fun() {
+                document.body.style.backgroundColor="violet";
+                
+            }
+            var n=document.getElementById("di");
+            n.addEventListener("click", function() {
+                return fun();
+            })
+        </script>
+    </head>
+    <body>
+        <div id="di" onclick="fun()">안녕하세요</div>
+        <script></script>
+    </body>
+</html>

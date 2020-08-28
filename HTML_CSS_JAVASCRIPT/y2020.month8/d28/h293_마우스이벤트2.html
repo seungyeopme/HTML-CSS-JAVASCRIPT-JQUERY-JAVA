@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function aa() {
+                var n=document.getElementById("p");
+                n.onmouseover=function() {
+                    this.style.color = "blue";
+                }
+                n.addEventListener("mouseout",
+                function(){
+                    this.style.color="red";
+                });
+            }
+        </script>
+    </head>
+    <body onload="aa()">
+        <p id="p">자바스크립트</p>
+        
+        <script>
+            
+        </script>
+    </body>
+</html>

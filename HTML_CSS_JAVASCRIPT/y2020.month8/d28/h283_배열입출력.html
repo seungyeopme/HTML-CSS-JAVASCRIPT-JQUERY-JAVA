@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function stu(name, kor, eng, math) {
+                this.name=name;
+                this.kor=kor;
+                this.eng=eng;
+                this.math=math;
+
+                this.getsum=function() {
+                    return this.kor + this.eng + this.math;
+                }
+                this.getavg=function() {
+                    return this.getsum()/3;
+                }
+                this.toString=function() {
+                    return this.name+'\t'+this.getsum+'\t'+this.getavg();
+                }
+            }
+            var ary=[];
+            ary.push(new stu('유강',90,100,80));
+            ary.push(new stu('용석',95,70,100));
+            for(var i in ary){
+                alert(ary[i]);
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+    </body>
+</html>

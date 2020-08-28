@@ -1,0 +1,8 @@
+createElement(tag)
+-> tag를 매개변수로 넘겨 새로 생성
+
+createTextNode(tag)
+-> HTML 태그 사이에 넣을 데이터를 데이터를 매겨변수로 넘김
+
+appendChild(node)
+-> 생성한 요소 노드와 텍스트 노드를 HTML 객체에 연동한다.

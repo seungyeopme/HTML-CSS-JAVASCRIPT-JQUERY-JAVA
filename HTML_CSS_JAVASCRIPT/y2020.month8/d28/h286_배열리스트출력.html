@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+2. 다음 배열에 들어있는 각 문자열을 리스트의 아이템으로 출력해라. (불렛포함시킨 ul형태로)
+
+        var food=[“라면”, “초밥”, “가츠동”, “사케동”];
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function cl() {
+                var food = ["라면", "초밥", "가츠동", "사케동"];
+                var v = document.getElementById("ul1");
+                
+                for (var i in food) {
+                    var c = document.createElement("li");
+                    c.innerHTML = food[i];
+                    v.appendChild(c);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" onclick="cl()" value="배열">
+        <ul id="ul1"></ul>
+
+        <script>
+            
+        </script>
+    </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        
+        <script>
+            var n = ["라면", "초밥", "가츠동", "사케동"];
+            document.write("<ul>");
+            for(var i=0; i<n.length; i++){
+                document.write("<li>"+n[i]);
+            }
+            document.write("</ul>");
+        </script>
+    </body>
+</html>

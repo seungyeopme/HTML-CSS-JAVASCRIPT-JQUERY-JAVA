@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+3. Prompt() 함수를 이용하여 문자열을 입력해 “,” 를 
+   기준으로 문자를 분할하여 출력해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+
+        <script>
+            var input=prompt(", 를 포함한 문자열 입력해");
+            var inputsplit=input.split(',');
+            for(var i in inputsplit) {
+                document.write('<p>' + inputsplit[i] + '</p>');
+            }
+        </script>
+    </body>
+</html>

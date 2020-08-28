@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+1. 구구단을 출력하는 gugu()함수를 만들어 1~9 사이의 수를 입력받아 
+   구구단을 출력하는 웹 페이지를 작성해라.
+
+ 
+
+2. 다음 배열에 들어있는 각 문자열을 리스트의 아이템으로 출력해라. (불렛포함시킨 ul형태로)
+
+        var food=[“라면”, “초밥”, “가츠동”, “사케동”];
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function gugu(dan) {
+                document.write(dan + "단<br><br>");
+
+                for(var i=1; i<=9; i++) {
+                    var r = dan * i;
+                    document.write(dan + "*" + i + "=" + r + "<br>");
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            do{
+                var num = prompt("출력할 단을 입력", "");
+            }while(isNaN(num));
+            gugu(num);
+        </script>
+    </body>
+</html>

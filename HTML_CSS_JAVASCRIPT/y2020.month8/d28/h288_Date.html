@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--
+4. 오늘 날짜 시간을 출력해라.
+4.1) Date 객체로 년, 월, 일도 각각 출력해라.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script></script>
+    </head>
+    <body>
+        <script>
+          var today = new Date();
+          document.write(today+"<br>");  
+
+          var year = today.getFullYear(); //년도
+          var month = today.getMonth(); //월
+          var date = today.getDate(); //일
+
+          document.write(year + '/' + month + '/' + date);
+        </script>
+    </body>
+</html>

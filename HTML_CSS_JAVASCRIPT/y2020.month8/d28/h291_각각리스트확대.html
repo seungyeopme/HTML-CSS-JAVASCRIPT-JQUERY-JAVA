@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+리스트를 주고 각각의 리스트를 클릭하면 글자크기가 
+1.2배 늘어난다.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function ch(obj) {
+                obj.style.fontSize="1.2em";    
+            }
+        </script>
+    </head>
+    <body>
+        공부하고 싶은 것
+        <hr>
+        <ul>
+            <li onclick="ch(this)">데이터베이스</li>
+            <li onclick="ch(this)">빅데이터</li>
+            <li onclick="ch(this)">웹스크래핑</li>
+            <li onclick="ch(this)">스프링</li>
+        </ul>
+        <script>   
+        </script>
+    </body>
+</html>
