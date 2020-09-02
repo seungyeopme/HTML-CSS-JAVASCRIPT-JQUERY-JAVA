@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>가장 가까운 상위 요소 선택자</title>
+    <!--
+        가장 가까운 상위 요소 선택자는 선택한 요소를 기준으로 가장 가까운 상위 요소만 
+        선택할 때 사용합니다. 기본형은 다음과 같습니다.
+        
+        $("요소 선택").closest("요소 선택")
+    -->
+    <script>
+        $(function() {
+            $(".txt1").closest("div")
+            .css({
+                "border" : "2px solid #f00"
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1 class="title">선택자</h1>
+    <div>
+        <div>
+            <p class="txt1">내용</p>
+        </div>
+    </div>
+</body>
+</html>
