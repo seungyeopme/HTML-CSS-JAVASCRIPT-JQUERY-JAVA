@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+브라우저 내 아무 곳이나 클릭하면
+(포커스를 가지고 있는 상태- onfocus()) 배경색이 하얀색, 
+브라우저 바깥의 아무 곳이나 클릭하면
+(포커스를 잃게 되는 경우- onblur()) 배경색이 red색을 바뀌는 
+웹 페이지를 작성해라.
+-->
+<html>
+<head>
+<title>
+
+</title>
+<style>
+
+</style>
+<script>
+function onfocus(){
+document.body.style.backgroundColor="white";
+}
+function onblur(){
+document.body.style.backgroundColor="red";
+
+}
+
+</script>
+
+</head>
+<body id="aa" onfocus="onfocus()" onblur="onblur()">
+
+<script>
+
+</script>
+</body>
+</html>

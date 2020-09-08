@@ -1,0 +1,13 @@
+onkeydown
+: 눌렀을 때
+
+onkeypress
+: enter, space, esc
+
+onkeyup
+: 눌렀다가 뗏을 때
+
+onreset
+: reset 버튼을 눌렀을 때
+
+onsubmit

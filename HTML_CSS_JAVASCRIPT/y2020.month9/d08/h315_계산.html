@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+ 계산식을 입력받아 결과를 출력하는 웹 페이지를 작성해라. 
+ 식을 입력한 후 enter키를 치면 수식이 계산되면서 결과를 출력한다. 
+ (계산식과 값 부분은 input type=text형태로, querySelector사용)
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function on(e){ //"1+2+3"
+                var n=eval(document.querySelector("#aa").value)
+                document.querySelector("#bb").value=n;
+            }
+        </script>
+    </head>
+    <body>
+        계산식<input type="text" id="aa" onkeypress="on(event)">
+        결과값<input type="text" id="bb">
+        <script>
+           
+        </script>
+    </body>
+</html>

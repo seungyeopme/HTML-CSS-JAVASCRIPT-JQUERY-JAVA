@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+새 윈도우를 (500,500)으로 출력
+
+새 윈도우의 타이틀을 "자바"로 배경색을 좋아하는 색으로 출력
+-->
+<!--
+<script>
+    window.onload = function () {
+    var a = window.open("", "자바", 'width = 500, height = 500 , background-color = "red"')
+    a.document.body.setAttribute("style", "background-color : red")
+    }
+</script>
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style></style>
+    <script>
+        function on() {
+            var n=window.open("","_blank","width=500, height=500");
+            n.document.write("자바");
+            n.document.body.style.backgroundColor="red";
+        }
+    </script>
+</head>
+<body onload="on()">
+    <p>자바자바스크립트</p>
+    <script>
+
+    </script>
+</body>
+</html>

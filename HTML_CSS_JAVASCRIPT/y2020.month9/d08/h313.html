@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+배경색이 있는 부분을 클릭하면 prompt()함수를 출력하고
+prompt()에 문자열을 입력하면순서대로 브라우저에 출력된다.
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function on(p) {
+                var n=prompt("");
+                var m=document.createElement("li");
+                m.innerHTML=n;
+                p.appendChild(m);
+            }
+        </script>
+    </head>
+    <body>
+        <ol onclick="on(this)" type="a" style="background-color: aqua;">
+            <li>7시에 일어난다.</li>
+        </ol>
+        <script>
+           
+        </script>
+    </body>
+</html>

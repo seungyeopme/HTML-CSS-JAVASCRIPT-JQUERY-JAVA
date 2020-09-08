@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function kk(e){
+                var n=document.getElementById("dd");
+                var m="";
+                m+=e.key+"<br>";
+                m+=e.code+"<br>"; //눌러진 키의 이름 저장
+                n.innerHTML=m;
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" id="t" onkeydown="kk(event)">
+        <div id="dd" style="background-color: aqua;">
+        </div>
+
+        <script>
+           
+        </script>
+    </body>
+</html>

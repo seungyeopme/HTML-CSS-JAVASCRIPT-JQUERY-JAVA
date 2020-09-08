@@ -1,0 +1,12 @@
+documents 객체 노드 생성 메소드
+
+1. 텍스트 노드를 갖고 있을 때
+    1) createElements(tagName) : 요소 노드 생성
+    2) createTextNode(text) : 텍스트 노드 생성
+    3) appendChild(node) : 요소 노드에 텍스트 노드 연결
+
+2. 텍스트 노드를 갖고 있지 않을 때
+    1) setAttribute(name, value) : 객체의 속성 지정
+    2) getAttribute(name) : 객체의 속성 가져옴
+
+3. innerHTML 속성 사용하는 방법

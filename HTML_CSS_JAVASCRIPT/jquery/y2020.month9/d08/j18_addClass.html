@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+       $(document).ready(function(){
+           $('h1').each(function(index, item){
+               $(item).addClass('aa'+index);
+           })
+       });
+    </script>
+    <style>
+        .aa0{
+            background: red;
+        }
+        .aa1{
+            background: orange;
+        }
+        .aa2{
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>one</h1>
+    <h1>two</h1>
+    <h1>three</h1>
+</body>
+</html>

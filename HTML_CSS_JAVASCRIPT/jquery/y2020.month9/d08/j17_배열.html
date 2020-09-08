@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+       $( document ).ready( function() {
+           var array=[
+               {name:'kim', link:'http://naver.com'},
+               {name:'lee', link:'http://daum.net'}
+           ];
+       $.each(array, function(index, item) {
+            var n='';
+            n+='<a href= "'+item.link+'">'
+            n+='<h2>'+item.name+'</h2>';
+            n+='</a>';
+            document.body.innerHTML+=n;
+        });
+    });
+    </script>
+</head>
+<body>
+
+   
+</body>
+</html>
