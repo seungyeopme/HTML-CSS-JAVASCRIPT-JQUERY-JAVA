@@ -1,0 +1,8 @@
+window.onload=function() {
+    //자바스크립트 코드
+};
+=> 문서가 모두 로드된 후에 코드가 실행되도록 설정
+
+$(document).ready(function(){
+    //제이쿼리 코드
+});

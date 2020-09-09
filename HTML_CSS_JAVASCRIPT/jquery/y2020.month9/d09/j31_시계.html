@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+2. setTimeout(), clearTimeout() 을 사용하여 시계를 구현해라.
+
+페이지가 로드되면 시계가 가기 시작.
+
+현재 시작 값은 Date()객체로 얻기
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+    
+    </script>
+</head>
+<body onload="time()">
+    <script>
+    function time(){
+        var Day=new Date();
+        var year=Day.getFullYear();
+        var Mon=Day.getMonth();
+        var day=Day.getDay();
+        var hour=Day.getHours();
+        var time=Day.getMinutes();
+        var Secon=Day.getSeconds();
+        var now=year+"년"+Mon+"월"+day+"일"+hour+"시"+time+"분"+Secon+"초";
+        document.write(now +"<br>");
+        setTimeout("time()",1000);
+        clearTimeout("time()",1000);
+    }
+    </script>
+</body>
+</html>

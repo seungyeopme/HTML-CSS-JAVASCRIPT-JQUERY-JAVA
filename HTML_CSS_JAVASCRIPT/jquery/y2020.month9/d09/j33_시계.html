@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+       setInterval(function () {
+            var v = new Date()
+            var time1 = v.getHours() + "시 " + v.getMinutes() + "분 " + v.getSeconds() + "초";
+            document.getElementById("t").innerHTML = time1;
+        }, 1000)
+    </script>
+</head>
+<body>
+    <p id="t"></p>
+</body>
+</html>

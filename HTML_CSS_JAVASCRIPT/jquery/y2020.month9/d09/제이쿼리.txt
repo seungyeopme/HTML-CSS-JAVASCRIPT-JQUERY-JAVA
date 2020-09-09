@@ -1,0 +1,26 @@
+1. 기본 필터 메소드
+
+1.1) $(selector).filter(selector);
+1.2) $(selector).filter(function() {});
+
+2. 특정 위치의 문서 객체 선택방법
+
+2.1) eq()
+2.2) first()
+2.3) last()
+
+3. 문서 객체 특징 판별하기
+
+3.1) is()
+
+4. 문서 객체 속성 확인
+attr()
+
+5. 문서 객체의 속성 추가
+
+5.1) $(selector).attr(name,value);
+5.2) $(selector).attr(name,function(index, attr) {});
+5.3) $(selector).attr(object);
+
+6. 문서 객체 속성 제거
+removeAttr(name)

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+1. 옵션을 선택할 때마다 윈도우를 열어 사이트에 접속하는 
+   웹 페이지 작성해라.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        function load(){    
+            var n = document.getElementById("asd");
+            window.location=n.options[n.selectedIndex].value;
+        }
+    </script>
+</head>
+<body>
+    <select name="" id="asd">
+        <option value="http://www.daum.net" selected>다음</option>
+        <option value="http://www.google.com" selected>구글</option>
+        <option value="http://www.naver.com" selected>네이버</option>
+    </select>
+    <button onclick="load()">사이트</button>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+3. 브라우저가 HTML DOM트리를 만드는 이유는 무엇인가?
+    HTML 태그가 출력된 모양과 컨텐츠를 제어한다.
+-->
+<!--
+4. 이미지를 하나 가져와 이미지 위에 마우스 휠을 위로 굴리면 
+   이미지가 10%로 축소되고 아래로 굴리면 10%씩 확대되는 
+   웹 페이지를 작성해라.
+-->
+<html>
+    <head>
+        <style></style>
+        <script>
+            function wheel(e, img) 
+            { 
+                if(e.wheelDelta > 0) 
+                { 
+                    img.width -= img.width*0.1; 
+                    img.height -= img.height*0.1;
+                }
+            else 
+                { 
+                    img.width += img.width*0.1; 
+                    img.height += img.height*0.1;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <img  onwheel="wheel(event, this)"
+        src="coffee.jpg" width="280" height="210" alt="img">
+        <script>
+            
+        </script>
+    </body>
+</html>

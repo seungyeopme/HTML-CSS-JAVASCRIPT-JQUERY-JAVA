@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+비번, 비번확인
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            window.onload=function() {
+                document.getElementById('mm').onsubmit=function(){
+                    var n=document.getElementById('p').value;
+                    var m=document.getElementById('pa').value;
+                    if(n==m) {
+                        alert("성공");
+                    }else{
+                        alert("다시 입력");
+                        return false;
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+       <form id="mm">
+        비번<input type="password" name="pa" id="p"><br>
+        비번확인<input type="password" name="pa-ch" id="pa"><br>
+        <input type="submit" value="제출">
+       </form>
+        <script>
+            
+           
+        </script>
+    </body>
+</html>

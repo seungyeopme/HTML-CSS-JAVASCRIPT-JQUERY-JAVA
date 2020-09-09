@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+    윈도우가 로드되었을 때 h1의 id값을 알아내서
+    head를 클릭했을 때 이벤트가 발생
+
+    클랙 색 orange
+    배경 색 설정
+-->
+<html>
+    <head>
+        <style></style>
+        <script>
+            window.onload=function() {
+                document.getElementById('head').onclick=function(){
+                this.style.color='orange';
+                this.style.backgroundColor='violet';
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1 id="head">Click</h1>
+        
+        <script>
+            
+        </script>
+    </body>
+</html>

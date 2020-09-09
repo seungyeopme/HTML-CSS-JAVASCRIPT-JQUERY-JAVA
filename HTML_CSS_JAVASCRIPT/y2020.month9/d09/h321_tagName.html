@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+5. “이벤트” 부분을 클릭했을 때 경고창에 “st+이벤트” 를 출력해라.       
+
+   <body>
+        <p id=”p”> 다음 여기서
+            <strong id=”st”> 이벤트 </strong> 를 출력해라. 
+        </p>
+    </body>
+-->
+<html>
+    <head>
+        <style></style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+        <p id="p">다음 여기서
+        <strong id="st">이벤트</strong>를 출력해라.</p>
+        
+        <script>
+            n= document.getElementById("st");
+            n.onclick=function(e) {
+                alert(this.tagName+" "+e.target.innerHTML);
+            };
+        </script>
+    </body>
+</html>
