@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        $(function() {
+            $('#pro').submit(function(e) {
+                var n=$('#a').val();
+                var m=$('#b').val();
+                alert(n+ ':' +m);
+                //e.preventDefault();//제출 안함
+            })
+        })
+    </script>
+</head>
+<body>
+    <form id="pro">
+        이   름:<input type="text" id="a" name="a"><br>
+        비밀번호:<input type="password" id="b" name="b"><br>
+        <input type="submit" value="제출">
+    </form>
+</body>
+</html>

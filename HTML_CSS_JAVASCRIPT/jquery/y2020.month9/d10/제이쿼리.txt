@@ -1,0 +1,26 @@
+-문서 객체 내부 검사
+(문서 객체 내부 글자와 관련된 기능 수행)
+1) html()
+2) text() : 선택한 모든 문서 객체 글자를 이어서 출력
+
+문서 복제
+$(selector).clone()
+
+$(A).appendTo(B): A를 B 뒷부분에 추가한다. (태그)
+$(A).append(B): B를 A 뒷부분에 추가한다. (변수명)
+
+-이벤트 연결 메소드
+1. $(selector).on(eventName, function(event){});
+2. $(selector).on(object)
+
+-이벤트 연결 제거
+1. $(selector).off()
+2. $(selector).off(eventName)
+3. $(selector).off(eventName, function(event){});
+
+-이벤트 강제 발생
+1. $(selector).trigger(eventName)
+2. $(selector).trigger(eventName, data)
+
+-preventDefault() : 기본 이벤트 제거
+-stopPropagation() : 이벤트 전달 제거

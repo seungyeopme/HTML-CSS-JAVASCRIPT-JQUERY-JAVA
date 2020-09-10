@@ -7,24 +7,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title></title>
     <script>
-       var n=[];
-        n.push({
-            name:'tom',
-            id:'id_tom',
-            pw:'pw_tom'
-        });
-        n.push({
-            name:'jack',
-            id:'id_jack',
-            pw:'pw_jack'
-        });
-
-        for (var i=0; i< n.length; i++) {
-            console.log(n[i]);
-        }
+        $(function(e) {
+            $('textarea').keyup(function() {
+                var n=$(this).val().length;
+                var m=n;
+                
+                //h2에 m입력
+                $('h2').html(m);
+            })
+        })
     </script>
 </head>
 <body>
+    <div>
+        <p>안녕하세요</p>
+        <h2>여러분</h2>
+        <textarea cols="50" rows="5"></textarea>
+    </div>
    
 </body>
 </html>

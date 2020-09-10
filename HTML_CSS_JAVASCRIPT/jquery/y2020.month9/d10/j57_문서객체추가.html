@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        $(function() {
+            var n=[{name:'kim', id:'123'},
+                   {name:'lee', id: '124'},
+                   {name:'park', id: '163'}
+                  ];
+            //문서 객체 추가
+            $('div').append(function(index){
+                var a=n[index];
+                var b='';
+
+                b+=a.id + " " + a.name;
+                return b;
+            });
+        });
+    </script>
+</head>
+<body>
+   <div></div>
+   <div></div>
+   <div></div>
+</body>
+</html>

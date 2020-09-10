@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        function fun(name, math, eng) {
+            var n={
+                이름: name,
+                수학: math,
+                영어: eng,
+
+                getSum:function() { //익명 함수
+                    return this.수학 + this.영어;
+                },
+                getAvg:function() {
+                    return this.getSum()/2;
+                },
+                toString:function() {
+                    return this.getSum() + " "+this.getAvg();
+                }
+            };
+            return n;
+        }
+        
+        var stu=[];
+        stu.push(fun('유강',90,100)); //name math eng
+        stu.push(fun('승철',80,90)); //name math eng
+
+        //alert
+        var m='';
+        for(var i in stu) {
+            m+=stu[i].toString()+" ";
+        }
+        alert(m); //총합 평균 출력
+    </script>
+</head>
+<body>
+   
+</body>
+</html>

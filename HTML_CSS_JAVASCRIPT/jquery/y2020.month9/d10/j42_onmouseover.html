@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+1. body부분에 아래 문장을 적고  
+p태그에 대해서만 <p>마우스</p>가 올라갈때 밑줄이 그어지고 
+<p>마우스</p> 내려갈때 밑줄이 사라진다.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+    window.onmouseover = function(e)  {
+        if(e.target.tagName.toLowerCase() != "p") 
+            return;
+        else 
+            e.target.style.textDecoration ="underline"; 
+    }
+    window.onmouseout = function(e)  {
+        if(e.target.tagName.toLowerCase() != "p") 
+            return;
+        else 
+            e.target.style.textDecoration ="none";
+    }
+    </script>
+</head>
+<body>
+    <p>마우스</p>
+</body>
+</html>

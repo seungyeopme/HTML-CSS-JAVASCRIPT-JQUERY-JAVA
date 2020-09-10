@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        //h1 태그를 클릭했을 때
+        //문자열로 "클릭" 이라고  바디부분에 출력하면서
+        //"이벤트 발생!" 이라고 경고창도 출력
+        
+        $(function() {
+            $('h1').click(function() {
+                $(this).html('클릭');
+                alert('이벤트 발생!');
+
+                $(this).off(); //이벤트 제거
+            })
+        })
+    </script>
+</head>
+<body>
+    <h1>one</h1>
+    <h1>two</h1>
+    <h1>three</h1>
+</body>
+</html>

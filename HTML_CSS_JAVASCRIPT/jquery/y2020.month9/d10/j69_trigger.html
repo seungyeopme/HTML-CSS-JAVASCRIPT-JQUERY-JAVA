@@ -7,24 +7,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title></title>
     <script>
-       var n=[];
-        n.push({
-            name:'tom',
-            id:'id_tom',
-            pw:'pw_tom'
+        $(function(){
+        $('h1').click(function(event, n1, n2){
+            alert(n1 + ":" + n2);
         });
-        n.push({
-            name:'jack',
-            id:'id_jack',
-            pw:'pw_jack'
+        //jquery에다 click에 대한 이벤트 강제 발생
+        $('h1').first().trigger('click',[3,4]);
         });
-
-        for (var i=0; i< n.length; i++) {
-            console.log(n[i]);
-        }
     </script>
 </head>
 <body>
-   
+    <h1>jquery</h1>
+    <h1>jsp</h1>
 </body>
 </html>

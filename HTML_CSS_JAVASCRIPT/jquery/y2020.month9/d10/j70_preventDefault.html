@@ -7,24 +7,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title></title>
     <script>
-       var n=[];
-        n.push({
-            name:'tom',
-            id:'id_tom',
-            pw:'pw_tom'
+        $(function() {
+            $('a').click(function(e){
+                //임의의 색으로 배경색 설정
+                $(this).css('background', 'green');
+                e.preventDefault();
+            });
         });
-        n.push({
-            name:'jack',
-            id:'id_jack',
-            pw:'pw_jack'
-        });
-
-        for (var i=0; i< n.length; i++) {
-            console.log(n[i]);
-        }
+      
     </script>
 </head>
 <body>
+    <h1>
+        <a href="http://naver.com">네이버</a>
+    </h1>
    
 </body>
 </html>

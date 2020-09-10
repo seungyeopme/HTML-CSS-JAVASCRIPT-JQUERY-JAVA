@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+2. 다음 태그가 있을 때, <div>태그가 출력되는 영역에 
+“<span>hi</span>삽입하여 hi를 출력하고자 하는 코드를 작성해라. 
+(appendChild 이용)
+
+<div id=”my”></div>
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        window.onload=function() {
+        //아이디가 my인 DOM 객체
+        var n=document.getElementById("my");
+        var m=document.createElement("span");
+        m.innerHTML="hi";
+        n.appendChild(m);
+
+        var a=document.createTextNode("HELLO");
+        m.appendChild(a);
+        n.appendChild(m);
+        }
+    </script>
+</head>
+<body>
+    <div id="my"></div>
+    <!--<span>hi</span>-->
+</body>
+</html>

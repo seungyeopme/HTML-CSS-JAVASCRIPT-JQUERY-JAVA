@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+4. 스크린 해상도가 1200*1024보다 작은 경우 “경고!” 
+   라고 경고 창을 출력해라.
+(screen객체에 있는 width, height 사용)
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+      window.onload = function () {
+        var x = screen.width;
+        var y = screen.height;
+        
+        if (x < 1200 && y < 1024){
+            alert("경고!")
+        }
+        else
+            alert("안경고!")
+        }
+    </script>
+</head>
+<body>
+   
+</body>
+</html>

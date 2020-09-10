@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <style>
+        /*
+        margin, padding을 임의로 설정
+        border 5px 실선 black
+        border-radius 임의로 설정
+        */
+        div{
+            margin: 10px;
+            border: 10px solid black;
+            padding: 15px;
+            border-radius: 10px;    
+        }
+    </style>
+    <script>
+        $(function() {
+            $('div').click(function() {
+                //context객체
+                var a=$('h1',this).text();
+                var b=$('p',this).text();
+
+                alert(a+ " "+b);
+            })
+        })
+    </script>
+</head>
+<body>
+    <div>
+        <h1>one</h1>
+        <p>일</p>
+    </div>
+    <div>
+        <h1>two</h1>
+        <p>이</p>
+    </div>
+    <div>
+        <h1>three</h1>
+        <p>삼</p>
+    </div>
+</body>
+</html>

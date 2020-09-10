@@ -7,24 +7,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title></title>
     <script>
-       var n=[];
-        n.push({
-            name:'tom',
-            id:'id_tom',
-            pw:'pw_tom'
+        $(document).ready(function() {
+            //문서 객체 이동
+            $('img').first().appendTo('body');
         });
-        n.push({
-            name:'jack',
-            id:'id_jack',
-            pw:'pw_jack'
-        });
-
-        for (var i=0; i< n.length; i++) {
-            console.log(n[i]);
-        }
     </script>
 </head>
 <body>
-   
+   <img src="watch.jpg">
+   <img src="first.jpg">
 </body>
 </html>
