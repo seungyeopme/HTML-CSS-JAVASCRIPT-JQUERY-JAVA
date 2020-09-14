@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+       var n=["first.jpg", "watch.jpg", "pic_1.jpg"];
+       var im=new Array();
+       for(var i=0; i<n.length; i++) {
+           im[i]=new Image(); //이미지 객체 생성
+           im[i].src=n[i]; //이미지 로딩 지시
+       }
+       var i=1;
+       function ch(img){
+            img.src=im[i].src; //이미지 변경해라
+            i++;
+            
+            //%연산자 이용해서 개수가 다 차면
+            //처음 이미지로 다시 오도록
+            i%=im.length; //i = i % im.length; // 0 1 2
+       }
+    </script>
+</head>
+<body>
+    <img src="first.jpg" width="200" height="150" 
+    onclick="ch(this)">
+    
+</body>
+</html>

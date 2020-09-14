@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        //문서 객체 가지고 오기
+        window.onload=function() {
+            var n1 = document.getElementById("a");
+            var n2 = document.getElementById("b");
+            var n3 = document.getElementById("c");
+            var n4 = document.getElementById("d");
+        
+        n1.onclick=function() {
+            n3.innerHTML=Number(n3.innerHTML)+1;
+        }
+    }
+    </script>
+</head>
+<body>
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <h2>A: <span id="c">0</span></h2>
+    <h2>B: <span id="d">0</span></h2>
+</body>
+</html>

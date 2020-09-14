@@ -1,0 +1,11 @@
+parent() : 특정 태그의 부모 태그를 선택할 수 있다.
+
+시각효과
+$(selector).method();
+
+toggle() : show(), hide() 번갈아가면서 실행
+
+$(selector).animate(object);
+
+Array.isArray() : 배열인지 확인하는 함수
+
