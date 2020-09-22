@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        var visual=null,cnt;
+        function on() {
+            document.getElementById("grade").innerHTML=0;
+            var time=document.getElementById("time");
+            cnt=10;
+            if(visual!=null) 
+                clearTimeout(visual);
+                outtime(time);
+        }
+        function outtime(c) {
+            cnt--;
+            c.innerHTML=cnt;
+            if(cnt!=0)
+                visual=setTimeout("outtime(time)",1000);
+            else
+                result();
+        }
+        function se() {
+            var a=document.getElementsByClassName("aa");
+            var b=document.getElementsByClassName("bb");
+
+            for(var i=0; i<a.length; i++) {
+                var n1=Math.floor(Math.random()*9);
+                var n2=Math.floor(Math.random()*9);
+                var op=Math.floor(Math.random()*4);
+                var oper;
+
+                switch(op) {
+                    case 0:
+                        oper="+";
+                        break;
+                    case 1:
+                        oper="-";
+                        break;
+                    case 2:
+                        oper="*";
+                        break;
+                    case 3:
+                        oper="/";
+                        break;
+                }
+                a[i].innerHTML=n1+oper+n2;
+            }
+        }
+        function result() {
+            var score=0;
+            var a=function() {
+                var score=0;
+                var a=document.getElementsByClassName("aa");
+                var b=document.getElementsByClassName("bb");
+                
+                for(i=0;i<a.length;i++) {
+                    var q=a[i].innerHTML;
+                    var r=b[i].value; //내가 쓴답
+                    var n=Math.floor(eval(q)); //진짜 정답
+
+                    if(parseInt(r)==n) {
+                        score+=1;
+                    }
+                    else if(r=="") {
+                        a[i].style.textDecoration="line-through";
+                    }
+                    else{
+                        a[i].style.textDecoration="line-through";
+                    }
+                }
+                document.getElementById("grade").innerHTML=score;
+            }
+        }
+    </script>
+</head>
+<body onload="on(),se()">
+    <div>남아있는 시간
+        <span id="time">0</span>
+    </div>
+    <form>
+        <table>
+            <tr>
+                <td class="aa"></td>
+                <td>
+                    <input class="bb" type="text">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="aa"></td>
+                <td>
+                    <input class="bb" type="text">
+                </td> 
+            </tr>
+
+            <tr>
+                <td class="aa"></td>
+                <td>
+                    <input class="bb" type="text">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button onclick="on(),se()">다시</button>
+                </td>
+                <td>
+                    <span id="grade">0</span>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+       
+    </script>
+</body>
+</html>

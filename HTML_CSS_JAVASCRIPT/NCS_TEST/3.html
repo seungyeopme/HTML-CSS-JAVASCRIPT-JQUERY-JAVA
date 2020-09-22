@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+3.	2번과 이어진다.
+설문조사를 누르면 다음과 같이 출력되게 작성해라.
+3.1) 남기고 싶은말 밑에 (“클릭”)버튼, “(색변경”)이라는 버튼을 두개 만든다.
+3.2) 자바스크립트로 클릭버튼을 눌렀을 때의 누른 값들(라디오버튼들, 셀렉트, 체크박스)을 다 출력해라.
+3.3) “색변경”버튼을 클릭하면 hr전까지 배경색은 yellow, 그 밑은 다 lightblue로 배경색을 설정해라.
+
+-->
+<html>
+    <head>
+        <title></title>
+        <style></style>
+        <script>
+            function input() {
+                var input = document.getElementsByName('phone').values;
+                    temp= input;
+                
+                var output =document.getElementById('output').values = temp;
+                }
+            function ch() {
+                var up1 = document.getElementsByTagName('article');
+                up1 = document.querySelector('#article').style.color="yellow";
+            }
+      
+        </script>
+        <style>
+            body{
+                margin: 0;
+            }
+       
+
+        </style>
+    </head>
+    <body>
+        <article class="up">
+        <h1>설문지</h1>
+        사고 싶은 핸드폰 종류
+        </article>
+        <hr>
+        <article class="down">
+        갖고있는 폰 종류
+        <input type="radio" name="phone" value="iphone">아이폰
+        <input type="radio" name="phone" value="samsung">삼성
+        <input type="radio" name="phone" value="lg">LG
+        <input type="radio" name="phone" value="other">그 외
+        <br><br>
+        성별
+        <input type="radio" name="gender" value="m">남
+        <input type="radio" name="gender" value="f">여
+        <br><br>
+        구매 시기
+        <select name="time">
+            <option value="1">2017~2020</option>
+            <option value="2">~2013~2016</option>
+        </select>
+        <br><br>
+        통신사
+        <input type="checkbox" name="company" value="skt">SKT
+        <input type="checkbox" name="company" value="kt">KT
+        <input type="checkbox" name="company" value="lg">LG
+        <input type="checkbox" name="company" value="ot">그외
+        <br><br>
+        남기고 싶은 말<textarea id="output"></textarea>
+        <br><br>
+        <button onclick="input()">클릭</button>
+        <button id="btn2" onclick="ch()">색변경</button>
+        </article>
+
+    </body>
+</html>

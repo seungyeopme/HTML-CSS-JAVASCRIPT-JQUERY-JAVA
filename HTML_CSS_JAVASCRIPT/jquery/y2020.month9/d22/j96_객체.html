@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        window.onload=function() {
+            //html에 존재하는 모든 태그가 화면에 올라가는 순간!
+            //=로드 완료되는 순간
+            
+            //'h3'태그 노드 생성
+            var a=document.createElement('h3');
+            
+            //문자열 생성
+            var b=document.createTextNode('java');
+
+            //노드 연결
+            a.appendChild(b);
+            document.body.appendChild(a);
+
+            
+            //문서 객체 갖고 와서 java1, java2로
+            //문자열 변경해서 출력
+            var a=document.getElementById("aa");
+            var b=document.getElementById("bb");
+            a.innerHTML="java1";
+            b.innerHTML="java2";
+        }
+    </script>
+</head>
+<body>
+    <script>
+       
+    </script>
+    <h1 id="aa">head1</h1>
+    <h1 id="bb">head2</h1>
+</body>
+</html>
