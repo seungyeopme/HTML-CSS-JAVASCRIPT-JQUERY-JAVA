@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title></title>
+    <script>
+        function show(e, msg) {
+            var n=document.querySelector('#aa');
+            n.innerHTML=msg;
+            n.style.visibility="visible"
+        }
+        function hide() {
+            var m=document.querySelector("#aa");
+            n.style.visibility="hidden"
+        }
+    </script>
+</head>
+<body>
+    <script>
+      
+    </script>
+    <ul>
+        <li onmouseover="show(event,'라면은 건강에 안 좋아요')"
+            onmouseout="hide()">라면</li>
+
+        <li onmouseover="show(event,'치킨은 맛있다')"
+            onmouseout="hide()">치킨</li>            
+    </ul>
+    <div id="aa"></div>
+</body>
+</html>

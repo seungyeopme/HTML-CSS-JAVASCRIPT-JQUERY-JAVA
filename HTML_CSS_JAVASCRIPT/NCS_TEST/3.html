@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <!--
 3.	2번과 이어진다.
 설문조사를 누르면 다음과 같이 출력되게 작성해라.
@@ -7,65 +7,180 @@
 3.3) “색변경”버튼을 클릭하면 hr전까지 배경색은 yellow, 그 밑은 다 lightblue로 배경색을 설정해라.
 
 -->
-<html>
-    <head>
-        <title></title>
-        <style></style>
-        <script>
-            function input() {
-                var input = document.getElementsByName('phone').values;
-                    temp= input;
-                
-                var output =document.getElementById('output').values = temp;
-                }
-            function ch() {
-                var up1 = document.getElementsByTagName('article');
-                up1 = document.querySelector('#article').style.color="yellow";
-            }
-      
-        </script>
-        <style>
-            body{
-                margin: 0;
-            }
-       
+3번 설문지
 
-        </style>
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>
+
+        </title>
+
+<style>
+
+</style>
+
+<script>
+
+</script>
+
     </head>
+
     <body>
-        <article class="up">
-        <h1>설문지</h1>
-        사고 싶은 핸드폰 종류
-        </article>
-        <hr>
-        <article class="down">
-        갖고있는 폰 종류
-        <input type="radio" name="phone" value="iphone">아이폰
-        <input type="radio" name="phone" value="samsung">삼성
-        <input type="radio" name="phone" value="lg">LG
-        <input type="radio" name="phone" value="other">그 외
-        <br><br>
-        성별
-        <input type="radio" name="gender" value="m">남
-        <input type="radio" name="gender" value="f">여
-        <br><br>
-        구매 시기
-        <select name="time">
-            <option value="1">2017~2020</option>
-            <option value="2">~2013~2016</option>
-        </select>
-        <br><br>
-        통신사
-        <input type="checkbox" name="company" value="skt">SKT
-        <input type="checkbox" name="company" value="kt">KT
-        <input type="checkbox" name="company" value="lg">LG
-        <input type="checkbox" name="company" value="ot">그외
-        <br><br>
-        남기고 싶은 말<textarea id="output"></textarea>
-        <br><br>
-        <button onclick="input()">클릭</button>
-        <button id="btn2" onclick="ch()">색변경</button>
-        </article>
+
+        <div id="div1">
+
+<h1>설문지</h1>
+
+<p>사고싶은 핸드폰 종류</p>
+
+</div>
+
+<hr>
+
+<div id="div2">
+
+<span>갖고있는 폰 종류</span>
+
+<input type="radio" name="aa" id="aa" value="아이폰">아이폰
+
+<input type="radio" name="aa" id="aa" value="삼성">삼성
+
+<input type="radio" name="aa" id="aa" value="LG">LG
+
+<input type="radio" name="aa" id="aa" value="그외">그외
+
+<br>
+
+<span>성별</span>
+
+<input type="radio" name="bb" id="bb" value="남자">남
+
+<input type="radio" name="bb" id="bb" value="여자">여
+
+<br>
+
+<span>구매시기</span>
+
+<select id="cc">
+
+    <option>2017~2020</option>
+
+    <option>2013~2016</option>
+
+</select>
+
+<br>
+
+<span>통신사</span>
+
+<input type="checkbox" id="dd" name="dd" value="SKT">SKT
+
+<input type="checkbox" id="dd" name="dd" value="KT">KT
+
+<input type="checkbox" id="dd" name="dd" value="LG">LG
+
+<input type="checkbox" id="dd" name="dd" value="그외">그외
+
+<br>
+
+<spna>남기고 싶은 말</spna>
+
+<textarea rows="3" cols="20" id="ee"></textarea>
+
+<br>
+
+<input type="button" value="클릭" onclick="on()">
+
+<input type="button" value="색변경" onclick="on2()">
+
+<p id="a"></p>
+
+<p id="b"></p>
+
+<p id="c"></p>
+
+<p id="d"></p>
+
+<p id="e"></p>
+
+</div>
+
+        <script>
+
+function on(){
+
+var aa=document.getElementsByName("aa")
+
+var bb=document.getElementsByName("bb")
+
+var cc=document.getElementById("cc")
+
+var dd=document.getElementsByName("dd")
+
+var ee=document.getElementById("ee")
+
+var a = document.getElementById("a");
+
+            var b = document.getElementById("b");
+
+            var c = document.getElementById("c");
+
+            var d = document.getElementById("d");
+
+for (var i =0; i<aa.length;i++){
+
+                 if(aa[i].checked==true){
+
+                a.innerHTML=aa[i].value;
+
+            }
+
+        }
+
+        for (var i =0; i<bb.length;i++){
+
+                 if(bb[i].checked==true){
+
+                b.innerHTML=bb[i].value;
+
+            }
+
+        }
+
+        c.innerHTML=cc.value;
+
+        for (var i =0; i<dd.length;i++){
+
+                 if(dd[i].checked==true){
+
+                d.innerHTML=dd[i].value;
+
+            }
+
+        }
+
+    e.innerHTML=ee.value;
+
+}
+
+function on2(){
+
+    var m=document.getElementById("div1")
+
+    var n=document.getElementById("div2")
+
+    m.style.backgroundColor="yellow"
+
+    n.style.backgroundColor="lightblue"
+
+}
+
+        </script>
 
     </body>
+
 </html>
