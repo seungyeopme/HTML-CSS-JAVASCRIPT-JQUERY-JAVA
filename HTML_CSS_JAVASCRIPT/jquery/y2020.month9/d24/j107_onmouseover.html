@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+setTimeout()을 사용해 마우스를 올린상태로
+3초가 지나면 구글페이지에 연결한다.
+3초 전에 마우스가 벗어나면 타이머를 해제.
+-->
+<html lang="en">
+<head>
+    <script>
+       
+    </script>
+</head>
+<body>
+    <div onmouseover="on()" onmouseout="out()">
+        마우스를 올리고 3초가 지나면 구글페이지에 연결됩니다.
+    </div>
+    <script>
+         var v;
+        function on() {
+            v=setTimeout(function() {
+                window.open("http://google.com")
+            },3000)
+        }
+        function out() {
+            clearTimeout(v);
+            alert("끝");
+        }
+    </script>
+</body>
+</html>
