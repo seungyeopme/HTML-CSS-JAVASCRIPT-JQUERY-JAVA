@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function ch(url) {
+        location.href=url;
+    }
+</script>
+</head>
+<body>
+   <select name="url" onchange="ch(this.value)">
+        <option value="http://www.google.com">구글</option>
+        <option value="http://www.naver.com">네이버</option>
+   </select>
+</body>
+</html>
